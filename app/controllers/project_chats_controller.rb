@@ -2,6 +2,7 @@ class ProjectChatsController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @project_chat = ProjectChat.new
+    @project_chats = @project.project_chats
   end
 
   def create
@@ -14,6 +15,6 @@ class ProjectChatsController < ApplicationController
   private
 
   def project_chat_params
-    params.require(:project_chat).permit(:chat)
+    params.require(:project_chat).permit(:chat, :project_id, :user_id)
   end
 end

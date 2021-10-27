@@ -1,2 +1,23 @@
-<h1>ProjectChats#new</h1>
-<p>Find me in app/views/project_chats/new.html.erb</p>
+<h3><%= @project.name %></h3>
+
+  <% @project_chats.each do |chat| %>
+      <% if chat.user_id == current_user.id %>
+        <p style="text-align: right;"><%= chat.chat %><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+      <% else %>
+        <p style="text-align: left;"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %><%= chat.chat %></p>
+      <% end %>
+  <% end %>
+<div class="row justify-content-center">
+  <div class="col-6">
+    <%= form_with model: @project_chat, url: project_project_chats_path(@project), local: true do |f| %>
+      <%= f.text_field :chat, class: "form-control" %>
+      <%= f.hidden_field :project_id, :value => @project.id %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.submit "送信", class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="from-group
+<%= safe_join(@post.description.split("\n"),tag(:br)) %>
