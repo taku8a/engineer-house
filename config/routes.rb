@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   get "/about" => "homes#about"
   resources :projects do
     get "join" => "projects#join"
+    resources :project_chats, only: [:index, :create]
   end
-  resource :project_chat, only: [:new, :create]
+  # resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
