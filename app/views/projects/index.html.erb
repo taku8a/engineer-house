@@ -1,2 +1,29 @@
-
-</div>
+<h3>プロジェクト一覧</h3>
+<% unless @projects.blank? %>
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr class="table-active">
+        <th>始動</th>
+        <th>イメージ</th>
+        <th>プロジェクト名</th>
+        <th>概要</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          
+          <td><%= project.created_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
+          <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+          <td>
+            <%= link_to project.name, project_path(project) %>
+          </td>
+          <td><%= project.introduction.truncate(10) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @projects %>
+<% else %>
+  <p>該当項目が見つかりませんでした。</p>
+<% end %>

@@ -23,10 +23,12 @@ Rails.application.routes.draw do
     get '/sign_up' => 'users/registrations#new', as: :new_user_registration
     post '/sign_up' => 'users/registrations#create', as: :user_registration
   end
-  
+
   root :to => "homes#top"
   get "/about" => "homes#about"
-  resources :projects
+  resources :projects do
+    get "join" => "projects#join"
+  end
   resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

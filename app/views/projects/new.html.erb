@@ -1,2 +1,22 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<h3>Create Project</h3>
+<%= form_with model: @project, local: true do |f| %>
+
+  <div class="form-group pt-3 text-center row">
+    <%= f.label :name, "プロジェクト名", class: 'col-md-3 col-form-label' %>
+    <%= f.text_field :name, class: 'form-control w-25' %>
+  </div>
+
+  <div class="form-group pt-3 text-center row">
+    <%= f.label :introduction, "紹介文", class: 'col-md-3 col-form-label' %>
+    <%= f.text_area :introduction, class: 'form-control w-25' %>
+  </div>
+
+  <div class="form-group pt-3 text-center row">
+    <%= f.label :project_image, "グループ画像", class: 'col-md-3 col-form-label' %>
+    <%= f.attachment_field :project_image, class: "form-control-file" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-info' %>
+  </div>
+<% end %>

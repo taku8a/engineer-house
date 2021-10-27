@@ -3,11 +3,17 @@ class ProjectsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @projects = Project.all
+    @projects = Project.page(params[:page]).reverse_order
   end
 
   def show
     @project = Project.find(params[:id])
+  end
+  
+  def join
+    @project = Project.find(params[:project_id])
+    @project.users << current_user
+    redirect_to  projects_path
   end
 
   def edit
