@@ -1,26 +1,29 @@
-<h2>Log in</h2>
+<h3 class="text-center">Log in</h3>
 
 <%= form_with model: @user, url: user_session_path, local: true do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+  <div class="form-group pt-5 text-center row">
+    <%= f.label :email, "メールアドレス", class: 'col-md-3 offset-md-3 col-form-label' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: "form-control w-25" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+  <div class="form-group pt-3 text-center row">
+    <%= f.label :password, "パスワード(６文字以上)", class: 'col-md-3 offset-md-3 col-form-label' %>
+    <%= f.password_field :password, autocomplete: "current-password", class: "form-control w-25" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="form-group pt-3 text-center row">
+      <%= f.label :remember_me, "ログイン状態を維持する", class: 'col-md-3 offset-md-3 col-form-label' %>
+      <%= f.check_box :remember_me, class: "form-control w-25" %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="form-group pt-5 text-center row">
+    <%= f.submit "ログイン", class: 'btn btn-success form-control w-25 offset-md-6' %>
+  </div>
+  <div class="form-group pt-5 text-center row">
+    <h5 class=" w-40 offset-md-6">会員登録がお済みでない方 ➡  <%= render "users/shared/links" %></h5>
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
