@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get "/about" => "homes#about"
   resources :projects do
     get "join" => "projects#join"
+    get "leave" => "projects#leave"
     resources :project_chats, only: [:index, :create]
   end
   # resource :project_chat, only: [:new, :create]

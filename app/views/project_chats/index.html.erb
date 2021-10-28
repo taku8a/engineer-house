@@ -3,10 +3,10 @@
   <% @project_chats.each do |chat| %>
       <% if chat.user_id == current_user.id %>
         <p class="text-right m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-        <p class="text-right mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        <p class="text-right mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= current_user.name %></p>
       <% else %>
         <p class="text-left m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-        <p class="text- mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        <p class="text- mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= chat.user.name %></p>
       <% end %>
   <% end %>
 <div class="row justify-content-center">

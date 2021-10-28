@@ -27,7 +27,7 @@
       <%= link_to "Destroy", project_path(@project), method: :delete, class: "btn btn-danger" %>
       <%= link_to "Chat", project_project_chats_path(@project), class: "btn btn-sm btn-success" %>
     <% elsif @project.users.include?(current_user) %>
-      <%= link_to 'Leave this group', project_path(@project), method: :delete, class: "btn btn-danger" %>
+      <%= link_to 'Leave this group', project_leave_path(@project), class: "btn btn-danger" %>
       <%= link_to "Chat", project_project_chats_path(@project), class: "btn btn-sm btn-success" %>
     <% else %>
       <%= link_to 'Join this group', project_join_path(@project), class: "btn btn-success" %>

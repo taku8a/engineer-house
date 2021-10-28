@@ -7,9 +7,14 @@ class ProjectChatsController < ApplicationController
 
   def create
     @project = Project.find(params[:project_id])
-    project_chat = current_user.project_chats.new(project_chat_params)
-    project_chat.save
-    redirect_to project_project_chats_path(@project)
+    @project_chat = current_user.project_chats.new(project_chat_params)
+    if @project_chat.save
+      redirect_to project_project_chats_path(@project)
+    else
+      @project = Project.find(params[:project_id])
+      @project_chats = @project.project_chats
+      render "index"
+    end
   end
 
   private
