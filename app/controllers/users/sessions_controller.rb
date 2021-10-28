@@ -21,6 +21,14 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
 
+  def after_sign_in_path_for(resource)
+    root_path
+  end
+
+  def after_sign_out_path_for(resource)
+    new_user_session_path
+  end
+
   def user_state
     @user = User.find_by(email:params[:user][:email])
     return if !@user
