@@ -11,7 +11,7 @@
 <% end %>
 <%= form_with model: @project_chat, url: project_project_chats_path(@project), local: true do |f| %>
   <div class="form-group pt-5 text-center row">
-    <%= f.text_area :chat, class: "form-control offset-md-3 col-md-6" %>
+    <%= f.text_area :chat, autofocus: true, class: "form-control offset-md-3 col-md-6" %>
     <%= f.hidden_field :project_id, :value => @project.id %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit "送信", class: 'btn btn-info col-md-1' %>

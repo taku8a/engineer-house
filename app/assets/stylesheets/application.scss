@@ -39,16 +39,17 @@ footer{
   background-image: url(/assets/thisisengineering1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
   flex: 1;
 }
 
 // テキストの背景
-// .user_textarea {
-//   background: #fffffff0;
-//   width: 80%;
-//   height: 100%;
-//   margin: 0 auto;
-//   padding: 30px 0;
-//   box-shadow: 0px 0px 10px black;
-// }
+.user_textarea {
+  background: #fffffff0;
+  width: 70%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px 0;
+  box-shadow: 0px 0px 10px black;
+  opacity: 0.9;
+}
