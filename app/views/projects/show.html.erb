@@ -1,36 +1,44 @@
-<h3>プロジェクト詳細</h3>
 <div class="row">
-  <div class="col-md-3">
-    <%= attachment_image_tag(@project, :project_image, :fill, 100, 100, fallback: "no_image.jpg") %>
-  </div>
-  <div class="col-md-8 offset-md-1">
-    <table class="table table-borderless">
-      <tr>
-        <th>プロジェクト名</th>
-        <td><%= @project.name %></td>
-      </tr>
-      <tr>
-        <th>プロジェクト概要</th>
-        <td><%= @project.introduction %></td>
-      </tr>
-      <tr>
-        <th>メンバー</th>
-        <td>
-          <% @project.users.each do |member| %>
-            <%= member.name %><br>
-          <% end %>
-        </td>
-      </tr>
+  <div class="col-md-4">
+    <h3 class="text-center mb-5">プロジェクト紹介</h3>
+    <table class='table' style="table-layout:fixed;">
+      <tbody>
+        <tr>
+          <th>アイコン</th>
+          <th>
+            <%= attachment_image_tag(@project, :project_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+          </th>
+        </tr>
+        <tr>
+          <th>プロジェクト名</th>
+          <th><%= @project.name %></th>
+        </tr>
+        <tr>
+          <th>メンバー</th>
+          <th>
+            <% @project.users.each do |member| %>
+              <%= member.name %><br>
+            <% end %>
+          </th>
+        </tr>
+      </tbody>
     </table>
-    <% if @project.owner_id == current_user.id %>
-      <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-sm btn-success" %>
-      <%= link_to "Destroy", project_path(@project), method: :delete, class: "btn btn-danger" %>
-      <%= link_to "Chat", project_project_chats_path(@project), class: "btn btn-sm btn-success" %>
-    <% elsif @project.users.include?(current_user) %>
-      <%= link_to 'Leave this group', project_leave_path(@project), class: "btn btn-danger" %>
-      <%= link_to "Chat", project_project_chats_path(@project), class: "btn btn-sm btn-success" %>
-    <% else %>
-      <%= link_to 'Join this group', project_join_path(@project), class: "btn btn-success" %>
-    <% end %>
+    <div class="text-center">
+      <% if @project.owner_id == current_user.id %>
+        <%= link_to '編集する', edit_project_path(@project), class: "btn btn-sm btn-success" %>
+        <%= link_to "削除する", project_path(@project), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "チャットする", project_project_chats_path(@project), class: "btn btn-sm btn-primary" %>
+      <% elsif @project.users.include?(current_user) %>
+        <%= link_to 'Leave this group', project_leave_path(@project), class: "btn btn-danger" %>
+        <%= link_to "Chat", project_project_chats_path(@project), class: "btn btn-sm btn-primary" %>
+      <% else %>
+        <%= link_to 'Join this group', project_join_path(@project), class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-7 offset-md-1">
+    <h3 class="text-center mb-5">プロジェクト概要</h3>
+    <p class="text-break"><%= safe_join(@project.introduction.split("\n"),tag(:br)) %></p>
+    
   </div>
 </div>
