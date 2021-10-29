@@ -1,15 +1,4 @@
 Rails.application.routes.draw do
-  # get 'project_chats/new'
-  # get 'project_chats/create'
-  # get 'projects/index'
-  # get 'projects/show'
-  # get 'projects/edit'
-  # get 'projects/new'
-  # get 'projects/create'
-  # get 'projects/update'
-  # get 'projects/destroy'
-  # get 'homes/top'
-  # get 'homes/about'
 
   # devise_for :users, controllers: {
   #   registrations: "users/registrations",
@@ -31,6 +20,13 @@ Rails.application.routes.draw do
     get "leave" => "projects#leave"
     resources :project_chats, only: [:index, :create]
   end
+
+  get '/mypage' => 'users#show', as: :mypage_users
+  get '/edit' => 'users#edit', as: :edit_users
+  patch '/update' => 'users#update', as: :update_users
+  get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
+  patch '/withdraw' => "users#withdraw", as: :withdraw_users
+
   # resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,4 +1,6 @@
 class ProjectChatsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @project = Project.find(params[:project_id])
     @project_chat = ProjectChat.new
