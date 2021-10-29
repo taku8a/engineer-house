@@ -11,14 +11,22 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
-    <div id="user_bg">
-      <div class="user_textarea">
-        <div class="container">
-          <%= yield %>
+    <% if user_signed_in? %>
+      <%= render "layouts/header_user" %>
+      <div id="user_bg">
+        <div class="user_textarea">
+          <div class="container">
+            <%= yield %>
+          </div>
         </div>
       </div>
-    </div>
+    <% else %>
+      <%= render "layouts/header_before" %>
+      <div id="user_bg">
+        <%= yield %>
+      </div>
+    <% end %>
+    
     <%= render "layouts/footer" %>
   </body>
 </html>
