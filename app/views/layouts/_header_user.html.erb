@@ -8,7 +8,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li><%= link_to ' Home',root_path,class: 'fas fa-home nav-link text-light' %></li>
+          <li><%= link_to ' マイページ',mypage_users_path,class: 'fas fa-home nav-link text-light' %></li>
           <li><%= link_to ' Users',new_project_path,class: 'fas fa-users nav-link text-light' %></li>
           <li><%= link_to ' プロジェクト一覧',projects_path ,class: 'fas fa-book-open nav-link text-light'%></li>
           <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete,class: 'fas fa-sign-out-alt nav-link text-light' %></li>

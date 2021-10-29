@@ -1,1 +1,69 @@
-111111
+<div class="row">
+  <div class="col-md-4">
+    <h3 class="text-center mb-5 mt-5">マイページ</h3>
+    <table class='table' style="table-layout:fixed;">
+      <tbody>
+        <tr>
+          <th>アイコン</th>
+          <th>
+            <%= attachment_image_tag(current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+          </th>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <th class="text-break"><%= current_user.name %></th>
+        </tr>
+        <tr>
+          <th>自己紹介</th>
+          <th><%= current_user.introduction %></th>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <th><%= current_user.email %></th>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mt-5">
+      <%= link_to '編集する', edit_users_path, class: "btn btn-sm btn-success w-75" %>
+    </div>
+  </div>
+  <div class="col-md-3 offset-md-1 p-0">
+    <% unless current_user.projects.blank? %>
+      <table class="table table-hover table-inverse mt-5">
+        <thead>
+          <tr class="table-active">
+            <th>プロジェクト名(参加中)</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% current_user.projects.each do |project| %>
+              <tr>
+                <td>
+                  <%= link_to project.name.truncate(10), project_path(project) %>
+                </td>
+              </tr>
+            <% end %>
+        </tbody>
+      </table>
+
+    <% else %>
+      <p>現在、参加中のプロジェクトはありません。</p>
+    <% end %>
+  </div>
+  <div class="col-md-3 p-0">
+    <table class="table table-hover table-inverse mt-5">
+      <thead>
+         <tr class="table-active">
+            <th>ブログ(タイトル)</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            aaaaa
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
