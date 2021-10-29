@@ -4,15 +4,21 @@
     <title>EngineerHouse</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
     <script src="https://kit.fontawesome.com/52b4f1eec4.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= render "layouts/header_user" %>
+    <% else %>
+      <%= render "layouts/header_general" %>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>
+    <%= render "layouts/footer" %>
   </body>
 </html>
