@@ -11,13 +11,13 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= render "layouts/header_user" %>
-    <% else %>
-      <%= render "layouts/header_general" %>
-    <% end %>
-    <div class="container">
-      <%= yield %>
+    <%= render "layouts/header" %>
+    <div id="user_bg">
+      <div class="user_textarea">
+        <div class="container">
+          <%= yield %>
+        </div>
+      </div>
     </div>
     <%= render "layouts/footer" %>
   </body>
