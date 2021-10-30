@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
 
   def join
     @project.users << current_user
-    redirect_to  projects_path
+    redirect_to  project_path(@project)
   end
 
   def leave
@@ -68,8 +68,8 @@ class ProjectsController < ApplicationController
 
   def group_join!
     @project = Project.find(params[:project_id])
-    if @project.users.count >= 4
-      project_path(@project)
+    if @project.users.count >= 4 || @project.users.include?(current_user)
+      redirect_to project_path(@project)
     end
   end
 end
