@@ -23,8 +23,8 @@
         </tr>
       </tbody>
     </table>
-    <div class="text-center mt-5">
-      <%= link_to '編集する', edit_users_path, class: "btn btn-sm btn-success w-75" %>
+    <div class="text-center pt-5 row">
+      <%= link_to '編集する', edit_users_path, class: "btn btn-success col-md-12" %>
     </div>
   </div>
   <div class="col-md-3 offset-md-1 p-0">
@@ -47,7 +47,20 @@
       </table>
 
     <% else %>
-      <p>現在、参加中のプロジェクトはありません。</p>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr class="table-active">
+            <th>プロジェクト(未着手)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to "プロジェクト一覧", projects_path %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     <% end %>
   </div>
   <div class="col-md-3 p-0">

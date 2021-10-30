@@ -43,7 +43,7 @@
         </div>
       <% elsif @project.users.count >= 4 %>
         <div class="text-center pt-5 row">
-          
+          <%= link_to '受付終了', projects_path, class: "btn btn-info col-md-12" %>
         </div>
       <% else %>
         <div class="text-center pt-5 row">
