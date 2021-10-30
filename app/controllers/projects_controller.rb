@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
+  before_action :group_join!, only: [:join]
 
   def index
     @projects = Project.page(params[:page]).reverse_order
@@ -11,7 +12,6 @@ class ProjectsController < ApplicationController
   end
 
   def join
-    @project = Project.find(params[:project_id])
     @project.users << current_user
     redirect_to  projects_path
   end
@@ -53,14 +53,23 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
+  private
+
   def project_params
     params.require(:project).permit(:name, :introduction, :project_image)
   end
 
-  def ensure_correct_user
+  def ensure_correct_user!
     @project = Project.find(params[:id])
     unless @project.owner_id == current_user.id
       projects_path
+    end
+  end
+
+  def group_join!
+    @project = Project.find(params[:project_id])
+    if @project.users.count >= 4
+      project_path(@project)
     end
   end
 end

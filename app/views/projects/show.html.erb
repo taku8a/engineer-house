@@ -25,14 +25,30 @@
     </table>
     <div class="text-center">
       <% if @project.owner_id == current_user.id %>
-        <%= link_to '編集する', edit_project_path(@project), class: "btn btn-success mr-2" %>
-        <%= link_to "削除する", project_path(@project), method: :delete, class: "btn btn-danger mr-2" %>
-        <%= link_to "チャットする", project_project_chats_path(@project), class: "btn btn-primary mr-2" %>
+        <div class="text-center pt-5 row">
+          <%= link_to '編集する', edit_project_path(@project), class: "btn btn-success col-md-12" %>
+        </div>
+        <div class="text-center pt-5 row">
+          <%= link_to "削除する", project_path(@project), method: :delete, class: "btn btn-danger col-md-12" %>
+        </div>
+        <div class="text-center pt-5 row">
+          <%= link_to "チャットする", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
+        </div>
       <% elsif @project.users.include?(current_user) %>
-        <%= link_to '脱退する', project_leave_path(@project), class: "btn btn-danger mr-2" %>
-        <%= link_to "チャットする", project_project_chats_path(@project), class: "btn btn-primary" %>
+        <div class="text-center pt-5 row">
+          <%= link_to '脱退する', project_leave_path(@project), class: "btn btn-danger col-md-12" %>
+        </div>
+        <div class="text-center pt-5 row">
+          <%= link_to "チャットする", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
+        </div>
+      <% elsif @project.users.count >= 4 %>
+        <div class="text-center pt-5 row">
+          
+        </div>
       <% else %>
-        <%= link_to '加入する', project_join_path(@project), class: "btn btn-success" %>
+        <div class="text-center pt-5 row">
+          <%= link_to '加入する', project_join_path(@project), class: "btn btn-success col-md-12" %>
+        </div>
       <% end %>
     </div>
   </div>
