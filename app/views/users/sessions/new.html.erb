@@ -4,9 +4,17 @@
 
     <%= form_with model: @user, url: user_session_path, local: true do |f| %>
 
+
+
+      <div class="bg-light text-danger">
+        <div id="error_explanation">
+          <h4 class="alert"><%= alert %></h4>
+        </div>
+      </div>
+
       <div class="form-group pt-5 text-center row">
         <%= f.label :email, "メールアドレス", class: 'col-md-3 offset-md-3 col-form-label' %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: "form-control w-25" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", id: "email", class: "form-control w-25" %>
       </div>
 
       <div class="form-group pt-3 text-center row">
@@ -22,7 +30,7 @@
       <% end %>
 
       <div class="form-group pt-5 text-center row">
-        <%= f.submit "ログイン", class: 'btn btn-success form-control w-25 offset-md-6' %>
+        <%= f.submit "ログイン", id: "login", class: 'btn btn-success form-control w-25 offset-md-6' %>
       </div>
       <div class="form-group pt-5 text-center row">
         <h5 class=" w-40 offset-md-6">会員登録がお済みでない方 ➡  <%= render "users/shared/links" %></h5>
@@ -31,4 +39,14 @@
     <%= render "layouts/button" %>
   </div>
 </div>
-
+<!--<script>-->
+<!--  const loginButton = document.getElementById("login");-->
+<!--  const email = document.getElementById("email");-->
+<!--  console.log(email);-->
+<!--  console.log(loginButton);-->
+<!--  loginButton.addEventListener("click", () => {-->
+<!--    email.classList.add("login_errors")-->
+<!--    return false;-->
+<!--  });-->
+<!--  console.log();-->
+<!--</script>-->

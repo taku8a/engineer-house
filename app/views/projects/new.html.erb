@@ -1,6 +1,8 @@
 <h3 class="text-center pt-5">新規プロジェクト</h3>
 <%= form_with model: @project, local: true do |f| %>
 
+  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
+
   <div class="form-group pt-5 text-center row">
     <%= f.label :name, "プロジェクト名", class: 'col-md-3 offset-md-3 col-form-label' %>
     <%= f.text_field :name, autofocus: true, placeholder: "未来について", class: 'form-control w-25' %>
