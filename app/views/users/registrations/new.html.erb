@@ -3,8 +3,9 @@
     <h3 class="text-center pt-5 mb-5">新規登録</h3>
 
     <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
-      <%= render "users/shared/error_messages", resource: resource %>
 
+      <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: resource %></div>
+      
       <div class="form-group pt-5 text-center row">
         <%= f.label :name, "ニックネーム", class: 'col-md-3 offset-md-3 col-form-label' %>
         <%= f.text_field :name, autofocus: true, autocomplete: "nickname", placeholder: "taro", class: "form-control w-25" %>
@@ -47,5 +48,6 @@
         <h5 class=" w-25 offset-md-6">既に登録済みの方 ➡ <%= render "users/shared/links" %></h5>
       </div>
     <% end %>
+    <%= render "layouts/button" %>
   </div>
 </div>

@@ -4,4 +4,6 @@ class Project < ApplicationRecord
   has_many :users, through: :project_members
 
   attachment :project_image
+
+  validates :name, presence: true
 end
