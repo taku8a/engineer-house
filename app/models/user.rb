@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :project_members, dependent: :destroy
   has_many :project_chats, dependent: :destroy
   has_many :projects, through: :project_members
+  has_many :posts, dependent: :destroy
 
   attachment :profile_image
 

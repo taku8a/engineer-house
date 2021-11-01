@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_114539) do
+ActiveRecord::Schema.define(version: 2021_11_01_014105) do
+
+  create_table "genres", force: :cascade do |t|
+    t.integer "owner_id", null: false
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_genres", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "genre_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", default: "", null: false
+    t.text "body", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "project_chats", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -46,7 +68,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_114539) do
     t.string "name", default: "", null: false
     t.string "profile_image_id", default: "", null: false
     t.text "introduction", default: "", null: false
-    t.string "birth_date", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
