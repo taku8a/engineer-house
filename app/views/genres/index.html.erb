@@ -1,0 +1,39 @@
+<h3 class="text-center pt-5">ジャンル一覧・追加</h3>
+
+<%= form_with model:@genre, local: true do |f| %>
+
+  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
+
+  <div class="form-group pt-5 text-center row">
+    <%= f.text_field :name, autofocus: true, placeholder: "ジャンル名", class: 'offset-md-4 col-md-4 form-control w-25' %>
+    <%= f.submit "新規登録", class: 'btn btn-success ml-1' %>
+  </div>
+
+<% end %>
+
+<% unless @genres.blank? %>
+  <table class='table table-hover table-inverse mt-5'>
+    <thead>
+      <tr class="table-active">
+        <th>ジャンル</th>
+        <th>投稿数</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @genres.each do |genre| %>
+        <tr>
+          <td><%= genre.name %></td>
+          <td><%= link_to genre.posts.count, genre_path(genre) %></td>
+          <td>
+            <% if genre.owner_id == current_user.id %>
+              <%= link_to "編集する", edit_genre_path(genre.id), class:"btn btn-success" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>該当項目が見つかりませんでした。</p>
+<% end %>

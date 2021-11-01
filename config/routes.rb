@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
 
   resources :posts
+  resources :genres, except: [:new, :destroy]
   # resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
