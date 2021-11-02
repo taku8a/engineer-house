@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3 class="text-center mb-5 mt-5">ガイド情報</h3>
+    <table class='table' style="table-layout:fixed;">
+      <tbody>
+        <tr>
+          <th>ジャンル</th>
+          <th class="text-break">
+            <%= @genre.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <th class="text-break"><%= @genre_detail.title %></th>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <div class="text-center pt-5 row">
+        <%= link_to '編集する', edit_genre_genre_detail_path(@genre, @genre_detail), class: "btn btn-success col-md-12" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 offset-md-1">
+    <h3 class="text-center mb-5 mt-5">ガイド</h3>
+    <p class="text-break"><%= safe_join(@genre_detail.body.split("\n"),tag(:br)) %></p>
+  </div>
+</div>

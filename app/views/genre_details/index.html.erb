@@ -1,4 +1,4 @@
-<h3 class="text-center pt-5"><%= @genre.name %><br>リファレンス</h3>
+<h3 class="text-center pt-5"><%= @genre.name %><br>ガイド</h3>
 
 <div class="text-right">
   <%= link_to new_genre_genre_detail_path, class: "new_link" do %>
@@ -9,20 +9,15 @@
   <table class="table table-hover table-inverse mt-5">
     <thead>
       <tr class="table-active">
-        <th>始動</th>
-        <th>アイコン</th>
-        <th>プロジェクト名</th>
-        <th>概要</th>
+        <th>タイトル</th>
+        <th>投稿内容</th>
       </tr>
     </thead>
     <tbody>
       <% @genre_details.each do |genre_detail| %>
         <tr>
-
-          <td><%= genre_detail.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-
           <td>
-            <%= link_to genre_detail.title.truncate(10), genre_genre_detail_path(genre_detail) %>
+            <%= link_to genre_detail.title.truncate(10), genre_genre_detail_path(@genre, genre_detail) %>
           </td>
           <td><%= genre_detail.body.truncate(10) %></td>
         </tr>

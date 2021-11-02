@@ -18,6 +18,7 @@
         <th>ジャンル</th>
         <th>投稿数</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,9 @@
             <% if genre.owner_id == current_user.id %>
               <%= link_to "編集する", edit_genre_path(genre.id), class:"btn btn-success" %>
             <% end %>
+          </td>
+          <td>
+            <%= link_to "ジャンルガイド", genre_genre_details_path(genre.id), class:"btn btn-primary" %>
           </td>
         </tr>
       <% end %>
