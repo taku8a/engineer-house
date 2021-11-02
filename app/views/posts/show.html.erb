@@ -1,6 +1,41 @@
-<h3 class="text-center pt-5"><%= @post.title %></h3>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-4">
+    <h3 class="text-center mb-5 mt-5">投稿情報</h3>
+    <table class='table' style="table-layout:fixed;">
+      <tbody>
+        <tr>
+          <th>投稿者</th>
+          <th>
+            <%= @post.user.name %>
+          </th>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <th class="text-break"><%= @post.title %></th>
+        </tr>
+        <tr>
+          <th>ジャンル</th>
+          <th class="text-break">
+            <% @post.genres.each do |genre| %>
+              <%= genre.name %><br>
+            <% end %>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+       <% if @post.user_id == current_user.id %>
+          <div class="text-center pt-5 row">
+            <%= link_to '編集する', edit_post_path(@post), class: "btn btn-success col-md-12" %>
+          </div>
+          <div class="text-center pt-5 row">
+            <%= link_to "削除する", post_path(@post), method: :delete, class: "btn btn-danger col-md-12" %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="col-md-7 offset-md-1">
+    <h3 class="text-center mb-5 mt-5">投稿内容</h3>
     <p class="text-break"><%= safe_join(@post.body.split("\n"),tag(:br)) %></p>
   </div>
 </div>
