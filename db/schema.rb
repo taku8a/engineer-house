@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_082633) do
+ActiveRecord::Schema.define(version: 2021_11_02_114251) do
 
   create_table "genre_details", force: :cascade do |t|
     t.string "title", default: "", null: false
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2021_11_02_082633) do
   create_table "genres", force: :cascade do |t|
     t.integer "owner_id", null: false
     t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_genre_details", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "genre_detail_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
