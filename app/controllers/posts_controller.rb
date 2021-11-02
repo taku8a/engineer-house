@@ -42,7 +42,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, genre_ids: [])
+    params.require(:post).permit(:title, :body, :user_id, genre_ids: [])
   end
 
   def ensure_correct_user!
