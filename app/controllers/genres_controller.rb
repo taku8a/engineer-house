@@ -4,11 +4,12 @@ class GenresController < ApplicationController
 
   def index
     @genre = Genre.new
-    @genres = Genre.all
+    @genres = Genre.page(params[:page]).reverse_order
   end
 
   def show
     @genre = Genre.find(params[:id])
+    @genre_posts = @genre.posts.page(params[:page]).reverse_order
   end
 
   def create

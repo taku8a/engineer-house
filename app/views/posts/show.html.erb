@@ -17,7 +17,15 @@
           <th>ジャンル</th>
           <th class="text-break">
             <% @post.genres.each do |genre| %>
-              <%= genre.name %><br>
+              <%= link_to genre.name, genre_path(genre) %><br>
+            <% end %>
+          </th>
+        </tr>
+        <tr>
+          <th>参考ガイド</th>
+          <th class="text-break">
+            <% @post.genre_details.each do |genre_detail| %>
+              <%= link_to genre_detail.title, genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %>
             <% end %>
           </th>
         </tr>

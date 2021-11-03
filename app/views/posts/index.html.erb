@@ -1,4 +1,4 @@
-<h3 class="text-center pt-5">ブログ一覧</h3>
+<h3 class="text-center pt-5">投稿一覧</h3>
 
 <div class="text-right">
   <%= link_to new_post_path, class: "new_link" do %>
@@ -10,16 +10,17 @@
     <thead>
       <tr class="table-active">
         <th>投稿日時</th>
+        <th>投稿者</th>
         <th>タイトル</th>
         <th>投稿内容</th>
         <th>ジャンル</th>
-        <th>参考ガイド</th>
       </tr>
     </thead>
     <tbody>
       <% @posts.each do |post| %>
         <tr>
           <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td><%= post.user.name.truncate(10) %></td>
           <td>
             <%= link_to post.title.truncate(10), post_path(post) %>
           </td>
@@ -29,16 +30,11 @@
               <%= link_to genre.name.truncate(10), genre_path(genre) %><br>
             <% end %>
           </td>
-          <td class="text-break">
-            <% post.genre_details.each do |genre_detail| %>
-              <%= link_to genre_detail.title.truncate(10), genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %>
-            <% end %>
-          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
   <%= paginate @posts %>
 <% else %>
-  <p>該当項目が見つかりませんでした。</p>
+  <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
 <% end %>

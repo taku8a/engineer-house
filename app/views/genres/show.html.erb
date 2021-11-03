@@ -1,7 +1,7 @@
 <h3 class="text-center pt-5"><%= @genre.name %><br>投稿一覧</h3>
 
 
-<% unless @genre.posts.blank? %>
+<% unless @genre_posts.blank? %>
   <table class="table table-hover table-inverse mt-5">
     <thead>
       <tr class="table-active">
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @genre.posts.each do |post| %>
+      <% @genre_posts.each do |post| %>
         <tr>
           <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
           <td><%= post.user.name %></td>
@@ -24,6 +24,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @genre_posts %>
 <% else %>
   <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
 <% end %>

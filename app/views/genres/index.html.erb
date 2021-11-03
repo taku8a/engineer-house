@@ -1,6 +1,6 @@
 <h3 class="text-center pt-5">ジャンル一覧・追加</h3>
 
-<%= form_with model:@genre, local: true do |f| %>
+<%= form_with model: @genre, local: true do |f| %>
 
   <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 
@@ -38,6 +38,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @genres %>
 <% else %>
   <p>該当項目が見つかりませんでした。</p>
 <% end %>
