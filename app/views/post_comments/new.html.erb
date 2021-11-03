@@ -1,0 +1,18 @@
+<h3 class="text-center pt-5"><%= @post.title %><br>コメント新規投稿</h3>
+<%= form_with model: [@post,@post_comment], local: true do |f| %>
+
+  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
+
+  <div class="form-group pt-3 text-center row" style="height: 500px;">
+    <%= f.label :comment, "コメント", class: 'col-md-3 offset-md-1 col-form-label' %>
+    <%= f.text_area :comment, placeholder: "年金制度について考える", class: 'form-control w-50' %>
+  </div>
+  
+  
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <div class="form-group pt-5 text-center row">
+    <%= f.submit "回答する", class: 'btn btn-success form-control w-25 offset-md-6' %>
+  </div>
+<% end %>

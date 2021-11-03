@@ -27,11 +27,13 @@ Rails.application.routes.draw do
   get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
 
-  resources :posts
+  resources :posts do
+    resources :post_comments
+  end
   resources :genres, except: [:new, :destroy] do
     resources :genre_details, except: [:destroy]
   end
-  
+
   # resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
