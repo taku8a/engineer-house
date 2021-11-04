@@ -1,4 +1,4 @@
-<h3 class="text-center pt-5"><%= @genre.name %><br>ガイド</h3>
+<h3 class="text-center pt-5"><%= @genre.name %><br><br>ガイド一覧</h3>
 
 <div class="text-right">
   <%= link_to new_genre_genre_detail_path, class: "new_link" do %>
@@ -9,13 +9,15 @@
   <table class="table table-hover table-inverse mt-5">
     <thead>
       <tr class="table-active">
+        <th>更新日時</th>
         <th>タイトル</th>
-        <th>投稿内容</th>
+        <th>ガイド内容</th>
       </tr>
     </thead>
     <tbody>
       <% @genre_details.each do |genre_detail| %>
         <tr>
+          <td><%= genre_detail.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
           <td>
             <%= link_to genre_detail.title.truncate(10), genre_genre_detail_path(@genre, genre_detail) %>
           </td>
@@ -24,7 +26,7 @@
       <% end %>
     </tbody>
   </table>
-
+  <%= paginate @genre_details %>
 <% else %>
   <p>該当項目が見つかりませんでした。</p>
 <% end %>

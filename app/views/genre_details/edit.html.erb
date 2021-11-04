@@ -4,19 +4,18 @@
   <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 
   <div class="form-group pt-5 text-center row">
-    <%= f.label :title, "タイトル", class: 'col-md-3 offset-md-3 col-form-label' %>
+    <%= f.label :title, "タイトル", class: 'col-md-3 offset-md-2 col-form-label' %>
     <%= f.text_field :title, autofocus: true, placeholder: "未来について", class: 'form-control w-25' %>
   </div>
 
   <div class="form-group pt-3 text-center row" style="height: 500px;">
-    <%= f.label :body, "ガイド", class: 'col-md-3 offset-md-3 col-form-label' %>
+    <%= f.label :body, "ガイド内容", class: 'col-md-3 offset-md-2 col-form-label' %>
     <%= f.text_area :body, placeholder: "年金制度について考える", class: 'form-control w-50' %>
   </div>
-
 
   <%= f.hidden_field :genre_id, :value => @genre.id %>
 
   <div class="form-group pt-5 text-center row">
-    <%= f.submit "アップデート", class: 'btn btn-success form-control w-25 offset-md-6' %>
+    <%= f.submit "アップデート", class: 'btn btn-success form-control w-25 offset-md-5' %>
   </div>
 <% end %>

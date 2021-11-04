@@ -1,10 +1,10 @@
-<h3 class="text-center pt-5"><%= @post.title %></h3></h3>
+<h3 class="text-center pt-5"><%= @post.title %><br><br>コメント編集</h3>
 <%= form_with model: [@post,@post_comment], local: true do |f| %>
 
   <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 
   <div class="form-group pt-3 text-center row" style="height: 500px;">
-    <%= f.label :comment, "コメント", class: 'col-md-3 offset-md-1 col-form-label' %>
+    <%= f.label :comment, "コメント", class: 'col-md-3 offset-md-2 col-form-label' %>
     <%= f.text_area :comment, placeholder: "年金制度について考える", class: 'form-control w-50' %>
   </div>
   
@@ -13,9 +13,9 @@
   <%= f.hidden_field :post_id, :value => @post.id %>
   
   <div class="form-group pt-5 row">
-    <%= f.label :genre_detail, '参考ガイド', class: 'col-md-3 offset-md-3 col-form-label text-center' %>
+    <%= f.label :genre_detail, '参考ガイド', class: 'col-md-3 offset-md-2 col-form-label text-center' %>
     <%= f.collection_check_boxes(:genre_detail_ids, GenreDetail.all, :id, :title) do |genre_detail| %>
-      <%= genre_detail.label class: 'col-form-label col-md-6 offset-md-6' do %>
+      <%= genre_detail.label class: 'col-form-label col-md-6 offset-md-5' do %>
         <%= genre_detail.check_box %>
         <%= genre_detail.text.truncate(20) %>
       <% end %>
@@ -23,6 +23,6 @@
   </div>
 
   <div class="form-group pt-5 text-center row">
-    <%= f.submit "更新する", class: 'btn btn-success form-control w-25 offset-md-6' %>
+    <%= f.submit "更新する", class: 'btn btn-success form-control w-25 offset-md-5' %>
   </div>
 <% end %>

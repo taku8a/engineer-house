@@ -3,7 +3,7 @@ class PostCommentsController < ApplicationController
   before_action :set_post_comment!
   
   def index
-    @post_comments = PostComment.all
+    @post_comments = PostComment.page(params[:page]).reverse_order
   end
   
   def show

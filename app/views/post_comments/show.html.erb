@@ -4,6 +4,10 @@
     <table class='table' style="table-layout:fixed;">
       <tbody>
         <tr>
+          <th>投稿タイトル</th>
+          <th><%= @post.title %></th>
+        </tr>
+        <tr>
           <th>コメント者</th>
           <th>
             <%= @post_comment.user.name %>
@@ -12,7 +16,9 @@
         <tr>
           <th>参考ガイド</th>
           <th class="text-break">
-
+            <% @post_comment.genre_details.each do |genre_detail| %>
+              <%= link_to genre_detail.title, genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %><br>
+            <% end %>
           </th>
         </tr>
       </tbody>

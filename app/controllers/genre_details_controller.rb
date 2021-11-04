@@ -3,7 +3,7 @@ class GenreDetailsController < ApplicationController
   before_action :set_genre_detail!
 
   def index
-    @genre_details = @genre.genre_details
+    @genre_details = @genre.genre_details.order(updated_at: :desc).page(params[:page])
   end
 
   def new
