@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   
   def update
     if current_user.update(user_params)
-      redirect_to mypage_users_path, notice: "マイページを更新しました。"
+      redirect_to mypage_users_path, notice: t("notice.mypage")
     else
       render :edit
     end
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def withdraw
     current_user.update_attribute(:is_valid, false)
     reset_session
-    redirect_to root_path, notice: "退会しました。"
+    redirect_to root_path, notice: t("notice.leave_user")
   end
   
   private

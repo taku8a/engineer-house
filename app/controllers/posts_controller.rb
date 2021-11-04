@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to posts_path
+      redirect_to posts_path, notice: t("notice.post_create")
     else
       render "new"
     end
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   def update
    if @post.update(post_params)
-     redirect_to posts_path
+     redirect_to posts_path, notice: t("notice.post_update")
    else
      render "edit"
    end
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path
+    redirect_to posts_path, notice: t("notice.post_destroy")
   end
 
   private

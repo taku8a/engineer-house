@@ -17,7 +17,7 @@ class GenreDetailsController < ApplicationController
   def create
     @genre_detail = GenreDetail.new(genre_detail_params)
     if @genre_detail.save
-      redirect_to genre_genre_details_path(@genre)
+      redirect_to genre_genre_details_path(@genre), notice: t("notice.post_create")
     else
       render "new"
     end
@@ -30,7 +30,7 @@ class GenreDetailsController < ApplicationController
   def update
     @genre_detail = GenreDetail.find(params[:id])
     if @genre_detail.update(genre_detail_params)
-      redirect_to genre_genre_details_path(@genre)
+      redirect_to genre_genre_details_path(@genre), notice: t("notice.post_update")
     else
       render "edit"
     end

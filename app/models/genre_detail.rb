@@ -6,5 +6,5 @@ class GenreDetail < ApplicationRecord
   has_many :post_comments, through: :post_comment_genre_details
   
   validates :title, presence: true
-  validates :text, presence: true
+  validates :body, presence: true
 end

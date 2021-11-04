@@ -1,3 +1,7 @@
+<div class="flash">
+  <p class="text-center"><span class="text-primary"><%= notice %></span></p>
+</div>
+
 <h3 class="text-center pt-5"><%= @post.title %><br><br>コメント新規投稿</h3>
 <%= form_with model: [@post,@post_comment], local: true do |f| %>
 

@@ -1,5 +1,8 @@
-<h3 class="text-center pt-5"><%= @genre.name %><br><br>投稿一覧</h3>
+<div class="flash">
+  <p class="text-center"></p>
+</div>
 
+<h3 class="text-center pt-5"><%= @genre.name %><br><br>投稿一覧</h3>
 
 <% unless @genre_posts.blank? %>
   <table class="table table-hover table-inverse mt-5">

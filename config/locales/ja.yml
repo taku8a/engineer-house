@@ -91,6 +91,18 @@ ja:
       previous: '&lsaquo; 前'
       next: '次 &rsaquo;'
       truncate: '...'
+  notice:
+    post_create: 投稿しました。
+    post_update: 投稿を編集しました。
+    post_destroy: 投稿を削除しました。
+    add_name: 登録しました。
+    edit_name: 登録内容を更新しました。
+    destroy_name: 登録内容を削除しました。
+    join_member: プロジェクトに参加しました。
+    leave_member: プロジェクトを離脱しました。
+    send_chat: 送信しました。
+    leave_user: 退会しました。
+    mypage: マイページを更新しました。
   date:
     abbr_day_names:
     - 日

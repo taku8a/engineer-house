@@ -16,9 +16,9 @@ class GenresController < ApplicationController
     @genre = Genre.new(genre_params)
     @genre.owner_id = current_user.id
     if @genre.save
-      redirect_to genres_path
+      redirect_to genres_path, notice: t("notice.add_name")
     else
-      @genre = Genre.page(params[:page]).reverse_order
+      @genres = Genre.page(params[:page]).reverse_order
       render "index"
     end
   end
@@ -28,7 +28,7 @@ class GenresController < ApplicationController
 
   def update
     if @genre.update(genre_params)
-      redirect_to genres_path
+      redirect_to genres_path, notice: t("notice.edit_name")
     else
       render "edit"
     end

@@ -1,3 +1,7 @@
+<div class="flash">
+  <p class="text-center"><span class="text-primary"><%= notice %></span></p>
+</div>
+
 <h3 class="text-center mb-5 pt-5"><%= @project.name %><br>ディスカッション</h3>
 
 <% @project_chats.each do |chat| %>
@@ -10,6 +14,7 @@
     <% end %>
 <% end %>
 <%= form_with model: @project_chat, url: project_project_chats_path(@project), local: true do |f| %>
+  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
   <div class="form-group pt-5 text-center row">
     <%= f.text_area :chat, autofocus: true, class: "form-control offset-md-3 col-md-6" %>
     <%= f.hidden_field :project_id, :value => @project.id %>

@@ -10,7 +10,7 @@ class ProjectChatsController < ApplicationController
   def create
     @project_chat = current_user.project_chats.new(project_chat_params)
     if @project_chat.save
-      redirect_to project_project_chats_path(@project)
+      redirect_to project_project_chats_path(@project), notice: t("notice.send_chat")
     else
       @project = Project.find(params[:project_id])
       @project_chats = @project.project_chats

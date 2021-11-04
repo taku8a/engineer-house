@@ -13,13 +13,13 @@ class ProjectsController < ApplicationController
 
   def join
     @project.users << current_user
-    redirect_to  project_path(@project)
+    redirect_to  project_path(@project), notice: t("notice.join_member")
   end
 
   def leave
    @project = Project.find(params[:project_id])
    @project.users.delete(current_user)
-   redirect_to projects_path
+   redirect_to projects_path, notice: t("notice.leave_member")
   end
 
   def edit
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     @project.owner_id = current_user.id
     @project.users << current_user
     if @project.save
-      redirect_to projects_path
+      redirect_to projects_path, notice: t("notice.add_name")
     else
       render "new"
     end
@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path
+      redirect_to projects_path, notice: t("notice.edit_name")
     else
       render "edit"
     end
