@@ -10,10 +10,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
 
-  attachment :profile_image
+  attachment :profile_image, destroy: false
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :introduction, presence: true
   validates :is_valid, inclusion: [true, false]
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :password, presence: true
 end
