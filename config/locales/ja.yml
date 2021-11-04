@@ -6,6 +6,84 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      project:
+        id: プロジェクトID
+        name: プロジェクト名
+        introduction: 詳細
+        project_image_id: プロジェクト画像
+        owner_id: オーナーID
+        created_at: 作成日
+        updated_at: 更新日
+      project_member:
+        id: プロジェクトメンバーID
+        user_id: ユーザーID
+        project_id: プロジェクトID
+        created_at: 作成日
+        updated_at: 更新日
+      project_chat:
+        id: プロジェクトチャットID
+        user_id: ユーザーID
+        project_id: プロジェクトID
+        chat: チャット
+        created_at: 作成日
+        updated_at: 更新日
+      post:
+        id: 投稿ID
+        user_id: ユーザーID
+        title: タイトル
+        body: 投稿内容
+        created_at: 作成日
+        updated_at: 更新日
+      post_genre:
+        id: 投稿ジャンルID
+        post_id: 投稿ID
+        genre_id: ジャンルID
+        created_at: 作成日
+        updated_at: 更新日
+      genre:
+        id: ジャンルID
+        owner_id: オーナーID
+        name: ジャンル名
+        created_at: 作成日
+        updated_at: 更新日
+      genre_detail:
+        id: ジャンル投稿ID
+        title: タイトル
+        body: ガイド内容
+        genre_id: ジャンルID
+        created_at: 作成日
+        updated_at: 更新日
+      post_genre_detail:
+        id: ジャンル投稿詳細ID
+        post_id: 投稿ID
+        genre_detail_id: ジャンル投稿ID
+        created_at: 作成日
+        updated_at: 更新日
+      post_comment:
+        id: コメントID
+        comment: コメント
+        user_id: ユーザーID
+        post_id: 投稿ID
+        created_at: 作成日
+        updated_at: 更新日
+      post_comment_genre_detail:
+        id: ジャンルコメント詳細ID
+        post_comment_id: コメントID
+        genre_detail_id: ジャンル投稿ID
+        created_at: 作成日
+        updated_at: 更新日
+    models:
+      project: プロジェクト
+      project_member: プロジェクトメンバー
+      project_chat: プロジェクトチャット
+      post: 投稿
+      post_genre: 投稿ジャンル
+      genre: ジャンル
+      genre_detail: ジャンル投稿
+      post_genre_detail: ジャンル投稿詳細
+      post_comment: コメント
+      post_comment_genre_detail: ジャンルコメント詳細
   date:
     abbr_day_names:
     - 日
@@ -16,7 +94,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -42,7 +120,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -204,3 +282,4 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+
