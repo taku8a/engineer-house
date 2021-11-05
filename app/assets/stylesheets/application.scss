@@ -23,6 +23,7 @@ body {
   position: relative;/*←相対位置*/
   padding-bottom: 84px;/*←footerの高さ*/
   box-sizing: border-box;
+  padding-top: 84px;
 }
 
 footer{
@@ -78,23 +79,18 @@ footer{
     background: #c6e4ff;
     border-bottom: solid 6px #aac5de;
     border-radius: 9px;
+    top: 300px;
 }
 .flash p {
     margin: 0;
     padding: 0;
 }
 
-header {
-  height: 84px;
-  background-image: url(/assets/background.jpg);
-  background-size: contain;
-}
-
 .navbar {
-  background-image: url(/assets/logo.jpg);
-  background-position: 10%;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-image: url(/assets/logo.jpg), url(/assets/background.jpg);
+  background-position: 10%, 100%;
+  background-repeat: no-repeat, repeat;
+  background-size: contain, contain;
 }
 
 .flash1 {
