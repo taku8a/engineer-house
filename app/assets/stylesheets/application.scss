@@ -27,7 +27,8 @@ body {
 
 footer{
   width: 100%;
-  background-color: #89c7de;
+  background-image: url(/assets/background.jpg);
+  background-size: contain;
   color: #fff;
   text-align: center;
   padding: 30px 0;
@@ -79,6 +80,19 @@ footer{
     border-radius: 9px;
 }
 .flash p {
-    margin: 0; 
+    margin: 0;
     padding: 0;
+}
+
+header {
+  height: 84px;
+  background-image: url(/assets/background.jpg);
+  background-size: contain;
+}
+
+.navbar {
+  background-image: url(/assets/logo.jpg);
+  background-position: 10%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
