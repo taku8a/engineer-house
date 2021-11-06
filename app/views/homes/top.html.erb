@@ -6,14 +6,15 @@
   </div>
   <div class="flash1 mt-0 pt-3">
   <div id="wrapper">
-    <div id="title" class="text-danger"></div>
-    <div  id="ticKer">
+    <div id="title" class="hero__title text-danger"></div>
+    <div  id="ticKer" class="text-center">
       <ul id="ulArea"> <!-- ul要素 箇条書き -->
-        <li>既に登録済みの方 ➡<%= link_to "ログイン", root_path, class:"btn btn-success" %></li>
-        <li>表示ボックスの下からスライドインします。</li>
-        <li>前のテキストが上にスライドアウトしながら、</li>
-        <li>次のテキストが下からスライドインしてきます。</li>
-        <li>おしまい</li>
+        <li>新着投稿</li>
+        <% @posts.each do |post| %>
+        <li>
+            <%= link_to post.title.truncate(10), post_path(post) %>
+        </li>
+        <% end %>
       </ul>
     </div>
  </div>
