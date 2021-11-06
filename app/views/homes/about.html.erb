@@ -5,61 +5,32 @@
     </div>
     <h3 class="text-center mb-5 pt-5">Welcome To Programing World!</h3>
     <div class="row">
-      <div class="offset-md-3 col-md-7">
+      <div class="offset-md-2 col-md-8">
         <div id="about" class="js-span-wrap-text">
-          <!--<div>-->
-            <p id="abc">
-            本サイトでは、プログラミング学習の悩み・面白さを共有したい   という思いを形にしました。
-            </p>
-          <!--</div>-->
-
-          <!--<div>-->
-            <p id="def">
-            プロジェクト等を通して、学びを深めていただけると幸いです。
-            </p>
-          <!--</div>-->
-          <!--<div>-->
-            <p id="hij">
-            挫折率が高いと言われてる「プログラミング」。当サイトでは、基礎的な構文などのお悩みから、専門性の高い内容まで、幅広く知識の共有が出来ます。
-            グループ機能では、自ら議題を立ち上げ、そこへ集まった仲間と共にディスカッションすることにより、問題の解決を図ることが出来る。また、質問
-            機能では、様々な方から回答をいただくことができ、多種多様な実装方法を身につけることが出来る。これらの施策を通じて、プログラミング学習に
-            より専念して頂きたいという強い思いのもと、制作した。
-            </p>
-          <!--</div>-->
+          <p id="abc">
+          本サイトでは、プログラミング学習の悩み・面白さを共有したいという思いを形にしました。
+          各機能を通して、学びを深めていただけると幸いです。
+          </p>
+          <h4 class="text-center mb-5 pt-5">
+            本サイトで実現できること
+          </h4>
+            <ul class="pl-0">
+              <li id="def" class="mb-5">
+                基礎的な構文などのお悩みから、専門性の高い内容まで、幅広い知識の共有
+              </li>
+              <li id="hij" class="mb-5">
+                自ら議題を立ち上げ、そこへ集まった仲間と共にディスカッションすることにより、問題の解決を図る
+              </li>
+              <li id="lmn" class="mb-5">
+                自身の投稿内容に対して、様々な方からコメントをいただくことができ、多種多様な実装方法が身につく
+              </li>
+            </ul>
         </div>
       </div>
     </div>
     <%= render "layouts/button" %>
   </div>
 </div>
-<!--<script>-->
-<!--$(function() {-->
-<!--    var $allMsg = $('#about');-->
-<!--    var children = $('#about').children();-->
-<!--    var array = [];-->
-<!--    $('#about').children().each(function(i, child) {-->
-<!--      array = child-->
-<!--    })-->
-
-
-    <!--//$('#about').html("");-->
-
-<!--    children.each(function(i, child) {-->
-<!--      console.log(child);-->
-
-<!--      var $wordList = child.innerText.split("");-->
-
-<!--      $('p').appendTo("#about")-->
-<!--      $.each($wordList, function(idx, elem) {-->
-<!--        console.log(i);-->
-<!--        var newEL = $("<span/>").text(elem).css({ opacity: 0 });-->
-<!--        newEL.appendTo($('#about'));-->
-<!--        newEL.delay(idx * 70);-->
-<!--        newEL.animate({ opacity: 1 }, 1100);-->
-<!--      })-->
-<!--    })-->
-<!--});-->
-<!--</script>-->
 <script>
 $(function() {
     var $allMsg = $('#abc');
@@ -99,13 +70,16 @@ $(function() {
     });
 });
 </script>
-
-<!--// var $wordList = $('#about').text().split("");-->
-<!--    // $('#about').html("");-->
-<!--    // $.each($wordList, function(idx, elem) {-->
-<!--    //     console.log(elem);-->
-<!--    //     var newEL = $("<span/>").text(elem).css({ opacity: 0 });-->
-<!--    //     newEL.appendTo($allMsg);-->
-<!--    //     newEL.delay(idx * 70);-->
-<!--    //     newEL.animate({ opacity: 1 }, 1100);-->
-<!--    // });-->
+<script>
+$(function() {
+    var $allMsg = $('#lmn');
+    var $wordList = $('#lmn').html().split("");
+    $('#lmn').html("");
+    $.each($wordList, function(idx, elem) {
+        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        newEL.appendTo($allMsg);
+        newEL.delay(idx * 70);
+        newEL.animate({ opacity: 1 }, 1100);
+    });
+});
+</script>

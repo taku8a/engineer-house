@@ -5,20 +5,21 @@
     <h2 id="js-typewriter" class="hero__title text-center"></h2>
   </div>
   <div class="flash1 mt-0 pt-3">
-  <div id="wrapper">
-    <div id="title" class="hero__title text-danger"></div>
-    <div  id="ticKer" class="text-center auto-pull-down-box bg-light">
-      <ul id="ulArea" class="auto-pull-down"> <!-- ul要素 箇条書き -->
-        <li>新着投稿</li>
-        <% @posts.each do |post| %>
-        <li>
-            <%= link_to post.title.truncate(10), post_path(post) %>
-        </li>
-        <% end %>
-      </ul>
+    <div id="wrapper">
+      <div id="title" class="hero__title text-danger"></div>
+      <div  id="ticKer" class="text-center auto-pull-down-box bg-light">
+        <ul id="ulArea" class="auto-pull-down"> <!-- ul要素 箇条書き -->
+          <li>新着投稿</li>
+          <% @posts.each do |post| %>
+          <li>
+              <%= link_to post.title.truncate(10), post_path(post) %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
- </div>
- </div>
+  </div>
+</div>
 <script>
   const typewriter = (param) => {
   let el = document.querySelector(param.el);
@@ -39,12 +40,6 @@
     string: "Welcome To ENGINEER HOUSE", //文字
     speed: 80 //速度
   });
-  // $(function(){
-  //   if ($("#ticker-roll")) {
-  //     $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
-  //   }
-    
-  // });
 </script>
 <script>
   const title = (param) => {
@@ -66,9 +61,6 @@
     string: "Let's Enjoy Programming", //文字
     speed: 80 //速度
   });
-  // $(function(){
-  //   $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
-  // });
 </script>
 <script>
     var  upSpeed=15;  //メッセージのスライド速度
@@ -103,4 +95,3 @@ function cngLi(){ // メッセージの移動
     base.appendChild(elm); // elm を子ノードとして末尾に移動する。
       }
 </script>
-</div>
