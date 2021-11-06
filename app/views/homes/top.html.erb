@@ -7,7 +7,7 @@
   <div class="flash1 mt-0 pt-3">
   <div id="wrapper">
     <div id="title" class="hero__title text-danger"></div>
-    <div  id="ticKer" class="text-center auto-pull-down-box">
+    <div  id="ticKer" class="text-center auto-pull-down-box bg-light">
       <ul id="ulArea" class="auto-pull-down"> <!-- ul要素 箇条書き -->
         <li>新着投稿</li>
         <% @posts.each do |post| %>
@@ -39,9 +39,12 @@
     string: "Welcome To ENGINEER HOUSE", //文字
     speed: 80 //速度
   });
-  $(function(){
-    $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
-  });
+  // $(function(){
+  //   if ($("#ticker-roll")) {
+  //     $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
+  //   }
+    
+  // });
 </script>
 <script>
   const title = (param) => {
@@ -63,9 +66,9 @@
     string: "Let's Enjoy Programming", //文字
     speed: 80 //速度
   });
-  $(function(){
-    $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
-  });
+  // $(function(){
+  //   $.simpleTicker($("#ticker-roll"),{'effectType':'roll'});
+  // });
 </script>
 <script>
     var  upSpeed=15;  //メッセージのスライド速度

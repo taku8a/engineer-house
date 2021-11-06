@@ -6,21 +6,65 @@
     <h3 class="text-center mb-5 pt-5">Welcome To Programing World!</h3>
     <div class="row">
       <div class="offset-md-3 col-md-7">
-        <p id="about" class="js-span-wrap-text">
-          本サイトでは、プログラミング学習の悩み・面白さを<br>
-          共有したいという思いを形にしました。<br>
-          プロジェクト等を通して、学びを深めていただけると幸いです。
-        </p>
+        <div id="about" class="js-span-wrap-text">
+          <!--<div>-->
+            <p id="abc">
+            本サイトでは、プログラミング学習の悩み・面白さを共有したい   という思いを形にしました。
+            </p>
+          <!--</div>-->
+
+          <!--<div>-->
+            <p id="def">
+            プロジェクト等を通して、学びを深めていただけると幸いです。
+            </p>
+          <!--</div>-->
+          <!--<div>-->
+            <p id="hij">
+            挫折率が高いと言われてる「プログラミング」。当サイトでは、基礎的な構文などのお悩みから、専門性の高い内容まで、幅広く知識の共有が出来ます。
+            グループ機能では、自ら議題を立ち上げ、そこへ集まった仲間と共にディスカッションすることにより、問題の解決を図ることが出来る。また、質問
+            機能では、様々な方から回答をいただくことができ、多種多様な実装方法を身につけることが出来る。これらの施策を通じて、プログラミング学習に
+            より専念して頂きたいという強い思いのもと、制作した。
+            </p>
+          <!--</div>-->
+        </div>
       </div>
     </div>
     <%= render "layouts/button" %>
   </div>
 </div>
+<!--<script>-->
+<!--$(function() {-->
+<!--    var $allMsg = $('#about');-->
+<!--    var children = $('#about').children();-->
+<!--    var array = [];-->
+<!--    $('#about').children().each(function(i, child) {-->
+<!--      array = child-->
+<!--    })-->
+
+
+    <!--//$('#about').html("");-->
+
+<!--    children.each(function(i, child) {-->
+<!--      console.log(child);-->
+
+<!--      var $wordList = child.innerText.split("");-->
+
+<!--      $('p').appendTo("#about")-->
+<!--      $.each($wordList, function(idx, elem) {-->
+<!--        console.log(i);-->
+<!--        var newEL = $("<span/>").text(elem).css({ opacity: 0 });-->
+<!--        newEL.appendTo($('#about'));-->
+<!--        newEL.delay(idx * 70);-->
+<!--        newEL.animate({ opacity: 1 }, 1100);-->
+<!--      })-->
+<!--    })-->
+<!--});-->
+<!--</script>-->
 <script>
 $(function() {
-    var $allMsg = $('#about');
-    var $wordList = $('#about').html().split("");
-    $('#about').html("");
+    var $allMsg = $('#abc');
+    var $wordList = $('#abc').html().split("");
+    $('#abc').html("");
     $.each($wordList, function(idx, elem) {
         var newEL = $("<span/>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
@@ -29,3 +73,39 @@ $(function() {
     });
 });
 </script>
+<script>
+$(function() {
+    var $allMsg = $('#def');
+    var $wordList = $('#def').html().split("");
+    $('#def').html("");
+    $.each($wordList, function(idx, elem) {
+        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        newEL.appendTo($allMsg);
+        newEL.delay(idx * 70);
+        newEL.animate({ opacity: 1 }, 1100);
+    });
+});
+</script>
+<script>
+$(function() {
+    var $allMsg = $('#hij');
+    var $wordList = $('#hij').html().split("");
+    $('#hij').html("");
+    $.each($wordList, function(idx, elem) {
+        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        newEL.appendTo($allMsg);
+        newEL.delay(idx * 70);
+        newEL.animate({ opacity: 1 }, 1100);
+    });
+});
+</script>
+
+<!--// var $wordList = $('#about').text().split("");-->
+<!--    // $('#about').html("");-->
+<!--    // $.each($wordList, function(idx, elem) {-->
+<!--    //     console.log(elem);-->
+<!--    //     var newEL = $("<span/>").text(elem).css({ opacity: 0 });-->
+<!--    //     newEL.appendTo($allMsg);-->
+<!--    //     newEL.delay(idx * 70);-->
+<!--    //     newEL.animate({ opacity: 1 }, 1100);-->
+<!--    // });-->
