@@ -7,8 +7,8 @@
   <div class="flash1 mt-0 pt-3">
   <div id="wrapper">
     <div id="title" class="hero__title text-danger"></div>
-    <div  id="ticKer" class="text-center">
-      <ul id="ulArea"> <!-- ul要素 箇条書き -->
+    <div  id="ticKer" class="text-center auto-pull-down-box">
+      <ul id="ulArea" class="auto-pull-down"> <!-- ul要素 箇条書き -->
         <li>新着投稿</li>
         <% @posts.each do |post| %>
         <li>
@@ -70,7 +70,7 @@
 <script>
     var  upSpeed=15;  //メッセージのスライド速度
     var  delay =3000; // 次のメッセージに切り替わるまでの静止時間
-    var  tickerH=40;  // 表示ボックスの高さ
+    var  tickerH=100;  // 表示ボックスの高さ
  window.onload =function divScroller(){
   scroller = document.getElementById("ticKer"); // div 表示ボックス
   scroller.style.height= tickerH+"px"; // 表示ボックスの高さ
