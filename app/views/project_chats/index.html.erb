@@ -2,15 +2,15 @@
   <p class="text-center"><span class="text-primary"><%= notice %></span></p>
 </div>
 
-<h3 class="text-center mb-5 pt-5"><%= @project.name %><br>ディスカッション</h3>
+<h3 class="text-break text-center mb-5 pt-5"><%= @project.name %><br>ディスカッション</h3>
 
 <% @project_chats.each do |chat| %>
     <% if chat.user_id == current_user.id %>
       <p class="text-break text-right m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-      <p class="text-right mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= current_user.name %></p>
+      <p class="text-break text-right mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= current_user.name %></p>
     <% else %>
       <p class="text-break text-left m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-      <p class="text- mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= chat.user.name %></p>
+      <p class="text-break text-left mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= chat.user.name %></p>
     <% end %>
 <% end %>
 <%= form_with model: @project_chat, url: project_project_chats_path(@project), local: true do |f| %>

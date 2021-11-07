@@ -100,9 +100,12 @@ ja:
     destroy_name: 登録内容を削除しました。
     join_member: プロジェクトに参加しました。
     leave_member: プロジェクトを離脱しました。
+    owner_leave: オーナーはプロジェクトから離脱できません。
     send_chat: 送信しました。
     leave_user: 退会しました。
     mypage: マイページを更新しました。
+  alert:
+    valid_false: このアカウントは退会済みです。新規登録をお願いします。
   date:
     abbr_day_names:
     - 日

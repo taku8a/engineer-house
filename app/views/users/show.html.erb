@@ -1,5 +1,5 @@
 <div class="flash">
-  <p class="text-center"></p>
+  <p class="text-center"><span class="text-primary"><%= notice %></span></p>
 </div>
 <h3 class="text-center mb-5 mt-5">マイページ</h3>
 <div class="row">
@@ -24,11 +24,11 @@
         </tr>
         <tr>
           <th>自己紹介</th>
-          <th><%= current_user.introduction %></th>
+          <th class="text-break"><%= safe_join(current_user.introduction.split("\n"),tag(:br)) %></th>
         </tr>
         <tr>
           <th>メールアドレス</th>
-          <th><%= current_user.email %></th>
+          <th class="text-break"><%= current_user.email %></th>
         </tr>
       </tbody>
     </table>
@@ -37,15 +37,15 @@
     </div>
   </div>
   <div class="col-md-3 offset-md-1 p-0">
-    <% unless current_user.projects.blank? %>
+    <% unless @projects.blank? %>
       <table class="table table-hover table-inverse">
         <thead>
           <tr class="table-active">
-            <th>プロジェクト名(参加中)</th>
+            <th>参加プロジェクト</th>
           </tr>
         </thead>
         <tbody>
-            <% current_user.projects.each do |project| %>
+            <% @projects.each do |project| %>
               <tr>
                 <td>
                   <%= link_to project.name.truncate(10), project_path(project) %>
@@ -54,7 +54,7 @@
             <% end %>
         </tbody>
       </table>
-
+　　　<%= paginate @projects %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -65,7 +65,7 @@
         <tbody>
           <tr>
             <td>
-              <%= link_to "プロジェクト一覧", projects_path %>
+              <%= link_to "さあ、始めよう！", new_project_path %>
             </td>
           </tr>
         </tbody>
@@ -73,19 +73,39 @@
     <% end %>
   </div>
   <div class="col-md-3 p-0">
-    <table class="table table-hover table-inverse">
-      <thead>
-         <tr class="table-active">
-            <th>ブログ(タイトル)</th>
+    <% unless @posts.blank? %>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr class="table-active">
+            <th>マイ投稿</th>
           </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            aaaaa
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr>
+              <td>
+                <%= link_to post.title.truncate(10), post_path(post) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @posts %>
+    <% else %>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr class="table-active">
+            <th>未投稿</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to "投稿しよう！", new_post_path %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>

@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <th>メンバー</th>
-          <th>
+          <th class="text-break">
             <% @project.users.each do |member| %>
               <%= member.name %><br>
             <% end %>
@@ -39,7 +39,7 @@
         </div>
       <% elsif @project.users.include?(current_user) %>
         <div class="text-center pt-5 row">
-          <%= link_to '離脱する', project_leave_path(@project), class: "btn btn-danger col-md-12" %>
+          <%= link_to '離脱する', project_leave_path(@project), class: "btn btn-warning col-md-12" %>
         </div>
         <div class="text-center pt-5 row">
           <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
@@ -50,7 +50,7 @@
         </div>
       <% else %>
         <div class="text-center pt-5 row">
-          <%= link_to '参加する', project_join_path(@project), class: "btn btn-success col-md-12" %>
+          <%= link_to '参加する', project_join_path(@project), class: "btn btn-info col-md-12" %>
         </div>
       <% end %>
     </div>

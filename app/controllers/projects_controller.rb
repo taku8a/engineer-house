@@ -18,8 +18,11 @@ class ProjectsController < ApplicationController
 
   def leave
    @project = Project.find(params[:project_id])
-   @project.users.delete(current_user)
-   redirect_to projects_path, notice: t("notice.leave_member")
+   if @project.owner_id == current_user.id
+     redirect_to project_path(@project), notice: t("notice.owner_leave")
+   else @project.users.delete(current_user)
+        redirect_to projects_path, notice: t("notice.leave_member")
+   end
   end
 
   def edit
@@ -42,7 +45,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path, notice: t("notice.edit_name")
+      redirect_to project_path(@project), notice: t("notice.edit_name")
     else
       render "edit"
     end
