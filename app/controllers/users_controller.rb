@@ -4,6 +4,12 @@ class UsersController < ApplicationController
   def show
     @projects = current_user.projects.page(params[:page]).reverse_order
     @posts = current_user.posts.page(params[:page]).reverse_order
+    @my_project = []
+    @projects.each do |project|
+      if project.owner_id == current_user.id
+        @my_project << project
+      end
+    end
   end
 
   def edit
