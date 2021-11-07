@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
   def leave
    @project = Project.find(params[:project_id])
    if @project.owner_id == current_user.id
-     redirect_to project_path(@project), notice: t("notice.owner_leave")
+     redirect_to project_path(@project), alert: t("alert.owner_leave")
    else @project.users.delete(current_user)
         redirect_to projects_path, notice: t("notice.leave_member")
    end
@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to projects_path
+    redirect_to projects_path, notice: t("notice.destroy_name")
   end
 
   private
@@ -65,14 +65,14 @@ class ProjectsController < ApplicationController
   def ensure_correct_user!
     @project = Project.find(params[:id])
     unless @project.owner_id == current_user.id
-      projects_path
+      redirect_to project_path(@project), alert: t("alert.owner_right")
     end
   end
 
   def group_join!
     @project = Project.find(params[:project_id])
     if @project.users.count >= 4 || @project.users.include?(current_user)
-      redirect_to project_path(@project)
+      redirect_to project_path(@project), alert: t("alert.project_end")
     end
   end
 end
