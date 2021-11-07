@@ -4,7 +4,7 @@ class PostCommentsController < ApplicationController
   before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
 
   def index
-    @post_comments = PostComment.page(params[:page]).reverse_order
+    @post_comments = @post.post_comments.page(params[:page]).reverse_order
   end
 
   def show
