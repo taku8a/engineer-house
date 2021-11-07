@@ -38,40 +38,6 @@
     <div class="text-center pt-5 mb-5 row">
       <%= link_to '編集する', edit_users_path, class: "btn btn-success col-md-12" %>
     </div>
-    <% unless @projects.blank? %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>マイジャンル</th>
-          </tr>
-        </thead>
-        <tbody>
-            <% @projects.each do |project| %>
-              <tr>
-                <td>
-                  <%= link_to project.name.truncate(10), project_path(project) %>
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
-      </table>
-　　　<%= paginate @projects %>
-    <% else %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>ジャンル(未着手)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to "さあ、始めよう！", genres_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
   </div>
   <div class="col-md-3 offset-md-1 p-0">
     <% unless @projects.blank? %>
@@ -102,7 +68,7 @@
         <tbody>
           <tr>
             <td>
-              <%= link_to "さあ、始めよう！", new_project_path %>
+              <%= link_to "参加しよう！", projects_path %>
             </td>
           </tr>
         </tbody>
@@ -127,7 +93,7 @@
             <% end %>
         </tbody>
       </table>
-　　　
+
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -138,12 +104,14 @@
         <tbody>
           <tr>
             <td>
-              <%= link_to "さあ、始めよう！", new_project_path %>
+              <%= link_to "始動しよう！", new_project_path %>
             </td>
           </tr>
         </tbody>
       </table>
     <% end %>
+  </div>
+  <div class="col-md-3 offset-md-5 p-0">
     <% unless @posts.blank? %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -179,4 +147,76 @@
       </table>
     <% end %>
   </div>
+  <div class="col-md-3 p-0">
+    <% unless @post_comments.blank? %>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr class="table-active">
+            <th>マイコメント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @post_comments.each do |post_comment| %>
+            <tr>
+              <td>
+                <%= link_to post_comment.comment.truncate(10), post_post_comment_path(post_comment.post_id,post_comment.id) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @post_comments %>
+    <% else %>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr class="table-active">
+            <th>未コメント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to "コメントしよう！", posts_path %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="col-md-6 offset-md-5 p-0">
+    <% unless @projects.blank? %>
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr class="table-active">
+              <th>マイジャンル</th>
+            </tr>
+          </thead>
+          <tbody>
+              <% @projects.each do |project| %>
+                <tr>
+                  <td>
+                    <%= link_to project.name.truncate(10), project_path(project) %>
+                  </td>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+  　　　<%= paginate @projects %>
+      <% else %>
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr class="table-active">
+              <th>ジャンル(未着手)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to "さあ、始めよう！", genres_path %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
 </div>

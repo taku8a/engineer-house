@@ -10,6 +10,7 @@ class UsersController < ApplicationController
         @my_project << project
       end
     end
+    @post_comments = current_user.post_comments.page(params[:page]).reverse_order
   end
 
   def edit
