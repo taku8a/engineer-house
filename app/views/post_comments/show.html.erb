@@ -1,5 +1,8 @@
 <div class="flash">
-  <p class="text-center"><span class="text-primary"><%= notice %></span></p>
+  <p class="text-center">
+    <span class="text-primary"><%= notice %></span>
+    <span class="text-danger"><%= alert %></span>
+  </p>
 </div>
 
 <div class="row">
@@ -9,11 +12,11 @@
       <tbody>
         <tr>
           <th>投稿タイトル</th>
-          <th><%= @post.title %></th>
+          <th class="text-break"><%= @post.title %></th>
         </tr>
         <tr>
           <th>コメント者</th>
-          <th>
+          <th class="text-break">
             <%= @post_comment.user.name %>
           </th>
         </tr>

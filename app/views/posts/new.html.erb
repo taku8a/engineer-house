@@ -6,7 +6,7 @@
 </div>
 
 <h3 class="text-center pt-5">新規投稿</h3>
-<%= form_with model: [:user, @post], url: posts_path, local: true do |f| %>
+<%= form_with model: @post, url: posts_path, local: true do |f| %>
 
   <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 

@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   def update
    if @post.update(post_params)
-     redirect_to posts_path, notice: t("notice.post_update")
+     redirect_to post_path(@post), notice: t("notice.post_update")
    else
      render "edit"
    end
@@ -47,8 +47,8 @@ class PostsController < ApplicationController
 
   def ensure_correct_user!
     @post = Post.find(params[:id])
-    unless @post.user_id = current_user.id
-      posts_path
+    unless @post.user_id == current_user.id
+      redirect_to post_path(@post), alert: t("alert.owner_right")
     end
   end
 

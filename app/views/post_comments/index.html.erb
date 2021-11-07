@@ -1,8 +1,11 @@
 <div class="flash">
-  <p class="text-center"><span class="text-primary"><%= notice %></span></p>
+  <p class="text-center">
+    <span class="text-primary"><%= notice %></span>
+    <span class="text-danger"><%= alert %></span>
+  </p>
 </div>
 
-<h3 class="text-center pt-5"><%= @post.title %><br><br>コメント一覧</h3>
+<h3 class="text-center pt-5 text-break"><%= @post.title %><br><br>コメント一覧</h3>
 
 <div class="text-right">
   <%= link_to new_post_post_comment_path(@post), class: "new_link" do %>
