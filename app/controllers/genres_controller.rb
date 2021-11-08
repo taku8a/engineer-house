@@ -13,14 +13,20 @@ class GenresController < ApplicationController
   end
 
   def create
+    @genres = Genre.page(params[:page]).reverse_order
     @genre = Genre.new(genre_params)
     @genre.owner_id = current_user.id
-    if @genre.save
-      redirect_to genres_path, notice: t("notice.add_name")
-    else
-      @genres = Genre.page(params[:page]).reverse_order
-      render "index"
+    unless @genre.save
+      render "error"
     end
+    
+    # if @genre.save
+    #   # redirect_to genres_path, notice: t("notice.add_name")
+    # else
+    #   @genres = Genre.page(params[:page]).reverse_order
+    #   render "index"
+    #   format.js { render :error }
+    # end
   end
 
   def edit
