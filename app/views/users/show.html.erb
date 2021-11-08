@@ -93,7 +93,7 @@
             <% end %>
         </tbody>
       </table>
-
+      <%= paginate @my_project %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -184,7 +184,7 @@
     <% end %>
   </div>
   <div class="col-md-6 offset-md-5 p-0">
-    <% unless @projects.blank? %>
+    <% unless @my_genre.blank? %>
         <table class="table table-hover table-inverse">
           <thead>
             <tr class="table-active">
@@ -192,16 +192,16 @@
             </tr>
           </thead>
           <tbody>
-              <% @projects.each do |project| %>
+              <% @my_genre.each do |genre| %>
                 <tr>
                   <td>
-                    <%= link_to project.name.truncate(10), project_path(project) %>
+                    <%= link_to genre.name.truncate(10), genre_path(genre) %>
                   </td>
                 </tr>
               <% end %>
           </tbody>
         </table>
-  　　　<%= paginate @projects %>
+        <%= paginate @my_genre %>
       <% else %>
         <table class="table table-hover table-inverse">
           <thead>

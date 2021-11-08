@@ -6,8 +6,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   # def new
-  #   redirect_to mypage_users_path if user_signed_in?
-  #   super
+  #   if user_signed_in?
+  #     redirect_to mypage_users_path
+
+  #     super
+  #   end
   # end
 
   # POST /resource
