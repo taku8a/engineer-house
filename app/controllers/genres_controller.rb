@@ -24,19 +24,6 @@ class GenresController < ApplicationController
     end
   end
 
-    # unless @genre.save
-    #   render "error"
-    # end
-
-    # if @genre.save
-    #   # redirect_to genres_path, notice: t("notice.add_name")
-    # else
-    #   @genres = Genre.page(params[:page]).reverse_order
-    #   render "index"
-    #   format.js { render :error }
-    # end
-
-
   def edit
   end
 

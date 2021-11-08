@@ -1,0 +1,4 @@
+$("#chat").html("<%= j(render "index", project_chats: @project_chats) %>");
+$("#chat_text").val("");
+$("#chat_error").empty();
+$("#chat_flash").html("<%= j(notice) %>");

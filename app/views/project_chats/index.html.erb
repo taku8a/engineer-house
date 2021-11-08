@@ -1,4 +1,4 @@
-<div class="flash">
+<div id="chat_flash" class="flash text-center text-primary">
   <p class="text-center">
     <span class="text-primary"><%= notice %></span>
     <span class="text-danger"><%= alert %></span>
@@ -7,19 +7,14 @@
 
 <h3 class="text-break text-center mb-5 pt-5"><%= @project.name %><br>ディスカッション</h3>
 
-<% @project_chats.each do |chat| %>
-    <% if chat.user_id == current_user.id %>
-      <p class="text-break text-right m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-      <p class="text-break text-right mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= current_user.name %></p>
-    <% else %>
-      <p class="text-break text-left m-0"><%= safe_join(chat.chat.split("\n"),tag(:br)) %></p>
-      <p class="text-break text-left mb-5"><%= chat.created_at.strftime("%Y/%m/%d %H:%M") %>  <%= chat.user.name %></p>
-    <% end %>
-<% end %>
-<%= form_with model: @project_chat, url: project_project_chats_path(@project), local: true do |f| %>
-  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
+<div id="chat">
+  <%= render "index", project_chats: @project_chats %>
+</div>
+
+<%= form_with model: @project_chat, url: project_project_chats_path(@project), data: { remote: true } do |f| %>
+  <div class="bg-light text-danger" id="chat_error"><%= render "users/shared/error_messages", resource: @project_chat %></div>
   <div class="form-group pt-5 text-center row">
-    <%= f.text_area :chat, autofocus: true, class: "form-control offset-md-3 col-md-6" %>
+    <%= f.text_area :chat, autofocus: true, class: "form-control offset-md-3 col-md-6", id: "chat_text" %>
     <%= f.hidden_field :project_id, :value => @project.id %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit "送信", class: 'btn btn-info col-md-1' %>

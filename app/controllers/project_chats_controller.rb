@@ -8,13 +8,13 @@ class ProjectChatsController < ApplicationController
   end
 
   def create
+    @project_chats = @project.project_chats
     @project_chat = current_user.project_chats.new(project_chat_params)
     if @project_chat.save
-      redirect_to project_project_chats_path(@project), notice: t("notice.send_chat")
+      flash.now[:notice] = t("notice.send_chat")
+      render "create"
     else
-      @project = Project.find(params[:project_id])
-      @project_chats = @project.project_chats
-      render "index"
+      render "error"
     end
   end
 
