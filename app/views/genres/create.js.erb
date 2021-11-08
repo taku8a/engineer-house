@@ -1,3 +1,5 @@
 $("#genre").html("<%= j(render "index", genres: @genres) %>");
 $("#name").val("");
 $('#genre_error').empty();
+$("#genre_flash").html("<%= j(notice) %>");
+
