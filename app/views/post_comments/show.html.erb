@@ -12,7 +12,7 @@
       <tbody>
         <tr>
           <th>投稿タイトル</th>
-          <th class="text-break"><%= @post.title %></th>
+          <th class="text-break"><%= link_to @post.title, post_path(@post.id) %></th>
         </tr>
         <tr>
           <th>コメント者</th>
