@@ -1,7 +1,11 @@
-<div class="text-center pt-5 row">
-  <%= link_to '投稿一覧へ', yourpage_post_path(@post), class: "btn btn-success col-md-12" %>
-</div>
+ if @post.exists?
+  <div class="text-center pt-5 row">
+    <%= link_to '投稿一覧へ', yourpage_post_path(@post), class: "btn btn-success col-md-12" %>
+  </div>
+   if @post_comment.exists?
+    <div class="text-center pt-5 row">
+      <%= link_to 'コメント一覧へ', post_post_comment_yourpage_path(@post), class: "btn btn-success col-md-12" %>
+    </div>
+   end
+ end
 
-<div class="text-center pt-5 row">
-  <%= link_to 'コメント一覧へ', post_post_comment_yourpage_path(@post_comment.post_id, @post_comment.id), class: "btn btn-success col-md-12" %>
-</div>

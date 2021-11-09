@@ -16,9 +16,16 @@ class PostsController < ApplicationController
   end
 
   def select
-    @post = Post.find(params[:id])
-    @post_comment = PostComment.find(params[:id])
-    @post_comment.post_id = @post.id
+    if params[:id]
+      @post = Post.find(params[:id])
+      # @post_comments = @post.user.comments
+      # @post_comments.each do |post_comment|
+        
+    end
+    # if params[:id]
+    #   @post_comment = PostComment.find(params[:id])
+    #   @post_comment.post_id = @post.id
+    # end
   end
 
   def edit

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   patch '/update' => 'users#update', as: :update_users
   get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
-
+  get '/posts/:post_id/post_comments/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
   resources :posts do
     member do
       get :yourpage
@@ -35,7 +35,8 @@ Rails.application.routes.draw do
     resources :post_comments
   end
   
-  get '/posts/:post_id/post_comments/:id/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
+  # get '/posts/:post_id/post_comments/:id/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
+  # get '/posts/:post_id/post_comments/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
   # get '/select' => 'users#select', as: :select_users
   
   
