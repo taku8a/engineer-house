@@ -57,7 +57,7 @@
             <% end %>
         </tbody>
       </table>
-　　　<%= paginate @projects %>
+　　　<%= paginate @projects, :param_name => "project_page" %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -93,7 +93,7 @@
             <% end %>
         </tbody>
       </table>
-      <%= paginate @my_project %>
+      <%= paginate @my_project, :param_name => "my_project_page" %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -129,7 +129,7 @@
           <% end %>
         </tbody>
       </table>
-      <%= paginate @posts %>
+      <%= paginate @posts, :param_name => "post_page" %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -165,7 +165,7 @@
           <% end %>
         </tbody>
       </table>
-      <%= paginate @post_comments %>
+      <%= paginate @post_comments, :param_name => "comment_page" %>
     <% else %>
       <table class="table table-hover table-inverse">
         <thead>
@@ -201,7 +201,7 @@
               <% end %>
           </tbody>
         </table>
-        <%= paginate @my_genre %>
+        <%= paginate @my_genre, :param_name => "genre_page" %>
       <% else %>
         <table class="table table-hover table-inverse">
           <thead>
