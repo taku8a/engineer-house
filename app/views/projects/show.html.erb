@@ -23,7 +23,7 @@
           <th>メンバー</th>
           <th class="text-break">
             <% @project.users.each do |member| %>
-              <%= member.name %><br>
+              <%= link_to member.name, show_users_path(member.id) %><br>
             <% end %>
           </th>
         </tr>

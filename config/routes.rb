@@ -26,24 +26,15 @@ Rails.application.routes.draw do
   patch '/update' => 'users#update', as: :update_users
   get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
-  get '/posts/:post_id/post_comments/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
+  get '/user' => 'users#index', as: :index_users
+  get '/user/:id' => 'users#show', as: :show_users
+  
   resources :posts do
-    member do
-      get :yourpage
-      get :select
-    end
     resources :post_comments
   end
-  
-  # get '/posts/:post_id/post_comments/:id/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
-  # get '/posts/:post_id/post_comments/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
-  # get '/select' => 'users#select', as: :select_users
-  
   
   resources :genres, except: [:new, :destroy] do
     resources :genre_details, except: [:destroy]
   end
-
-  # resource :project_chat, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

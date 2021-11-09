@@ -13,7 +13,7 @@
         <tr>
           <th>投稿者</th>
           <th class="text-break">
-            <%= @post.user.name %>
+            <%= link_to @post.user.name, show_users_path(@post.user.id) %>
           </th>
         </tr>
         <tr>

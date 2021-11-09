@@ -17,7 +17,7 @@
         <tr>
           <th>コメント者</th>
           <th class="text-break">
-            <%= @post_comment.user.name %>
+            <%= link_to @post_comment.user.name, show_users_path(@post_comment.user.id) %>
           </th>
         </tr>
         <tr>

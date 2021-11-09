@@ -1,6 +1,6 @@
 class PostCommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post_comment!, except: [:yourpage]
+  before_action :set_post_comment!
   before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
 
   def index
@@ -9,14 +9,6 @@ class PostCommentsController < ApplicationController
 
   def show
     @post_comment = PostComment.find(params[:id])
-  end
-
-  def yourpage
-    # @name = params[:id]
-    # @post_comment = PostComment.find(@name)
-    @post = Post.find(params[:post_id])
-    # @post_comment = PostComment.find(params[:id])
-    @post_comments = @post.user.post_comments.page(params[:page]).reverse_order
   end
 
   def new

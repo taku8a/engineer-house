@@ -27,7 +27,7 @@
       <% @posts.each do |post| %>
         <tr>
           <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-          <td><%= link_to post.user.name.truncate(10), select_post_path(post) %></td>
+          <td><%= link_to post.user.name.truncate(10), show_users_path(post.user.id) %></td>
           <td>
             <%= link_to post.title.truncate(10), post_path(post) %>
           </td>

@@ -10,24 +10,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def yourpage
-    @post = Post.find(params[:id])
-    @posts = @post.user.posts.page(params[:page]).reverse_order
-  end
-
-  def select
-    if params[:id]
-      @post = Post.find(params[:id])
-      # @post_comments = @post.user.comments
-      # @post_comments.each do |post_comment|
-        
-    end
-    # if params[:id]
-    #   @post_comment = PostComment.find(params[:id])
-    #   @post_comment.post_id = @post.id
-    # end
-  end
-
   def edit
   end
 
