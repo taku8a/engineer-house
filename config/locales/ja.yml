@@ -109,8 +109,6 @@ ja:
     owner_leave: オーナーはプロジェクトから離脱できません。
     owner_right: オーナー権限がありません。
     project_end: 参加済み、または受付終了です。
-    not_post: ユーザーによる投稿はありません。
-    not_comment: ユーザーによるコメントはありません。
   date:
     abbr_day_names:
     - 日

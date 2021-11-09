@@ -29,6 +29,14 @@
           <th>自己紹介</th>
           <th class="text-break"><%= safe_join(@user.introduction.split("\n"),tag(:br)) %></th>
         </tr>
+        <tr>
+          <th>入会状況</th>
+          <% if @user.is_valid %>
+            <th class="text-success">有効</th>
+          <% else %>
+            <th class="text-danger">退会</th>
+          <% end %>
+        </tr>
       </tbody>
     </table>
   </div>
