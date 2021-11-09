@@ -5,19 +5,13 @@
   </p>
 </div>
 
-<h3 class="text-center pt-5 text-break"><%= @post.title %><br><br>コメント一覧</h3>
+<h3 class="text-center pt-5 text-break"><%= @post_comment.user.name.truncate(10) %>のコメント一覧</h3>
 
-<div class="text-right">
-  <%= link_to new_post_post_comment_path(@post), class: "new_link" do %>
-    <i class="fas fa-plus-circle fa-3x"></i>
-  <% end %>
-</div>
 <% unless @post_comments.blank? %>
   <table class="table table-hover table-inverse mt-5">
     <thead>
       <tr class="table-active">
         <th>コメント日時</th>
-        <th>コメント者</th>
         <th>コメント</th>
       </tr>
     </thead>
@@ -25,8 +19,7 @@
       <% @post_comments.each do |post_comment| %>
         <tr>
           <td><%= post_comment.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-          <td><%= link_to post_comment.user.name.truncate(10), post_post_comment_yourpage_path(@post, post_comment) %></td>
-          <td><%= link_to post_comment.comment.truncate(10), post_post_comment_path(@post, post_comment) %></td>
+          <td><%= link_to post_comment.comment.truncate(10), post_post_comment_path(post_comment.post_id, post_comment.id) %></td>
         </tr>
       <% end %>
     </tbody>

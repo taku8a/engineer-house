@@ -10,6 +10,11 @@ class PostCommentsController < ApplicationController
   def show
     @post_comment = PostComment.find(params[:id])
   end
+  
+  def yourpage
+    @post_comment = PostComment.find(params[:id])
+    @post_comments = @post_comment.user.post_comments.page(params[:page]).reverse_order
+  end
 
   def new
     @post_comment = PostComment.new

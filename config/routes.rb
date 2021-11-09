@@ -21,15 +21,24 @@ Rails.application.routes.draw do
     resources :project_chats, only: [:index, :create]
   end
 
-  get '/mypage' => 'users#show', as: :mypage_users
+  get '/mypage' => 'users#mypage', as: :mypage_users
   get '/edit' => 'users#edit', as: :edit_users
   patch '/update' => 'users#update', as: :update_users
   get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
 
   resources :posts do
+    member do
+      get :yourpage
+      get :select
+    end
     resources :post_comments
   end
+  
+  get '/posts/:post_id/post_comments/:id/yourpage' => 'post_comments#yourpage', as: :post_post_comment_yourpage
+  # get '/select' => 'users#select', as: :select_users
+  
+  
   resources :genres, except: [:new, :destroy] do
     resources :genre_details, except: [:destroy]
   end

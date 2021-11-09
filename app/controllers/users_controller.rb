@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def mypage
     @projects = current_user.projects.page(params[:project_page]).reverse_order
     @posts = current_user.posts.page(params[:post_page]).reverse_order
     @my_projects = []
