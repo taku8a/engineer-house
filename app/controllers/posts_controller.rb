@@ -11,10 +11,14 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @genres = Genre.page(params[:genre_page]).reverse_order
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def new
     @post = Post.new
+    @genres = Genre.page(params[:genre_page]).reverse_order
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def create

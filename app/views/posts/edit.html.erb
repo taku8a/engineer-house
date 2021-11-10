@@ -10,6 +10,32 @@
 
   <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 
+  <div class="form-group pt-5 row">
+    <%= f.label :genre, 'ジャンル', class: 'col-md-3 offset-md-2 col-form-label text-center' %>
+    <%= f.collection_check_boxes(:genre_ids, @genres, :id, :name) do |genre| %>
+      <%= genre.label class: 'col-form-label col-md-6 offset-md-5 text-break' do %>
+        <%= genre.check_box %>
+        <%= genre.text.truncate(20) %>
+      <% end %>
+    <% end %>
+    <div class="offset-md-5 col-form-label text-break">
+      <%= paginate @genres, :param_name => "genre_page" %>
+    </div>
+  </div>
+
+  <div class="form-group pt-5 row">
+    <%= f.label :genre_detail, '参考ガイド', class: 'col-md-3 offset-md-2 col-form-label text-center' %>
+    <%= f.collection_check_boxes(:genre_detail_ids, @genre_details, :id, :title) do |genre_detail| %>
+      <%= genre_detail.label class: 'col-form-label col-md-6 offset-md-5 text-break' do %>
+        <%= genre_detail.check_box %>
+        <%= genre_detail.text.truncate(20) %>
+      <% end %>
+    <% end %>
+    <div class="offset-md-5 col-form-label text-break">
+      <%= paginate @genre_details, :param_name => "genre_detail_page" %>
+    </div>
+  </div>
+
   <div class="form-group pt-5 text-center row">
     <%= f.label :title, "タイトル", class: 'col-md-3 offset-md-2 col-form-label' %>
     <%= f.text_field :title, autofocus: true, class: 'form-control w-25' %>
@@ -21,26 +47,6 @@
   </div>
 
   <%= f.hidden_field :user_id, :value => current_user.id %>
-
-  <div class="form-group pt-5 row">
-    <%= f.label :genre, 'ジャンル', class: 'col-md-3 offset-md-2 col-form-label text-center' %>
-    <%= f.collection_check_boxes(:genre_ids, Genre.all, :id, :name) do |genre| %>
-      <%= genre.label class: 'col-form-label col-md-6 offset-md-5' do %>
-        <%= genre.check_box %>
-        <%= genre.text.truncate(20) %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="form-group pt-5 row">
-    <%= f.label :genre_detail, '参考ガイド', class: 'col-md-3 offset-md-2 col-form-label text-center' %>
-    <%= f.collection_check_boxes(:genre_detail_ids, GenreDetail.all, :id, :title) do |genre_detail| %>
-      <%= genre_detail.label class: 'col-form-label col-md-6 offset-md-5' do %>
-        <%= genre_detail.check_box %>
-        <%= genre_detail.text.truncate(20) %>
-      <% end %>
-    <% end %>
-  </div>
 
   <div class="form-group pt-5 text-center row">
     <%= f.submit "アップデート", class: 'btn btn-success form-control w-25 offset-md-5' %>
