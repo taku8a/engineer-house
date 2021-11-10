@@ -55,6 +55,11 @@ class ProjectsController < ApplicationController
     @project.destroy
     redirect_to projects_path, notice: t("notice.destroy_name")
   end
+  
+  def search
+    @content = params[:content]
+    @projects = Project.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
 
   private
 

@@ -42,6 +42,11 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path, notice: t("notice.post_destroy")
   end
+  
+  def search
+    @content = params[:content]
+    @posts = Post.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
 
   private
 

@@ -16,11 +16,15 @@ Rails.application.routes.draw do
   root :to => "homes#top"
   get "/about" => "homes#about"
   resources :projects do
+    collection do
+      get 'search'
+    end
     get "join" => "projects#join"
     get "leave" => "projects#leave"
     resources :project_chats, only: [:index, :create]
   end
 
+  get '/search' => 'users#search', as: :search_users
   get '/mypage' => 'users#mypage', as: :mypage_users
   get '/edit' => 'users#edit', as: :edit_users
   patch '/update' => 'users#update', as: :update_users
@@ -28,12 +32,18 @@ Rails.application.routes.draw do
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
   get '/user' => 'users#index', as: :index_users
   get '/user/:id' => 'users#show', as: :show_users
-  
+
   resources :posts do
+    collection do
+      get 'search'
+    end
     resources :post_comments
   end
-  
+
   resources :genres, except: [:new, :destroy] do
+    collection do
+      get 'search'
+    end
     resources :genre_details, except: [:destroy]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

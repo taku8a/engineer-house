@@ -34,6 +34,11 @@ class GenresController < ApplicationController
       render "edit"
     end
   end
+  
+  def search
+    @content = params[:content]
+    @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
 
   private
 

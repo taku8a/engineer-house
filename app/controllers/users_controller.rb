@@ -53,6 +53,11 @@ class UsersController < ApplicationController
     @projects = @user.projects.page(params[:project_page]).reverse_order
   end
   
+  def search
+    @content = params[:content]
+    @users = User.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end  
+  
   private
 
   def user_params
