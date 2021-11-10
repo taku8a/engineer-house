@@ -13,6 +13,7 @@ class PostCommentsController < ApplicationController
 
   def new
     @post_comment = PostComment.new
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def create
@@ -25,6 +26,7 @@ class PostCommentsController < ApplicationController
   end
 
   def edit
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def update
