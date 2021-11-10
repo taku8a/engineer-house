@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <nav class="navbar navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="/"><span>ENGINEER HOUSE</span></a>
       <p class="mb-0 ml-5 text-light nav-link">ようこそ、<%= current_user.name.truncate(10) %>さん！</p>
@@ -14,11 +14,19 @@
           <li><%= link_to ' プロジェクト一覧',projects_path ,class: 'fab fa-r-project nav-link text-light text-right' %></li>
           <li><%= link_to ' ジャンル一覧',genres_path,class: 'fas fa-bible nav-link text-light text-right' %></li>
           <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete,class: 'fas fa-sign-out-alt nav-link text-light text-right' %></li>
-
-          <!--<%= form_with url: root_path, method: :get, local: true do |f| %>-->
-          <!--  <%= f.text_field :keyword %>-->
-          <!--  <%= f.submit "検索", class: "btn btn-primary" %>-->
-          <!--<% end %>-->
+          <li>
+            <%= form_with url: root_path, method: :get, class: "form-inline navbar-form nav-link text-right", local: true do |f| %>
+            <%= f.hidden_field :search_method, value: "keyword" %>
+            <div class="input-group row">
+              <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-8 form-control w-25" %>
+              <span class="input-group-append">
+                <button type="submit" class="form-control btn btn-info">
+                  <i class="fas fa-search"></i>
+                </button>
+              </span>
+            </div>
+          <% end %>
+          </li>
         </ul>
       </div>
     </div>
