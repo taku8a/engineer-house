@@ -5,6 +5,11 @@ class GenreDetailsController < ApplicationController
   def index
     @genre_details = @genre.genre_details.order(updated_at: :desc).page(params[:page])
   end
+  
+  def search
+    @content = params[:content]
+    @genre_details = @genre.genre_details.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
 
   def new
     @genre_detail = GenreDetail.new

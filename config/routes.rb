@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get '/user' => 'users#index', as: :index_users
   get '/user/:id' => 'users#show', as: :show_users
   get '/posts/:post_id/post_comments/search' => 'post_comments#search', as: :search_comments
+  get '/genres/:genre_id/genre_details/search' => 'genre_details#search', as: :search_genre_details
   
   resources :posts do
     collection do
