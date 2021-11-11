@@ -3,7 +3,7 @@ class CreateProjects < ActiveRecord::Migration[5.2]
     create_table :projects do |t|
       t.string  :name,              null:false, default: ""
       t.text    :introduction,      null:false
-      t.integer :owner_id,          null:false, default: ""
+      t.integer :owner_id,          null:false
       t.string  :project_image_id,  null:false, default: ""
 
       t.timestamps
