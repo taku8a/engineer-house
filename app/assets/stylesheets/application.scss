@@ -28,7 +28,7 @@ body {
 
 footer{
   width: 100%;
-  background-image: image-url(/assets/background.jpg);
+  background-image: image-url('background.jpg');
   background-size: contain;
   color: #fff;
   text-align: center;
@@ -38,7 +38,7 @@ footer{
 }
 
 #user_bg {
-  background-image: image-url(/assets/thisisengineering1.jpg);
+  background-image: image-url('thisisengineering1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
@@ -87,7 +87,7 @@ footer{
 }
 
 .navbar {
-  background-image: image-url(/assets/logo.jpg), image-url(/assets/background.jpg);
+  background-image: image-url('logo.jpg'), image-url('background.jpg');
   background-position: 10%, 100%;
   background-repeat: no-repeat, repeat;
   background-size: contain, contain;
