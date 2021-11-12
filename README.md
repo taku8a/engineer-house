@@ -50,3 +50,16 @@
 ## [ER図]
 
 ![ポートフォリオ](https://user-images.githubusercontent.com/89015721/141489358-de62c2f9-a1c7-4e70-b552-5d647e7dff79.jpg)
+
+## [アプリケーション詳細設計書]
+
+
+### [使用言語]
+- HTML & CSS
+- Javascript
+- Ruby（2.6.3）
+- Ruby on Rails（5.2.5）
+
+### [使用Gem]
+
+### [開発者]
