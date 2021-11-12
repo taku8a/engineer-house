@@ -59,5 +59,8 @@
 
 ### [使用Gem]
 
+![portfolio1](https://user-images.githubusercontent.com/89015721/141502657-d8ea486d-96c4-45da-a77b-a33dcc6fa3e4.jpg)
+
+
 ### [開発者]
 
