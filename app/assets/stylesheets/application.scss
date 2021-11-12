@@ -46,6 +46,16 @@ footer{
   flex: 1;
 }
 
+.rotate_first {
+    transform: rotateX(90deg);  /* 回転 */
+    transition: 5s;             /* 1秒かけて動く */
+}
+
+.rotate_last {
+    transform: rotateX(360deg);  /* 回転 */
+    transition: 10s;             /* 1秒かけて動く */
+}
+
 // テキストの背景
 .user_textarea {
   background: #fffffff0;
@@ -95,6 +105,16 @@ footer{
 
 .flash1 {
     padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #5989cf;
+    background: #c6e4ff;
+    border-bottom: solid 6px #aac5de;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+#flash3 {
+   padding: 0.5em 1em;
     margin: 2em 0;
     color: #5989cf;
     background: #c6e4ff;

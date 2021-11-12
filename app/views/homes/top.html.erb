@@ -6,6 +6,7 @@
     </p>
     <h2 id="js-typewriter" class="hero__title text-center"></h2>
   </div>
+  <div id="flash3"></div>
   <div class="flash1 mt-0 pt-3">
     <div id="wrapper">
       <div id="title" class="hero__title text-danger"></div>
@@ -96,4 +97,15 @@ function cngLi(){ // メッセージの移動
      elm = liList[0];// 最上部の "li"要素
     base.appendChild(elm); // elm を子ノードとして末尾に移動する。
       }
+</script>
+<script>
+  $(function() {
+    var fade = function() {
+      $("#user_bg").hide().fadeIn(5000,"swing",function(){
+        $("#flash3").addClass("rotate_first");
+        $(".flash1").addClass("rotate_last");
+      });
+    }
+    fade();
+  });
 </script>
