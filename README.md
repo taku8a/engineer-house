@@ -33,10 +33,6 @@
 
 ## 設計書
 
-## チャレンジ要素一覧
-
-- https://docs.google.com/spreadsheets/d/1uFiyagXrISEKVZta_y1Id4Q5F4OqxoG3zYkaC87XMEI/edit#gid=0
-
 ## 開発環境
 
 - OS：Linux(CentOS)
