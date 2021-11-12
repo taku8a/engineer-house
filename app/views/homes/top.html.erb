@@ -6,7 +6,11 @@
     </p>
     <h2 id="js-typewriter" class="hero__title text-center"></h2>
   </div>
-  <div id="flash3"></div>
+
+  <div class="flash3">
+    <h2 id="magic" class="hero__title text-center text-info"></h2>
+  </div>
+
   <div class="flash1 mt-0 pt-3">
     <div id="wrapper">
       <div id="title" class="hero__title text-danger"></div>
@@ -66,6 +70,27 @@
   });
 </script>
 <script>
+  const magic = (param) => {
+  let el = document.querySelector(param.el);
+  let speed = param.speed;
+  let string = param.string.split("");
+
+   window.setTimeout(function () {
+      string.forEach((char, index) => {
+        setTimeout(() => {
+          el.textContent += char;
+        }, speed * index);
+    });
+  }, 500);
+};
+
+  typewriter({
+    el: "#magic", //要素
+    string: "There are as many stories as there are codes", //文字
+    speed: 80 //速度
+  });
+</script>
+<script>
     var  upSpeed=15;  //メッセージのスライド速度
     var  delay =3000; // 次のメッセージに切り替わるまでの静止時間
     var  tickerH=100;  // 表示ボックスの高さ
@@ -101,11 +126,13 @@ function cngLi(){ // メッセージの移動
 <script>
   $(function() {
     var fade = function() {
-      $("#user_bg").hide().fadeIn(5000,"swing",function(){
-        $("#flash3").addClass("rotate_first");
+      $("#user_bg").hide().fadeIn(5000,"linear",function(){
+        $(".flash3").addClass("rotate_first");
         $(".flash1").addClass("rotate_last");
+
       });
     }
     fade();
   });
+
 </script>
