@@ -1,6 +1,6 @@
 class PostCommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post_comment!
+  before_action :set_post_comment!, except: [:select, :seek]
   before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
 
   def index
@@ -10,6 +10,15 @@ class PostCommentsController < ApplicationController
   def search
     @content = params[:content]
     @post_comments = @post.post_comments.where('comment LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
+  
+  def select
+    @post_comments = PostComment.page(params[:page]).reverse_order
+  end
+  
+  def seek
+    @content = params[:content]
+    @post_comments = PostComment.where('comment LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
   end
 
   def show

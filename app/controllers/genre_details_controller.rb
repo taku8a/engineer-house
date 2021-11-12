@@ -1,6 +1,6 @@
 class GenreDetailsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_genre_detail!
+  before_action :set_genre_detail!, except: [:select, :seek]
 
   def index
     @genre_details = @genre.genre_details.order(updated_at: :desc).page(params[:page])
@@ -9,6 +9,15 @@ class GenreDetailsController < ApplicationController
   def search
     @content = params[:content]
     @genre_details = @genre.genre_details.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
+  
+  def select
+    @genre_details = GenreDetail.page(params[:page]).reverse_order
+  end
+  
+  def seek
+    @content = params[:content]
+    @genre_details = GenreDetail.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
   end
 
   def new
