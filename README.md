@@ -49,7 +49,7 @@
 
 ## [アプリケーション詳細設計書]
 
-![ポートフォリオ-Page-2](https://user-images.githubusercontent.com/89015721/141500757-a8d4a715-7889-489f-98e2-4c300540995d.jpg)
+![portfolio2](https://user-images.githubusercontent.com/89015721/141505848-b51c1b49-1afb-4d58-ac3c-e16de0637aeb.jpg)
 
 ### [使用言語]
 - HTML & CSS
