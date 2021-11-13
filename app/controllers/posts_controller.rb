@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to posts_path, notice: t("notice.post_create")
+      redirect_to post_path(@post), notice: t("notice.post_create")
     else
       render "new"
     end

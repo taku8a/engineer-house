@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
     @project.owner_id = current_user.id
     @project.users << current_user
     if @project.save
-      redirect_to projects_path, notice: t("notice.add_name")
+      redirect_to project_path(@project), notice: t("notice.add_name")
     else
       render "new"
     end

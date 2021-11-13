@@ -29,12 +29,12 @@ class GenresController < ApplicationController
 
   def update
     if @genre.update(genre_params)
-      redirect_to genres_path, notice: t("notice.edit_name")
+      redirect_to genre_path(@genre), notice: t("notice.edit_name")
     else
       render "edit"
     end
   end
-  
+
   def search
     @content = params[:content]
     @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
