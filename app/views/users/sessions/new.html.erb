@@ -26,13 +26,6 @@
         <%= f.password_field :password, autocomplete: "current-password", class: "form-control w-25 #{"is-invalid" if flash[:alert]}" %>
       </div>
 
-      <% if devise_mapping.rememberable? %>
-        <div class="form-group pt-3 text-center row">
-          <%= f.label :remember_me, "ログイン状態を維持する", class: 'col-md-3 offset-md-3 col-form-label' %>
-          <%= f.check_box :remember_me, class: "form-control w-25" %>
-        </div>
-      <% end %>
-
       <div class="form-group pt-5 text-center row">
         <%= f.submit "ログイン", id: "login", class: 'btn btn-success form-control w-25 offset-md-6' %>
       </div>

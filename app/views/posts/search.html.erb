@@ -9,7 +9,7 @@
 
 <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
   <div class="form-group pt-5 text-center row">
-    <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+    <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
     <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
       <i class='fa fa-search'></i>
     <% end %>

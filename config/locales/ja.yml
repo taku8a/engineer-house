@@ -109,6 +109,8 @@ ja:
     owner_leave: オーナーはプロジェクトから離脱できません。
     owner_right: オーナー権限がありません。
     project_end: 参加済み、または受付終了です。
+    confirm: 本当に削除しますか？
+    leave: 本当に離脱しますか？
   date:
     abbr_day_names:
     - 日

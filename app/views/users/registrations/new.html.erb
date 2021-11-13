@@ -34,11 +34,6 @@
 
       <div class="form-group pt-3 text-center row">
         <%= f.label :password, "パスワード(６文字以上)", class: 'col-md-3 offset-md-3 col-form-label' %>
-        <!--
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        -->
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control w-25" %>
       </div>
 
