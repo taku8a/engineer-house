@@ -21,7 +21,7 @@
  私自身、プログラミング学習を通して感じた一人で学習することの難しさを解消したいと強く感じた。
  これから学習をする方が同じような思いにならないよう、当サイトを開設しようと思い至った。
 
-### ターゲットユーザ
+### ターゲットユーザー
 
 - プログラミング学習にお困りの方
 - 現役エンジニアでさらなる高みを目指したい方
@@ -33,10 +33,6 @@
 
 ## 設計書
 
-## チャレンジ要素一覧
-
-- https://docs.google.com/spreadsheets/d/1uFiyagXrISEKVZta_y1Id4Q5F4OqxoG3zYkaC87XMEI/edit#gid=0
-
 ## 開発環境
 
 - OS：Linux(CentOS)
@@ -45,4 +41,27 @@
 - JS ライブラリ：jQuery
 - IDE：Cloud9
 
+## 設計概要
 
+## [ER図]
+
+![ポートフォリオ](https://user-images.githubusercontent.com/89015721/141489358-de62c2f9-a1c7-4e70-b552-5d647e7dff79.jpg)
+
+## [アプリケーション詳細設計書]
+
+![portfolio2](https://user-images.githubusercontent.com/89015721/141505848-b51c1b49-1afb-4d58-ac3c-e16de0637aeb.jpg)
+
+### [使用言語]
+- HTML & CSS
+- Javascript
+- Ruby（2.6.3）
+- Ruby on Rails（5.2.5）
+
+### [使用Gem]
+
+![portfolio1](https://user-images.githubusercontent.com/89015721/141502657-d8ea486d-96c4-45da-a77b-a33dcc6fa3e4.jpg)
+
+
+### [開発者]
+
+taku8a
