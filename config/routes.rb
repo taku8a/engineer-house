@@ -49,5 +49,13 @@ Rails.application.routes.draw do
     end
     resources :genre_details, except: [:destroy]
   end
+  
+  resources :contacts, only: [:new, :create] do
+    collection do
+      post :confirm
+      post :back
+      get :complete
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
