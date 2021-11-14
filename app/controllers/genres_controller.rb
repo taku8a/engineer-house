@@ -40,6 +40,12 @@ class GenresController < ApplicationController
     @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
   end
 
+  def seek
+    @genre = Genre.find(params[:id])
+    @content = params[:content]
+    @genre_posts = @genre.posts.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
+  end
+
   private
 
   def genre_params

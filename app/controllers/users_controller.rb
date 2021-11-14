@@ -41,23 +41,23 @@ class UsersController < ApplicationController
     reset_session
     redirect_to root_path, notice: t("notice.leave_user")
   end
-  
+
   def index
     @users = User.page(params[:page]).reverse_order
   end
-  
+
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.page(params[:post_page]).reverse_order
     @post_comments = @user.post_comments.page(params[:comment_page]).reverse_order
     @projects = @user.projects.page(params[:project_page]).reverse_order
   end
-  
+
   def search
     @content = params[:content]
     @users = User.where('name LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
-  end  
-  
+  end
+
   private
 
   def user_params
