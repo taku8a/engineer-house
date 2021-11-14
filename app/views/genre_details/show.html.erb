@@ -13,7 +13,7 @@
         <tr>
           <th>ジャンル</th>
           <th class="text-break">
-            <%= @genre.name %>
+            <%= link_to @genre.name, genre_path(@genre) %>
           </th>
         </tr>
         <tr>
