@@ -105,8 +105,6 @@ footer{
 
 .flash1 {
     padding: 0.5em 1em;
-    // padding: 0.5em 1em;
-    // margin: 2em 0;
     color: #5989cf;
     background: #c6e4ff;
     border-bottom: solid 6px #aac5de;
@@ -136,4 +134,13 @@ footer{
 .auto-pull-down-box {
   height: 100px !important;
   line-height: 100px !important;
+}
+
+.flash4 {
+    padding: 0.5em 1em;
+    color: #5989cf;
+    background: #c6e4ff;
+    border-bottom: solid 6px #aac5de;
+    border-radius: 10%;
+    opacity: 0.8;
 }

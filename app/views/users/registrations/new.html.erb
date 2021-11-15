@@ -19,7 +19,7 @@
 
       <div class="form-group pt-3 text-center row" style="height: 500px;">
         <%= f.label :introduction, "自己紹介", class: 'col-md-3 offset-md-3 col-form-label' %>
-        <%= f.text_area :introduction, placeholder: "好きな言語はRubyです。", class: "form-control w-25" %>
+        <%= f.text_area :introduction, placeholder: "好きな言語はRubyです。", class: "form-control w-50" %>
       </div>
 
       <div class="form-group pt-3 text-center row">
@@ -49,6 +49,5 @@
         <h5 class=" w-25 offset-md-6">既に登録済みの方 ➡ <%= render "users/shared/links" %></h5>
       </div>
     <% end %>
-    <%= render "layouts/button" %>
   </div>
 </div>
