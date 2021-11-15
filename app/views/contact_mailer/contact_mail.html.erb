@@ -1,7 +1,7 @@
 <h3><%= @contact.name %>様　からお問い合わせを承りました</h3>
 <h2>【お問い合わせ内容】</h2>
-<p>
-  <%= @contact.content %><br>
+<p class="text-break">
+  <%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 </p>
 <p>
   お問い合わせありがとうございます。<br>

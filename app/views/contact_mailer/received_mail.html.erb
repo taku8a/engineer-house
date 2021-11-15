@@ -1,8 +1,8 @@
 <h3>Webサイトからお問い合わせがありました。</h3>
 
-<p>
+<p class="text-break">
   Name: <%= @contact.name %><br>
   Email: <%= @contact.email %><br>
   Message:<br>
-  <%= @contact.content %>
+  <%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 </p>
