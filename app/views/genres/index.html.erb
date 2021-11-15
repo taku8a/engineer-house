@@ -1,47 +1,51 @@
-<div id="genre_flash" class="flash text-center text-primary">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
+<div class="user_textarea">
+  <div class="container">
+    <div id="genre_flash" class="flash text-center text-primary">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
+    </div>
 
-<h3 class="text-center pt-5">ジャンル一覧・追加</h3>
+    <h3 class="text-center pt-5">ジャンル一覧・追加</h3>
 
-<%= form_with url: search_genres_path, method: :get, local: true do |f| %>
-  <div class="form-group pt-5 text-center row">
-    <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
-    <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
-      <i class='fa fa-search'></i>
+    <%= form_with url: search_genres_path, method: :get, local: true do |f| %>
+      <div class="form-group pt-5 text-center row">
+        <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
+          <i class='fa fa-search'></i>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= form_with model: @genre, data: { remote: true } do |f| %>
+
+      <div class="bg-light text-danger" id="genre_error"><%= render "users/shared/error_messages", resource: @genre %></div>
+
+      <div class="form-group pt-5 text-center row">
+        <%= f.text_field :name, placeholder: "ジャンル名", class: 'offset-md-4 col-md-4 form-control w-25', id: "name" %>
+        <%= f.submit "新規登録", class: 'btn btn-success ml-1' %>
+      </div>
+
+    <% end %>
+
+    <% unless @genres.blank? %>
+      <table class='table table-hover table-inverse mt-5'>
+        <thead>
+          <tr class="table-active">
+            <th>ジャンル</th>
+            <th>投稿数</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="genre">
+          <%= render "index", genres: @genres %>
+        </tbody>
+      </table>
+      <%= paginate @genres %>
+    <% else %>
+      <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
     <% end %>
   </div>
-<% end %>
-
-<%= form_with model: @genre, data: { remote: true } do |f| %>
-
-  <div class="bg-light text-danger" id="genre_error"><%= render "users/shared/error_messages", resource: @genre %></div>
-
-  <div class="form-group pt-5 text-center row">
-    <%= f.text_field :name, placeholder: "ジャンル名", class: 'offset-md-4 col-md-4 form-control w-25', id: "name" %>
-    <%= f.submit "新規登録", class: 'btn btn-success ml-1' %>
-  </div>
-
-<% end %>
-
-<% unless @genres.blank? %>
-  <table class='table table-hover table-inverse mt-5'>
-    <thead>
-      <tr class="table-active">
-        <th>ジャンル</th>
-        <th>投稿数</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="genre">
-      <%= render "index", genres: @genres %>
-    </tbody>
-  </table>
-  <%= paginate @genres %>
-<% else %>
-  <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
-<% end %>
+</div>

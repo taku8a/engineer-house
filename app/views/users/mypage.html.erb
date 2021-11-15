@@ -1,222 +1,226 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
-<h3 class="text-center mb-5 mt-5">マイページ</h3>
-<div class="row">
-  <div class="col-md-4">
-    <table class='table' style="table-layout:fixed;">
-      <thead>
-        <tr class="table-active">
-          <th class="text-right pr-0">プロフ</th>
-          <th class="pl-0">ィール</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>アイコン</th>
-          <th>
-            <%= attachment_image_tag(current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %>
-          </th>
-        </tr>
-        <tr>
-          <th>ニックネーム</th>
-          <th class="text-break"><%= current_user.name %></th>
-        </tr>
-        <tr>
-          <th>自己紹介</th>
-          <th class="text-break"><%= safe_join(current_user.introduction.split("\n"),tag(:br)) %></th>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <th class="text-break"><%= current_user.email %></th>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center pt-5 mb-5 row">
-      <%= link_to '編集する', edit_users_path, class: "btn btn-success col-md-12" %>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
     </div>
-  </div>
-  <div class="col-md-3 offset-md-1 p-0">
-    <% unless @projects.blank? %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>参加プロジェクト</th>
-          </tr>
-        </thead>
-        <tbody>
-            <% @projects.each do |project| %>
-              <tr>
-                <td>
-                  <%= link_to project.name.truncate(10), project_path(project) %>
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
-      </table>
-　　　<%= paginate @projects, :param_name => "project_page" %>
-    <% else %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>プロジェクト(未参加)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to "参加しよう！", projects_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-  <div class="col-md-3 p-0">
-    <% unless @my_project.blank? %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>マイプロジェクト</th>
-          </tr>
-        </thead>
-        <tbody>
-            <% @my_project.each do |project| %>
-              <tr>
-                <td>
-                  <%= link_to project.name.truncate(10), project_path(project) %>
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
-      </table>
-      <%= paginate @my_project, :param_name => "my_project_page" %>
-    <% else %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>プロジェクト(未作成)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to "始動しよう！", new_project_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-  <div class="col-md-3 offset-md-5 p-0">
-    <% unless @posts.blank? %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>マイ投稿</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr>
-              <td>
-                <%= link_to post.title.truncate(10), post_path(post) %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @posts, :param_name => "post_page" %>
-    <% else %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>未投稿</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to "投稿しよう！", new_post_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-  <div class="col-md-3 p-0">
-    <% unless @post_comments.blank? %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>マイコメント</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @post_comments.each do |post_comment| %>
-            <tr>
-              <td>
-                <%= link_to post_comment.comment.truncate(10), post_post_comment_path(post_comment.post_id,post_comment.id) %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @post_comments, :param_name => "comment_page" %>
-    <% else %>
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr class="table-active">
-            <th>未コメント</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to "コメントしよう！", posts_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-  <div class="col-md-6 offset-md-5 p-0">
-    <% unless @my_genre.blank? %>
-        <table class="table table-hover table-inverse">
+    <h3 class="text-center mb-5 mt-5">マイページ</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <table class='table' style="table-layout:fixed;">
           <thead>
             <tr class="table-active">
-              <th class="text-center">マイジャンル</th>
+              <th class="text-right pr-0">プロフ</th>
+              <th class="pl-0">ィール</th>
             </tr>
           </thead>
           <tbody>
-              <% @my_genre.each do |genre| %>
+            <tr>
+              <th>アイコン</th>
+              <th>
+                <%= attachment_image_tag(current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+              </th>
+            </tr>
+            <tr>
+              <th>ニックネーム</th>
+              <th class="text-break"><%= current_user.name %></th>
+            </tr>
+            <tr>
+              <th>自己紹介</th>
+              <th class="text-break"><%= safe_join(current_user.introduction.split("\n"),tag(:br)) %></th>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <th class="text-break"><%= current_user.email %></th>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center pt-5 mb-5 row">
+          <%= link_to '編集する', edit_users_path, class: "btn btn-success col-md-12" %>
+        </div>
+      </div>
+      <div class="col-md-3 offset-md-1 p-0">
+        <% unless @projects.blank? %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>参加プロジェクト</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @projects.each do |project| %>
+                  <tr>
+                    <td>
+                      <%= link_to project.name.truncate(10), project_path(project) %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+    　　　<%= paginate @projects, :param_name => "project_page" %>
+        <% else %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>プロジェクト(未参加)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= link_to "参加しよう！", projects_path %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <div class="col-md-3 p-0">
+        <% unless @my_project.blank? %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>マイプロジェクト</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @my_project.each do |project| %>
+                  <tr>
+                    <td>
+                      <%= link_to project.name.truncate(10), project_path(project) %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+          <%= paginate @my_project, :param_name => "my_project_page" %>
+        <% else %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>プロジェクト(未作成)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= link_to "始動しよう！", new_project_path %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <div class="col-md-3 offset-md-5 p-0">
+        <% unless @posts.blank? %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>マイ投稿</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @posts.each do |post| %>
                 <tr>
-                  <td class="text-center">
-                    <%= link_to genre.name.truncate(10), genre_path(genre) %>
+                  <td>
+                    <%= link_to post.title.truncate(10), post_path(post) %>
                   </td>
                 </tr>
               <% end %>
-          </tbody>
-        </table>
-        <%= paginate @my_genre, :param_name => "genre_page" %>
-      <% else %>
-        <table class="table table-hover table-inverse">
-          <thead>
-            <tr class="table-active">
-              <th class="text-center">ジャンル(未着手)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-center">
-                <%= link_to "さあ、始めよう！", genres_path %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      <% end %>
+            </tbody>
+          </table>
+          <%= paginate @posts, :param_name => "post_page" %>
+        <% else %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>未投稿</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= link_to "投稿しよう！", new_post_path %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <div class="col-md-3 p-0">
+        <% unless @post_comments.blank? %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>マイコメント</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @post_comments.each do |post_comment| %>
+                <tr>
+                  <td>
+                    <%= link_to post_comment.comment.truncate(10), post_post_comment_path(post_comment.post_id,post_comment.id) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @post_comments, :param_name => "comment_page" %>
+        <% else %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th>未コメント</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= link_to "コメントしよう！", posts_path %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <div class="col-md-6 offset-md-5 p-0">
+        <% unless @my_genre.blank? %>
+            <table class="table table-hover table-inverse">
+              <thead>
+                <tr class="table-active">
+                  <th class="text-center">マイジャンル</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% @my_genre.each do |genre| %>
+                    <tr>
+                      <td class="text-center">
+                        <%= link_to genre.name.truncate(10), genre_path(genre) %>
+                      </td>
+                    </tr>
+                  <% end %>
+              </tbody>
+            </table>
+            <%= paginate @my_genre, :param_name => "genre_page" %>
+          <% else %>
+            <table class="table table-hover table-inverse">
+              <thead>
+                <tr class="table-active">
+                  <th class="text-center">ジャンル(未着手)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">
+                    <%= link_to "さあ、始めよう！", genres_path %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
     </div>
+  </div>
 </div>

@@ -1,51 +1,55 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
+    </div>
 
-<h3 class="text-center pt-5">プロジェクト検索結果</h3>
+    <h3 class="text-center pt-5">プロジェクト検索結果</h3>
 
-<%= form_with url: search_projects_path, method: :get, local: true do |f| %>
-  <div class="form-group pt-5 text-center row">
-    <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
-    <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
-      <i class='fa fa-search'></i>
+    <%= form_with url: search_projects_path, method: :get, local: true do |f| %>
+      <div class="form-group pt-5 text-center row">
+        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
+          <i class='fa fa-search'></i>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="text-right">
+      <%= link_to new_project_path, class: "new_link" do %>
+        <i class="fas fa-plus-circle fa-3x"></i>
+      <% end %>
+    </div>
+    <% unless @projects.blank? %>
+      <table class="table table-hover table-inverse mt-5">
+        <thead>
+          <tr class="table-active">
+            <th>始動</th>
+            <th>アイコン</th>
+            <th>プロジェクト名</th>
+            <th>概要</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+
+              <td><%= project.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+              <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+              <td>
+                <%= link_to project.name.truncate(10), project_path(project) %>
+              </td>
+              <td><%= project.introduction.truncate(10) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @projects %>
+    <% else %>
+      <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
     <% end %>
   </div>
-<% end %>
-
-<div class="text-right">
-  <%= link_to new_project_path, class: "new_link" do %>
-    <i class="fas fa-plus-circle fa-3x"></i>
-  <% end %>
 </div>
-<% unless @projects.blank? %>
-  <table class="table table-hover table-inverse mt-5">
-    <thead>
-      <tr class="table-active">
-        <th>始動</th>
-        <th>アイコン</th>
-        <th>プロジェクト名</th>
-        <th>概要</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @projects.each do |project| %>
-        <tr>
-
-          <td><%= project.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-          <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
-          <td>
-            <%= link_to project.name.truncate(10), project_path(project) %>
-          </td>
-          <td><%= project.introduction.truncate(10) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @projects %>
-<% else %>
-  <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
-<% end %>

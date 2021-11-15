@@ -1,28 +1,32 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
+    </div>
+
+    <h3 class="text-center pt-5">新規ガイド</h3>
+    <%= form_with model: @genre_detail, url: genre_genre_details_path, local: true do |f| %>
+
+      <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
+
+      <div class="form-group pt-5 text-center row">
+        <%= f.label :title, "タイトル", class: 'col-md-3 offset-md-2 col-form-label' %>
+        <%= f.text_field :title, autofocus: true, placeholder: "未来について", class: 'form-control w-25' %>
+      </div>
+
+      <div class="form-group pt-3 text-center row" style="height: 500px;">
+        <%= f.label :body, "ガイド内容", class: 'col-md-3 offset-md-2 col-form-label' %>
+        <%= f.text_area :body, placeholder: "年金制度について考える", class: 'form-control w-50' %>
+      </div>
+
+      <%= f.hidden_field :genre_id, :value => @genre.id %>
+
+      <div class="form-group pt-5 text-center row">
+        <%= f.submit "投稿する", class: 'btn btn-success form-control w-25 offset-md-5' %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<h3 class="text-center pt-5">新規ガイド</h3>
-<%= form_with model: @genre_detail, url: genre_genre_details_path, local: true do |f| %>
-
-  <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
-
-  <div class="form-group pt-5 text-center row">
-    <%= f.label :title, "タイトル", class: 'col-md-3 offset-md-2 col-form-label' %>
-    <%= f.text_field :title, autofocus: true, placeholder: "未来について", class: 'form-control w-25' %>
-  </div>
-
-  <div class="form-group pt-3 text-center row" style="height: 500px;">
-    <%= f.label :body, "ガイド内容", class: 'col-md-3 offset-md-2 col-form-label' %>
-    <%= f.text_area :body, placeholder: "年金制度について考える", class: 'form-control w-50' %>
-  </div>
-  
-  <%= f.hidden_field :genre_id, :value => @genre.id %>
-
-  <div class="form-group pt-5 text-center row">
-    <%= f.submit "投稿する", class: 'btn btn-success form-control w-25 offset-md-5' %>
-  </div>
-<% end %>

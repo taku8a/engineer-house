@@ -1,48 +1,52 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <h3 class="text-center mb-5 mt-5">コメント情報</h3>
-    <table class='table' style="table-layout:fixed;">
-      <tbody>
-        <tr>
-          <th>投稿タイトル</th>
-          <th class="text-break"><%= link_to @post.title, post_path(@post.id) %></th>
-        </tr>
-        <tr>
-          <th>コメント者</th>
-          <th class="text-break">
-            <%= link_to @post_comment.user.name, show_users_path(@post_comment.user.id) %>
-          </th>
-        </tr>
-        <tr>
-          <th>参考ガイド</th>
-          <th class="text-break">
-            <% @post_comment.genre_details.each do |genre_detail| %>
-              <%= link_to genre_detail.title, genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %><br>
-            <% end %>
-          </th>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center">
-       <% if @post_comment.user_id == current_user.id %>
-          <div class="text-center pt-5 row">
-            <%= link_to '編集する', edit_post_post_comment_path(@post, @post_comment), class: "btn btn-success col-md-12" %>
-          </div>
-          <div class="text-center pt-5 row">
-            <%= link_to "削除する", post_post_comment_path(@post, @post_comment), method: :delete, "data-confirm" => t("alert.confirm") , class: "btn btn-danger col-md-12" %>
-          </div>
-        <% end %>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
     </div>
-  </div>
-  <div class="col-md-7 offset-md-1">
-    <h3 class="text-center mb-5 mt-5">コメント</h3>
-    <p class="text-break"><%= safe_join(@post_comment.comment.split("\n"),tag(:br)) %></p>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h3 class="text-center mb-5 mt-5">コメント情報</h3>
+        <table class='table' style="table-layout:fixed;">
+          <tbody>
+            <tr>
+              <th>投稿タイトル</th>
+              <th class="text-break"><%= link_to @post.title, post_path(@post.id) %></th>
+            </tr>
+            <tr>
+              <th>コメント者</th>
+              <th class="text-break">
+                <%= link_to @post_comment.user.name, show_users_path(@post_comment.user.id) %>
+              </th>
+            </tr>
+            <tr>
+              <th>参考ガイド</th>
+              <th class="text-break">
+                <% @post_comment.genre_details.each do |genre_detail| %>
+                  <%= link_to genre_detail.title, genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %><br>
+                <% end %>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+           <% if @post_comment.user_id == current_user.id %>
+              <div class="text-center pt-5 row">
+                <%= link_to '編集する', edit_post_post_comment_path(@post, @post_comment), class: "btn btn-success col-md-12" %>
+              </div>
+              <div class="text-center pt-5 row">
+                <%= link_to "削除する", post_post_comment_path(@post, @post_comment), method: :delete, "data-confirm" => t("alert.confirm") , class: "btn btn-danger col-md-12" %>
+              </div>
+            <% end %>
+        </div>
+      </div>
+      <div class="col-md-7 offset-md-1">
+        <h3 class="text-center mb-5 mt-5">コメント</h3>
+        <p class="text-break"><%= safe_join(@post_comment.comment.split("\n"),tag(:br)) %></p>
+      </div>
+    </div>
   </div>
 </div>

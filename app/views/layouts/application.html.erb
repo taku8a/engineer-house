@@ -15,12 +15,7 @@
     <% if user_signed_in? %>
       <%= render "layouts/header_user" %>
       <div id="user_bg">
-        <div class="user_textarea">
-          <div class="container">
-            <%= yield %>
-            <%= render "layouts/button" %>
-          </div>
-        </div>
+        <%= yield %>
       </div>
     <% else %>
       <%= render "layouts/header_before" %>

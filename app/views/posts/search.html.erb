@@ -1,56 +1,60 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
+    </div>
 
-<h3 class="text-center pt-5">投稿検索結果</h3>
+    <h3 class="text-center pt-5">投稿検索結果</h3>
 
-<%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-  <div class="form-group pt-5 text-center row">
-    <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
-    <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
-      <i class='fa fa-search'></i>
+    <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+      <div class="form-group pt-5 text-center row">
+        <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
+          <i class='fa fa-search'></i>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="text-right">
+      <%= link_to new_post_path, class: "new_link" do %>
+        <i class="fas fa-plus-circle fa-3x"></i>
+      <% end %>
+    </div>
+    <% unless @posts.blank? %>
+      <table class="table table-hover table-inverse mt-5">
+        <thead>
+          <tr class="table-active">
+            <th>投稿日時</th>
+            <th>投稿者</th>
+            <th>タイトル</th>
+            <th>投稿内容</th>
+            <th>ジャンル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr>
+              <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+              <td><%= link_to post.user.name.truncate(10), show_users_path(post.user.id) %></td>
+              <td>
+                <%= link_to post.title.truncate(10), post_path(post) %>
+              </td>
+              <td><%= post.body.truncate(10) %></td>
+              <td class="text-break">
+                <% post.genres.each do |genre| %>
+                  <%= link_to genre.name.truncate(10), genre_path(genre) %><br>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @posts %>
+    <% else %>
+      <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
     <% end %>
   </div>
-<% end %>
-
-<div class="text-right">
-  <%= link_to new_post_path, class: "new_link" do %>
-    <i class="fas fa-plus-circle fa-3x"></i>
-  <% end %>
 </div>
-<% unless @posts.blank? %>
-  <table class="table table-hover table-inverse mt-5">
-    <thead>
-      <tr class="table-active">
-        <th>投稿日時</th>
-        <th>投稿者</th>
-        <th>タイトル</th>
-        <th>投稿内容</th>
-        <th>ジャンル</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-          <td><%= link_to post.user.name.truncate(10), show_users_path(post.user.id) %></td>
-          <td>
-            <%= link_to post.title.truncate(10), post_path(post) %>
-          </td>
-          <td><%= post.body.truncate(10) %></td>
-          <td class="text-break">
-            <% post.genres.each do |genre| %>
-              <%= link_to genre.name.truncate(10), genre_path(genre) %><br>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @posts %>
-<% else %>
-  <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
-<% end %>

@@ -1,65 +1,69 @@
-<div class="flash">
-  <p class="text-center">
-    <span class="text-primary"><%= notice %></span>
-    <span class="text-danger"><%= alert %></span>
-  </p>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <h3 class="text-center mb-5 mt-5">プロジェクト紹介</h3>
-    <table class='table' style="table-layout:fixed;">
-      <tbody>
-        <tr>
-          <th>アイコン</th>
-          <th>
-            <%= attachment_image_tag(@project, :project_image, :fill, 100, 100, fallback: "no_image.jpg") %>
-          </th>
-        </tr>
-        <tr>
-          <th>プロジェクト名</th>
-          <th class="text-break"><%= @project.name %></th>
-        </tr>
-        <tr>
-          <th>メンバー</th>
-          <th class="text-break">
-            <% @project.users.each do |member| %>
-              <%= link_to member.name, show_users_path(member.id) %><br>
-            <% end %>
-          </th>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center">
-      <% if @project.owner_id == current_user.id %>
-        <div class="text-center pt-5 row">
-          <%= link_to '編集する', edit_project_path(@project), class: "btn btn-success col-md-12" %>
-        </div>
-        <div class="text-center pt-5 row">
-          <%= link_to "削除する", project_path(@project), method: :delete, "data-confirm" => t("alert.confirm") , class: "btn btn-danger col-md-12" %>
-        </div>
-        <div class="text-center pt-5 row">
-          <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
-        </div>
-      <% elsif @project.users.include?(current_user) %>
-        <div class="text-center pt-5 row">
-          <%= link_to '離脱する', project_leave_path(@project), "data-confirm" => t("alert.leave"), class: "btn btn-warning col-md-12" %>
-        </div>
-        <div class="text-center pt-5 row">
-          <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
-        </div>
-      <% elsif @project.users.count >= 4 %>
-        <div class="text-center pt-5 row">
-          <%= link_to '受付終了', projects_path, class: "btn btn-info col-md-12" %>
-        </div>
-      <% else %>
-        <div class="text-center pt-5 row">
-          <%= link_to '参加する', project_join_path(@project), class: "btn btn-info col-md-12" %>
-        </div>
-      <% end %>
+<div class="user_textarea">
+  <div class="container">
+    <div class="flash">
+      <p class="text-center">
+        <span class="text-primary"><%= notice %></span>
+        <span class="text-danger"><%= alert %></span>
+      </p>
     </div>
-  </div>
-  <div class="col-md-7 offset-md-1">
-    <h3 class="text-center mb-5 mt-5">プロジェクト詳細</h3>
-    <p class="text-break"><%= safe_join(@project.introduction.split("\n"),tag(:br)) %></p>
+    <div class="row">
+      <div class="col-md-4">
+        <h3 class="text-center mb-5 mt-5">プロジェクト紹介</h3>
+        <table class='table' style="table-layout:fixed;">
+          <tbody>
+            <tr>
+              <th>アイコン</th>
+              <th>
+                <%= attachment_image_tag(@project, :project_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+              </th>
+            </tr>
+            <tr>
+              <th>プロジェクト名</th>
+              <th class="text-break"><%= @project.name %></th>
+            </tr>
+            <tr>
+              <th>メンバー</th>
+              <th class="text-break">
+                <% @project.users.each do |member| %>
+                  <%= link_to member.name, show_users_path(member.id) %><br>
+                <% end %>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <% if @project.owner_id == current_user.id %>
+            <div class="text-center pt-5 row">
+              <%= link_to '編集する', edit_project_path(@project), class: "btn btn-success col-md-12" %>
+            </div>
+            <div class="text-center pt-5 row">
+              <%= link_to "削除する", project_path(@project), method: :delete, "data-confirm" => t("alert.confirm") , class: "btn btn-danger col-md-12" %>
+            </div>
+            <div class="text-center pt-5 row">
+              <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
+            </div>
+          <% elsif @project.users.include?(current_user) %>
+            <div class="text-center pt-5 row">
+              <%= link_to '離脱する', project_leave_path(@project), "data-confirm" => t("alert.leave"), class: "btn btn-warning col-md-12" %>
+            </div>
+            <div class="text-center pt-5 row">
+              <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
+            </div>
+          <% elsif @project.users.count >= 4 %>
+            <div class="text-center pt-5 row">
+              <%= link_to '受付終了', projects_path, class: "btn btn-info col-md-12" %>
+            </div>
+          <% else %>
+            <div class="text-center pt-5 row">
+              <%= link_to '参加する', project_join_path(@project), class: "btn btn-info col-md-12" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-7 offset-md-1">
+        <h3 class="text-center mb-5 mt-5">プロジェクト詳細</h3>
+        <p class="text-break"><%= safe_join(@project.introduction.split("\n"),tag(:br)) %></p>
+      </div>
+    </div>
   </div>
 </div>
