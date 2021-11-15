@@ -28,22 +28,17 @@
           <%= f.submit '送信する', class: 'btn btn-info form-control w-25 col-md-12' %>
         </div>
       <% end %>
+      <%= form_with model: @contact, url: back_contacts_path, local: true do |f| %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :email %>
+        <%= f.hidden_field :content %>
+        <div class="form-group pt-5 text-center row">
+          <%= f.submit '入力画面に戻る', class: 'btn btn-secondary form-control w-25 col-md-12' %>
+        </div>
+      <% end %>
     </div>
     <div class="col-md-7 offset-md-1">
       <p class="text-break"><%= safe_join(@contact.content.split("\n"),tag(:br)) %></p>
     </div>
   </div>
-  
-  <!--<%= form_with model: @contact, url: contacts_path, local: true do |f| %>-->
-  <!--  <%= f.hidden_field :name %>-->
-  <!--  <%= f.hidden_field :email %>-->
-  <!--  <%= f.hidden_field :content %>-->
-  <!--  <div><%= f.submit '送信する' %></div>-->
-  <!--<% end %>-->
-  <%= form_with model: @contact, url: back_contacts_path, local: true do |f| %>
-    <%= f.hidden_field :name %>
-    <%= f.hidden_field :email %>
-    <%= f.hidden_field :content %>
-    <div><%= f.submit '入力画面に戻る' %></div>
-  <% end %>
 </div>

@@ -1,17 +1,23 @@
-<h2 class="my-3 ml-3 heading">
-    お問い合わせ完了
-</h2>
-<div class="row">
-  <div class="col-sm-10 mx-auto text-center mt-3">
-    <h3 class="mb-5">お問い合わせありがとうございました</h3>
-
-    <p>
-      確認メールを送信させて頂きましたので、<br>
-      ご確認ください。
+<div class="container">
+  <div class="flash">
+    <p class="text-center">
+      <span class="text-primary"><%= notice %></span>
+      <span class="text-danger"><%= alert %></span>
     </p>
-
-    <div class="d-flex justify-content-center mb-5">
-      <%= link_to 'Topへ戻る', root_path, class:'btn btn-info mb-5 mt-3' %>
+  </div>
+  <h3 class="text-center pt-5 mb-5">お問い合わせ完了</h3>
+  <div class="row">
+    <div class="col-md-10 mx-auto text-center mt-3">
+      <h3 class="mb-5">お問い合わせありがとうございました</h3>
+  
+      <p>
+        確認メールを送信させて頂きましたので、<br>
+        ご確認ください。
+      </p>
+  
+      <div class="d-flex justify-content-center mb-5">
+        <%= link_to 'Topへ戻る', root_path, class:'btn btn-secondary mb-5 mt-3' %>
+      </div>
     </div>
   </div>
 </div>
