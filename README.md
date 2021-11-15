@@ -45,11 +45,11 @@
 
 ## [ER図]
 
-![ポートフォリオ](https://user-images.githubusercontent.com/89015721/141489358-de62c2f9-a1c7-4e70-b552-5d647e7dff79.jpg)
+![ポートフォリオ-ER図](https://user-images.githubusercontent.com/89015721/141829548-a03810da-1868-43b5-8154-3cd62dfc6c9b.jpg)
 
 ## [アプリケーション詳細設計書]
 
-![portfolio2](https://user-images.githubusercontent.com/89015721/141505848-b51c1b49-1afb-4d58-ac3c-e16de0637aeb.jpg)
+![ポートフォリオ-ルーティング](https://user-images.githubusercontent.com/89015721/141829620-c6a83acd-d0e3-4a16-bc35-47fa96bb4f7a.jpg)
 
 ### [使用言語]
 - HTML & CSS
