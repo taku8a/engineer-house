@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get '/genre_details' => 'genre_details#select', as: :genre_details_all
   get '/post_comments/search' => 'post_comments#seek', as: :post_comments_seek
   get '/genre_details/search' => 'genre_details#seek', as: :genre_details_seek
+  get '/contacts' => 'contacts#create', as: :contacts
 
   resources :posts do
     collection do

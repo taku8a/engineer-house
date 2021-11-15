@@ -73,6 +73,10 @@ ja:
         genre_detail_id: ジャンル投稿ID
         created_at: 作成日
         updated_at: 更新日
+      contact:
+        name: 名前
+        email: メールアドレス
+        content: お問い合わせ内容
     models:
       project: プロジェクト
       project_member: プロジェクトメンバー
@@ -84,6 +88,7 @@ ja:
       post_genre_detail: ジャンル投稿詳細
       post_comment: コメント
       post_comment_genre_detail: ジャンルコメント詳細
+      contact: お問い合わせ
   views:
     pagination:
       first: '&laquo; 最初'

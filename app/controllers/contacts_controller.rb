@@ -11,9 +11,9 @@ class ContactsController < ApplicationController
       return
     end
     @contact = Contact.new(contact_params)
-    # if @contact.invalid?
-    #   render :new
-    # end
+    if @contact.invalid?
+      render :new
+    end
   end
 
   def back
@@ -27,6 +27,11 @@ class ContactsController < ApplicationController
   end
 
   def create
+    unless params[:contact].present?
+      flash[:alert] = t("alert.doubt")
+      redirect_to new_contact_path
+      return
+    end
     @contact = Contact.new(contact_params)
     if @contact.save
       ContactMailer.contact_mail(@contact).deliver  #メール送信処理追加
