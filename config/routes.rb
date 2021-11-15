@@ -49,10 +49,12 @@ Rails.application.routes.draw do
     end
     resources :genre_details, except: [:destroy]
   end
-  
+
   resources :contacts, only: [:new, :create] do
     collection do
+      get :confirm
       post :confirm
+      get :back
       post :back
       get :complete
     end

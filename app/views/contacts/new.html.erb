@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="flash">
+  <div class="flash mt-0 mb-5">
     <p class="text-center">
       <span class="text-primary"><%= notice %></span>
       <span class="text-danger"><%= alert %></span>
     </p>
   </div>
-  <h3 class="text-center pt-5 mb-5">お問い合わせフォーム</h3>
-  <div class="flash4 mt-0 pt-3">
+
+  <div class="flash4 mt-5 pt-3">
+    <h3 class="text-center pt-5 mb-5">お問い合わせフォーム</h3>
     <%= form_with model: @contact, url: confirm_contacts_path, local: true do |f| %>
 
       <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>

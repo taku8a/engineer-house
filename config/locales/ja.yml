@@ -111,6 +111,7 @@ ja:
     project_end: 参加済み、または受付終了です。
     confirm: 本当に削除しますか？
     leave: 本当に離脱しますか？
+    doubt: 不正アクセスが疑われます。再度ご入力ください。
   date:
     abbr_day_names:
     - 日

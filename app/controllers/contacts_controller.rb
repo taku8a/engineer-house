@@ -5,6 +5,11 @@ class ContactsController < ApplicationController
   end
 
   def confirm
+    unless params[:contact].present?
+      flash[:alert] = t("alert.doubt")
+      redirect_back(fallback_location: root_path)
+      return
+    end
     @contact = Contact.new(contact_params)
     # if @contact.invalid?
     #   render :new
@@ -12,6 +17,11 @@ class ContactsController < ApplicationController
   end
 
   def back
+    unless params[:contact].present?
+      flash[:alert] = t("alert.doubt")
+      redirect_to new_contact_path
+      return
+    end
     @contact = Contact.new(contact_params)
     render :new
   end
