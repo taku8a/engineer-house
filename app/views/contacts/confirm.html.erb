@@ -1,44 +1,46 @@
 <div class="container">
-  <div class="flash">
+  <div class="flash mt-0 mb-5">
     <p class="text-center">
       <span class="text-primary"><%= notice %></span>
       <span class="text-danger"><%= alert %></span>
     </p>
   </div>
-  <h3 class="text-center pt-5 mb-5">お問い合わせ内容</h3>
-  <div class="row">
-    <div class="col-md-4">
-      <table class='table' style="table-layout:fixed;">
-        <tbody>
-          <tr>
-            <td>お名前</td>
-            <td class="text-break"><%= @contact.name %></td>
-          </tr>
-          <tr>
-            <td>メールアドレス</td>
-            <td class="text-break"><%= @contact.email %></td>
-          </tr>
-        </tbody>
-      </table>
-      <%= form_with model: @contact, url: contacts_path, local: true do |f| %>
-        <%= f.hidden_field :name %>
-        <%= f.hidden_field :email %>
-        <%= f.hidden_field :content %>
-        <div class="form-group pt-5 text-center row">
-          <%= f.submit '送信する', class: 'btn btn-info form-control w-25 col-md-12' %>
-        </div>
-      <% end %>
-      <%= form_with model: @contact, url: back_contacts_path, local: true do |f| %>
-        <%= f.hidden_field :name %>
-        <%= f.hidden_field :email %>
-        <%= f.hidden_field :content %>
-        <div class="form-group pt-5 text-center row">
-          <%= f.submit '入力画面に戻る', class: 'btn btn-secondary form-control w-25 col-md-12' %>
-        </div>
-      <% end %>
-    </div>
-    <div class="col-md-7 offset-md-1">
-      <p class="text-break"><%= safe_join(@contact.content.split("\n"),tag(:br)) %></p>
+  <div class="flash4 mt-5 pt-3">
+    <h3 class="text-center pt-5 mb-5">お問い合わせ内容</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <table class='table' style="table-layout:fixed;">
+          <tbody>
+            <tr>
+              <td>お名前</td>
+              <td class="text-break"><%= @contact.name %></td>
+            </tr>
+            <tr>
+              <td>メールアドレス</td>
+              <td class="text-break"><%= @contact.email %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= form_with model: @contact, url: contacts_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :name %>
+          <%= f.hidden_field :email %>
+          <%= f.hidden_field :content %>
+          <div class="form-group pt-5 text-center row">
+            <%= f.submit '送信する', class: 'btn btn-info form-control w-25 col-md-12' %>
+          </div>
+        <% end %>
+        <%= form_with model: @contact, url: back_contacts_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :name %>
+          <%= f.hidden_field :email %>
+          <%= f.hidden_field :content %>
+          <div class="form-group pt-5 text-center row">
+            <%= f.submit '入力画面に戻る', class: 'btn btn-secondary form-control w-25 col-md-12' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-7 offset-md-1">
+        <p class="text-break"><%= safe_join(@contact.content.split("\n"),tag(:br)) %></p>
+      </div>
     </div>
   </div>
 </div>
