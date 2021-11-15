@@ -26,6 +26,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    unless params[:user].present?
+      flash[:alert] = t("alert.doubt")
+      redirect_back(fallback_location: root_path)
+      return
+    end
     if current_user.update(user_params)
       redirect_to mypage_users_path, notice: t("notice.mypage")
     else

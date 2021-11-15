@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/search' => 'users#search', as: :search_users
   get '/mypage' => 'users#mypage', as: :mypage_users
   get '/edit' => 'users#edit', as: :edit_users
+  get '/update' => 'users#update', as: :update_false_users
   patch '/update' => 'users#update', as: :update_users
   get '/unsubscribe' => 'users#unsubscribe', as: :unsubscribe_users
   patch '/withdraw' => "users#withdraw", as: :withdraw_users
