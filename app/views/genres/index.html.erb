@@ -42,7 +42,9 @@
         <%= render "index", genres: @genres %>
       </tbody>
     </table>
-    <%= paginate @genres %>
+    <div id="genre_nav">
+      <%= render 'paginate', genres: @genres %>
+    </div>
     <% if @genres.blank? %>
       <p class="text-center pt-5" id="genre_not">該当項目が見つかりませんでした。</p>
     <% end %>

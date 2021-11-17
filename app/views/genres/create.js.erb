@@ -1,4 +1,5 @@
 $("#genre").html("<%= j(render "index", genres: @genres) %>");
+$("#genre_nav").html("<%= j(render "paginate", genres: @genres) %>");
 $("#name").val("");
 $("#genre_not").remove();
 $('#genre_error').empty();
