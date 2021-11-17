@@ -59,7 +59,7 @@
                 <% end %>
             </tbody>
           </table>
-    　　  　<%= paginate @projects, :param_name => "project_page" %>
+    　　    <%= paginate @projects, :param_name => "project_page" %>
         <% else %>
           <table class="table table-hover table-inverse">
             <thead>
@@ -113,6 +113,8 @@
           </table>
         <% end %>
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-3 offset-md-5 p-0">
         <% unless @posts.blank? %>
           <table class="table table-hover table-inverse">
@@ -185,42 +187,44 @@
           </table>
         <% end %>
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-6 offset-md-5 p-0">
         <% unless @my_genre.blank? %>
-            <table class="table table-hover table-inverse">
-              <thead>
-                <tr class="table-active">
-                  <th class="text-center">マイジャンル</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <% @my_genre.each do |genre| %>
-                    <tr>
-                      <td class="text-center">
-                        <%= link_to genre.name.truncate(10), genre_path(genre) %>
-                      </td>
-                    </tr>
-                  <% end %>
-              </tbody>
-            </table>
-            <%= paginate @my_genre, :param_name => "genre_page" %>
-          <% else %>
-            <table class="table table-hover table-inverse">
-              <thead>
-                <tr class="table-active">
-                  <th class="text-center">ジャンル(未着手)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-center">
-                    <%= link_to "さあ、始めよう！", genres_path %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th class="text-center">マイジャンル</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @my_genre.each do |genre| %>
+                  <tr>
+                    <td class="text-center">
+                      <%= link_to genre.name.truncate(10), genre_path(genre) %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+          <%= paginate @my_genre, :param_name => "genre_page" %>
+        <% else %>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr class="table-active">
+                <th class="text-center">ジャンル(未着手)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">
+                  <%= link_to "さあ、始めよう！", genres_path %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
     </div>
     <%= render 'layouts/arrow' %>
   </div>
