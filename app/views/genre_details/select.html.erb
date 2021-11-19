@@ -30,11 +30,11 @@
         <tbody>
           <% @genre_details.each do |genre_detail| %>
             <tr>
-              <td><%= genre_detail.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+              <td><%= genre_detail.update_time %></td>
               <td>
-                <%= link_to genre_detail.title.truncate(10), genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %>
+                <%= link_to genre_detail.short_title, genre_genre_detail_path(genre_detail.genre_id, genre_detail.id) %>
               </td>
-              <td><%= genre_detail.body.truncate(10) %></td>
+              <td><%= genre_detail.short_body %></td>
             </tr>
           <% end %>
         </tbody>
