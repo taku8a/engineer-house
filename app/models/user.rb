@@ -24,8 +24,16 @@ class User < ApplicationRecord
   def short_introduction
     introduction.truncate(10)
   end
-  
+
   def my_genre?(genre)
     self.id == genre.owner_id
+  end
+
+  def my_post_comment?(post_comment)
+    self == post_comment.user
+  end
+
+  def my_post?(post)
+    self == post.user
   end
 end

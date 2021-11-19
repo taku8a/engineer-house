@@ -33,7 +33,7 @@
           </tbody>
         </table>
         <div class="text-center">
-           <% if @post_comment.user_id == current_user.id %>
+           <% if current_user.my_post_comment?(@post_comment) %>
               <div class="text-center pt-5 row">
                 <%= link_to '編集する', edit_post_post_comment_path(@post, @post_comment), class: "btn btn-success col-md-12" %>
               </div>
