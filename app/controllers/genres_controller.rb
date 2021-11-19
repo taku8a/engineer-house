@@ -15,7 +15,7 @@ class GenresController < ApplicationController
   def create
     @genres = Genre.page(params[:page]).reverse_order
     @genre = Genre.new(genre_params)
-    @genre.owner_id = current_user.id
+    @genre.has_owner(current_user)
     if @genre.save
       flash.now[:notice] = t("notice.add_name")
       render "create"

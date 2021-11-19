@@ -8,4 +8,8 @@ class Genre < ApplicationRecord
   def short_name
     name.truncate(10)
   end
+
+  def has_owner(current_user)
+    self.owner_id = current_user.id
+  end
 end
