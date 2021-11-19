@@ -12,4 +12,12 @@ class Post < ApplicationRecord
   def short_title
     title.truncate(10)
   end
+  
+  def make_time
+    created_at.strftime("%Y/%m/%d %H:%M")
+  end
+  
+  def short_body
+    body.truncate(10)
+  end
 end

@@ -19,7 +19,7 @@
           <li>新着投稿</li>
           <% @posts.each do |post| %>
           <li>
-              <%= link_to post.title.truncate(10), post_path(post) %>
+              <%= link_to post.short_title, post_path(post) %>
           </li>
           <% end %>
         </ul>
@@ -135,5 +135,5 @@ function cngLi(){ // メッセージの移動
     }
     fade();
   });
-  
+
 </script>

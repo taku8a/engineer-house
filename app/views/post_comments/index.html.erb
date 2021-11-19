@@ -35,9 +35,9 @@
         <tbody>
           <% @post_comments.each do |post_comment| %>
             <tr>
-              <td><%= post_comment.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-              <td><%= link_to post_comment.user.name.truncate(10), show_users_path(post_comment.user.id) %></td>
-              <td><%= link_to post_comment.comment.truncate(10), post_post_comment_path(@post, post_comment) %></td>
+              <td><%= post_comment.make_time %></td>
+              <td><%= link_to post_comment.user.short_name, show_users_path(post_comment.user.id) %></td>
+              <td><%= link_to post_comment.short_comment, post_post_comment_path(@post, post_comment) %></td>
             </tr>
           <% end %>
         </tbody>

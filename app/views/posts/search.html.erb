@@ -37,15 +37,15 @@
         <tbody>
           <% @posts.each do |post| %>
             <tr>
-              <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-              <td><%= link_to post.user.name.truncate(10), show_users_path(post.user.id) %></td>
+              <td><%= post.make_time %></td>
+              <td><%= link_to post.user.short_name, show_users_path(post.user.id) %></td>
               <td>
-                <%= link_to post.title.truncate(10), post_path(post) %>
+                <%= link_to post.short_title, post_path(post) %>
               </td>
-              <td><%= post.body.truncate(10) %></td>
+              <td><%= post.short_body %></td>
               <td class="text-break">
                 <% post.genres.each do |genre| %>
-                  <%= link_to genre.name.truncate(10), genre_path(genre) %><br>
+                  <%= link_to genre.short_name, genre_path(genre) %><br>
                 <% end %>
               </td>
             </tr>

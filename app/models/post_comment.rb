@@ -9,4 +9,8 @@ class PostComment < ApplicationRecord
   def short_comment
     comment.truncate(10)
   end
+
+  def make_time
+    created_at.strftime("%Y/%m/%d %H:%M")
+  end
 end
