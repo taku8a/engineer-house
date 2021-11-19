@@ -33,9 +33,9 @@
             <tr>
               <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
               <td>
-                <%= link_to user.name.truncate(10), show_users_path(user) %>
+                <%= link_to user.short_name, show_users_path(user) %>
               </td>
-              <td><%= user.introduction.truncate(10) %></td>
+              <td><%= user.short_introduction %></td>
               <% if user.is_valid %>
                 <td class="text-success">有効</td>
               <% else %>

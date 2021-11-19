@@ -16,4 +16,12 @@ class User < ApplicationRecord
   validates :introduction, presence: true
   validates :is_valid, inclusion: [true, false]
   validates :email, presence: true, uniqueness: true
+
+  def short_name
+    name.truncate(10)
+  end
+
+  def short_introduction
+    introduction.truncate(10)
+  end
 end

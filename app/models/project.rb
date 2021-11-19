@@ -7,4 +7,8 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :introduction, presence: true
+
+  def short_name
+    name.truncate(10)
+  end
 end
