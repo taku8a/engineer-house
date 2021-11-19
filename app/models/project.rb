@@ -24,7 +24,7 @@ class Project < ApplicationRecord
     self.users.count >= 4
   end
 
-  def assigned(current_user)
+  def assigned?(current_user)
     users.include?(current_user)
   end
 end

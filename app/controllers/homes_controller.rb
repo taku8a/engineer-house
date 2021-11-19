@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @posts = Post.limit(5).order('id DESC')
+    @posts = Post.newly
   end
 
   def about

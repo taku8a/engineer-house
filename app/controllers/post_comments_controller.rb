@@ -68,7 +68,7 @@ class PostCommentsController < ApplicationController
 
   def ensure_correct_user!
     @post_comment = PostComment.find(params[:id])
-    unless @post_comment.user_id == current_user.id
+    unless current_user.my_post_comment?(@post_comment)
       redirect_to post_post_comment_path(@post.id, @post_comment.id), alert: t("alert.owner_right")
     end
   end

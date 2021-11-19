@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path, notice: t("notice.post_destroy")
   end
-  
+
   def search
     @content = params[:content]
     @posts = Post.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
 
   def ensure_correct_user!
     @post = Post.find(params[:id])
-    unless @post.user_id == current_user.id
+    unless current_user.my_post?(@post)
       redirect_to post_path(@post), alert: t("alert.owner_right")
     end
   end

@@ -26,7 +26,7 @@ class ProjectChatsController < ApplicationController
 
   def correct_chat!
     @project = Project.find(params[:project_id])
-    unless @project.users.include?(current_user)
+    unless @project.assigned?(current_user)
       redirect_to project_path(@project), alert: t("alert.not_chat")
     end
   end

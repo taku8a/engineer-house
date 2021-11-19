@@ -42,7 +42,7 @@
             <div class="text-center pt-5 row">
               <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
             </div>
-          <% elsif @project.assigned(current_user) %>
+          <% elsif @project.assigned?(current_user) %>
             <div class="text-center pt-5 row">
               <%= link_to '離脱する', project_leave_path(@project), "data-confirm" => t("alert.leave"), class: "btn btn-warning col-md-12" %>
             </div>

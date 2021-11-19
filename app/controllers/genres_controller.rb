@@ -54,7 +54,7 @@ class GenresController < ApplicationController
 
   def ensure_correct_user!
     @genre = Genre.find(params[:id])
-    unless @genre.owner_id == current_user.id
+    unless current_user.my_genre?(@genre)
       redirect_to genre_path(@genre), alert: t("alert.owner_right")
     end
   end
