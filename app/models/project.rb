@@ -11,4 +11,12 @@ class Project < ApplicationRecord
   def short_name
     name.truncate(10)
   end
+
+  def short_introduction
+    introduction.truncate(10)
+  end
+
+  def make_time
+    created_at.strftime("%Y/%m/%d %H:%M")
+  end
 end

@@ -37,12 +37,12 @@
           <% @projects.each do |project| %>
             <tr>
 
-              <td><%= project.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+              <td><%= project.make_time %></td>
               <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
               <td>
-                <%= link_to project.name.truncate(10), project_path(project) %>
+                <%= link_to project.short_name, project_path(project) %>
               </td>
-              <td><%= project.introduction.truncate(10) %></td>
+              <td><%= project.short_introduction %></td>
             </tr>
           <% end %>
         </tbody>
