@@ -36,4 +36,8 @@ class User < ApplicationRecord
   def my_post?(post)
     self == post.user
   end
+
+  def my_project?(project)
+    self.id == project.owner_id
+  end
 end

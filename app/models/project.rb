@@ -19,4 +19,12 @@ class Project < ApplicationRecord
   def make_time
     created_at.strftime("%Y/%m/%d %H:%M")
   end
+
+  def full
+    self.users.count >= 4
+  end
+
+  def assigned(current_user)
+    users.include?(current_user)
+  end
 end

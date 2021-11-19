@@ -32,7 +32,7 @@
           </tbody>
         </table>
         <div class="text-center">
-          <% if @project.owner_id == current_user.id %>
+          <% if current_user.my_project?(@project) %>
             <div class="text-center pt-5 row">
               <%= link_to '編集する', edit_project_path(@project), class: "btn btn-success col-md-12" %>
             </div>
@@ -42,14 +42,14 @@
             <div class="text-center pt-5 row">
               <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
             </div>
-          <% elsif @project.users.include?(current_user) %>
+          <% elsif @project.assigned(current_user) %>
             <div class="text-center pt-5 row">
               <%= link_to '離脱する', project_leave_path(@project), "data-confirm" => t("alert.leave"), class: "btn btn-warning col-md-12" %>
             </div>
             <div class="text-center pt-5 row">
               <%= link_to "ディスカッション", project_project_chats_path(@project), class: "btn btn-primary col-md-12" %>
             </div>
-          <% elsif @project.users.count >= 4 %>
+          <% elsif @project.full %>
             <div class="text-center pt-5 row">
               <%= link_to '受付終了', projects_path, class: "btn btn-info col-md-12" %>
             </div>
