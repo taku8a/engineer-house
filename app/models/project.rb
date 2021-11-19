@@ -27,4 +27,21 @@ class Project < ApplicationRecord
   def assigned?(current_user)
     users.include?(current_user)
   end
+
+  def release(current_user)
+    users.delete(current_user)
+  end
+
+  def has_owner(current_user)
+    self.owner_id = current_user.id
+  end
+
+  def has_member(current_user)
+    self.users << current_user
+  end
+
+  def full_or_assigned(current_user)
+    self.full || self.assigned?(current_user)
+  end
 end
+
