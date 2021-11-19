@@ -3,7 +3,7 @@
     <td class="text-break"><%= genre.name.truncate(10) %></td>
     <td><%= link_to genre.posts.count, genre_path(genre) %></td>
     <td>
-      <% if genre.owner_id == current_user.id %>
+      <% if current_user.my_genre?(genre) %>
         <%= link_to "編集する", edit_genre_path(genre.id), class:"btn btn-success" %>
       <% end %>
     </td>
