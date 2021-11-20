@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
+  before_action :set_collection!, only: [:new, :edit, :create, :update]
 
   def index
     @posts = Post.page(params[:page]).reverse_order
@@ -11,14 +12,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @genres = Genre.page(params[:genre_page]).reverse_order
-    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def new
     @post = Post.new
-    @genres = Genre.page(params[:genre_page]).reverse_order
-    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def create
@@ -48,6 +45,23 @@ class PostsController < ApplicationController
     @posts = Post.where('title LIKE ?', '%'+@content+'%').page(params[:page]).reverse_order
   end
 
+  def search_new
+    @post = Post.new
+    @method = params[:search_method]
+    case @method
+      when "genre"
+        @content = params[:content]
+        @box = params[:box]
+        @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:genre_page]).reverse_order
+        @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
+      when "genre_detail"
+        @content = params[:content]
+        @box = params[:box]
+        @genres = Genre.page(params[:genre_page]).reverse_order
+        @genre_details = GenreDetail.where('title LIKE ?', '%'+@box+'%').page(params[:genre_detail_page]).reverse_order
+    end
+  end
+
   private
 
   def post_params
@@ -59,6 +73,11 @@ class PostsController < ApplicationController
     unless current_user.my_post?(@post)
       redirect_to post_path(@post), alert: t("alert.owner_right")
     end
+  end
+  
+  def set_collection!
+    @genres = Genre.page(params[:genre_page]).reverse_order
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
 end
