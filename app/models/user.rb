@@ -40,4 +40,20 @@ class User < ApplicationRecord
   def my_project?(project)
     self.id == project.owner_id
   end
+
+  def owned_projects(project_all,my_projects)
+    project_all.each do |project|
+      if self.my_project?(project)
+        my_projects << project
+      end
+    end
+  end
+
+  def owned_genres(genres,my_genres)
+    genres.each do |genre|
+      if self.my_genre?(genre)
+        my_genres << genre
+      end
+    end
+  end
 end
