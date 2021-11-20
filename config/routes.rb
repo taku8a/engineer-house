@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/genre_details/search' => 'genre_details#seek', as: :genre_details_seek
   get '/contacts' => 'contacts#create', as: :contacts
   get '/posts/new/search' => 'posts#search_new', as: :search_new
+  get '/posts/:id/edit/search' => 'posts#search_edit', as: :search_edit
 
   resources :posts do
     collection do
