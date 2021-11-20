@@ -40,7 +40,7 @@ class Project < ApplicationRecord
     self.users << current_user
   end
 
-  def full_or_assigned(current_user)
+  def full_or_assigned?(current_user)
     self.full || self.assigned?(current_user)
   end
 end

@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
 
   def group_join!
     @project = Project.find(params[:project_id])
-    if @project.full_or_assigned(current_user)
+    if @project.full_or_assigned?(current_user)
       redirect_to project_path(@project), alert: t("alert.project_end")
     end
   end
