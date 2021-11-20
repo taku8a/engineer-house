@@ -37,7 +37,7 @@
 
 ### [アプリケーション詳細設計書]
 
-![ポートフォリオ-ルーティング](https://user-images.githubusercontent.com/89015721/142724326-55df031a-5463-4ae8-a6f8-902871fde0c7.jpg)
+![ポートフォリオ-ルーティング (2)](https://user-images.githubusercontent.com/89015721/142724414-65f11188-d563-4456-998f-c8dbc00c6897.jpg)
 
 ## 開発環境
 
