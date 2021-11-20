@@ -1,7 +1,8 @@
 class PostCommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post_comment!, except: [:select, :seek]
-  before_action :ensure_correct_user!, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user!, only: [:edit, :update, :destroy, :search_edit]
+  before_action :set_collection!, only: [:new, :edit, :create, :update]
 
   def index
     @post_comments = @post.post_comments.page(params[:page]).reverse_order
@@ -27,7 +28,6 @@ class PostCommentsController < ApplicationController
 
   def new
     @post_comment = PostComment.new
-    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def create
@@ -40,7 +40,6 @@ class PostCommentsController < ApplicationController
   end
 
   def edit
-    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
   def update
@@ -49,6 +48,17 @@ class PostCommentsController < ApplicationController
     else
       render "edit"
     end
+  end
+  
+  def search_new
+    @post_comment = PostComment.new
+    @content = params[:content]
+    @genre_details = GenreDetail.where('title LIKE ?', '%'+@content+'%').page(params[:genre_detail_page]).reverse_order
+  end
+  
+  def search_edit
+    @content = params[:content]
+    @genre_details = GenreDetail.where('title LIKE ?', '%'+@content+'%').page(params[:genre_detail_page]).reverse_order
   end
 
   def destroy
@@ -71,6 +81,10 @@ class PostCommentsController < ApplicationController
     unless current_user.my_post_comment?(@post_comment)
       redirect_to post_post_comment_path(@post.id, @post_comment.id), alert: t("alert.owner_right")
     end
+  end
+  
+  def set_collection!
+    @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
   end
 
 end

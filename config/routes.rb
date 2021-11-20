@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get '/contacts' => 'contacts#create', as: :contacts
   get '/posts/new/search' => 'posts#search_new', as: :search_new
   get '/posts/:id/edit/search' => 'posts#search_edit', as: :search_edit
+  get '/posts/:post_id/post_comments/new/search' => 'post_comments#search_new', as: :comment_search_new
+  get '/posts/:post_id/post_comments/:id/edit/search' => 'post_comments#search_edit', as: :comment_search_edit
 
   resources :posts do
     collection do
