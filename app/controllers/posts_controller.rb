@@ -47,35 +47,17 @@ class PostsController < ApplicationController
 
   def search_new
     @post = Post.new
-    @method = params[:search_method]
-    case @method
-      when "genre"
-        @content = params[:content]
-        @box = params[:box]
-        @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:genre_page]).reverse_order
-        @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
-      when "genre_detail"
-        @content = params[:content]
-        @box = params[:box]
-        @genres = Genre.page(params[:genre_page]).reverse_order
-        @genre_details = GenreDetail.where('title LIKE ?', '%'+@box+'%').page(params[:genre_detail_page]).reverse_order
-    end
+    @content = params[:content]
+    @box = params[:box]
+    @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:genre_page]).reverse_order
+    @genre_details = GenreDetail.where('title LIKE ?', '%'+@box+'%').page(params[:genre_detail_page]).reverse_order
   end
-  
+
   def search_edit
-    @method = params[:search_method]
-    case @method
-      when "genre"
-        @content = params[:content]
-        @box = params[:box]
-        @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:genre_page]).reverse_order
-        @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order
-      when "genre_detail"
-        @content = params[:content]
-        @box = params[:box]
-        @genres = Genre.page(params[:genre_page]).reverse_order
-        @genre_details = GenreDetail.where('title LIKE ?', '%'+@box+'%').page(params[:genre_detail_page]).reverse_order
-    end
+    @content = params[:content]
+    @box = params[:box]
+    @genres = Genre.where('name LIKE ?', '%'+@content+'%').page(params[:genre_page]).reverse_order
+    @genre_details = GenreDetail.where('title LIKE ?', '%'+@box+'%').page(params[:genre_detail_page]).reverse_order
   end
 
   private
@@ -90,7 +72,7 @@ class PostsController < ApplicationController
       redirect_to post_path(@post), alert: t("alert.owner_right")
     end
   end
-  
+
   def set_collection!
     @genres = Genre.page(params[:genre_page]).reverse_order
     @genre_details = GenreDetail.page(params[:genre_detail_page]).reverse_order

@@ -8,27 +8,17 @@
     </div>
 
     <h3 class="text-center pt-5 text-break">投稿編集</h3>
-    
-    <%= form_with url: search_edit_path, method: :get, local: true do |f| %>
-      <div class="form-group pt-5 text-center row">
-        <%= f.hidden_field :search_method, value: "genre" %>
-        <%= f.text_field :content, autofocus: true, placeholder: "ジャンル名を入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
-        <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
-          <i class='fa fa-search'></i>
-        <% end %>
-      </div>
-    <% end %>
 
     <%= form_with url: search_edit_path, method: :get, local: true do |f| %>
       <div class="form-group pt-5 text-center row">
-        <%= f.hidden_field :search_method, value: "genre_detail" %>
+        <%= f.text_field :content, autofocus: true, placeholder: "ジャンル名を入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
         <%= f.text_field :box, placeholder: "参考ガイド名を入力", value: @box, class: "offset-md-4 col-md-4 form-control w-25" %>
         <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
           <i class='fa fa-search'></i>
         <% end %>
       </div>
     <% end %>
-    
+
     <%= form_with model: @post, method: :patch, local: true do |f| %>
 
       <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
