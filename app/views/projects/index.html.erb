@@ -11,7 +11,7 @@
 
     <%= form_with url: search_projects_path, method: :get, local: true do |f| %>
       <div class="form-group pt-5 text-center row">
-        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-2 col-7 offset-sm-3 col-sm-6 offset-md-4 col-md-4 form-control" %>
         <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
           <i class='fa fa-search'></i>
         <% end %>
@@ -24,29 +24,31 @@
       <% end %>
     </div>
     <% unless @projects.blank? %>
-      <table class="table table-hover table-inverse mt-5">
-        <thead>
-          <tr class="table-active">
-            <th>始動</th>
-            <th>アイコン</th>
-            <th>プロジェクト名</th>
-            <th>概要</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @projects.each do |project| %>
-            <tr>
-
-              <td><%= project.make_time %></td>
-              <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
-              <td>
-                <%= link_to project.short_name, project_path(project) %>
-              </td>
-              <td><%= project.short_introduction %></td>
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse mt-5">
+          <thead>
+            <tr class="table-active">
+              <th>始動</th>
+              <th>アイコン</th>
+              <th>プロジェクト名</th>
+              <th>概要</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @projects.each do |project| %>
+              <tr>
+
+                <td><%= project.make_time %></td>
+                <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg", class: "img-fluid") %></td>
+                <td>
+                  <%= link_to project.short_name, project_path(project) %>
+                </td>
+                <td><%= project.short_introduction %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
       <%= paginate @projects %>
     <% else %>
       <p class="text-center pt-5">該当項目が見つかりませんでした。</p>

@@ -11,7 +11,7 @@
 
     <%= form_with url: search_users_path, method: :get, local: true do |f| %>
       <div class="form-group pt-5 text-center row">
-        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-2 col-7 offset-sm-3 col-sm-6 offset-md-4 col-md-4 form-control" %>
         <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
           <i class='fa fa-search'></i>
         <% end %>
@@ -19,32 +19,34 @@
     <% end %>
 
     <% unless @users.blank? %>
-      <table class="table table-hover table-inverse mt-5">
-        <thead>
-          <tr class="table-active">
-            <th>アイコン</th>
-            <th>ニックネーム</th>
-            <th>自己紹介</th>
-            <th>入会状況</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
-              <td>
-                <%= link_to user.short_name, show_users_path(user) %>
-              </td>
-              <td><%= user.short_introduction %></td>
-              <% if user.is_valid %>
-                <td class="text-success">有効</td>
-              <% else %>
-                <td class="text-danger">退会</td>
-              <% end %>
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse mt-5">
+          <thead>
+            <tr class="table-active">
+              <th>アイコン</th>
+              <th>ニックネーム</th>
+              <th>自己紹介</th>
+              <th>入会状況</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg", class: "img-fluid") %></td>
+                <td>
+                  <%= link_to user.short_name, show_users_path(user) %>
+                </td>
+                <td><%= user.short_introduction %></td>
+                <% if user.is_valid %>
+                  <td class="text-success">有効</td>
+                <% else %>
+                  <td class="text-danger">退会</td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
       <%= paginate @users %>
     <% else %>
       <p class="text-center pt-5">該当項目が見つかりませんでした。</p>

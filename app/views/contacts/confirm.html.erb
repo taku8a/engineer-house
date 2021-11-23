@@ -26,7 +26,7 @@
           <%= f.hidden_field :email %>
           <%= f.hidden_field :content %>
           <div class="form-group pt-5 text-center row">
-            <%= f.submit '送信する', class: 'btn btn-info form-control w-25 col-md-12' %>
+            <%= f.submit '送信する', class: 'btn btn-info form-control col-12 col-md-12' %>
           </div>
         <% end %>
         <%= form_with model: @contact, url: back_contacts_path, method: :post, local: true do |f| %>
@@ -34,7 +34,7 @@
           <%= f.hidden_field :email %>
           <%= f.hidden_field :content %>
           <div class="form-group pt-5 text-center row">
-            <%= f.submit '入力画面に戻る', class: 'btn btn-secondary form-control w-25 col-md-12' %>
+            <%= f.submit '入力画面に戻る', class: 'btn btn-secondary form-control col-12 col-md-12' %>
           </div>
         <% end %>
       </div>

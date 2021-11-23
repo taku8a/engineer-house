@@ -14,8 +14,8 @@
       <div class="bg-light text-danger"><%= render "users/shared/error_messages", resource: f.object %></div>
 
       <div class="form-group pt-5 text-center row">
-        <%= f.text_field :name, autofocus: true, placeholder: "ジャンル名", class: 'offset-md-4 col-md-4 form-control w-25' %>
-        <%= f.submit "アップデート", class: 'btn btn-success ml-1' %>
+        <%= f.text_field :name, autofocus: true, placeholder: "ジャンル名", class: 'col-12 offset-sm-3 col-sm-6 offset-md-4 col-md-4 form-control' %>
+        <%= f.submit "アップデート", class: 'btn btn-success col-12 col-sm-3 col-md-2' %>
       </div>
 
     <% end %>

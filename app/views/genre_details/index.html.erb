@@ -11,7 +11,7 @@
 
     <%= form_with url: search_genre_details_path, method: :get, local: true do |f| %>
       <div class="form-group pt-5 text-center row">
-        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-2 col-7 offset-sm-3 col-sm-6 offset-md-4 col-md-4 form-control" %>
         <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
           <i class='fa fa-search'></i>
         <% end %>
@@ -24,26 +24,28 @@
       <% end %>
     </div>
     <% unless @genre_details.blank? %>
-      <table class="table table-hover table-inverse mt-5">
-        <thead>
-          <tr class="table-active">
-            <th>更新日時</th>
-            <th>タイトル</th>
-            <th>ガイド内容</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @genre_details.each do |genre_detail| %>
-            <tr>
-              <td><%= genre_detail.update_time %></td>
-              <td>
-                <%= link_to genre_detail.short_title, genre_genre_detail_path(@genre, genre_detail) %>
-              </td>
-              <td><%= genre_detail.short_body %></td>
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse mt-5">
+          <thead>
+            <tr class="table-active">
+              <th>更新日時</th>
+              <th>タイトル</th>
+              <th>ガイド内容</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @genre_details.each do |genre_detail| %>
+              <tr>
+                <td><%= genre_detail.update_time %></td>
+                <td>
+                  <%= link_to genre_detail.short_title, genre_genre_detail_path(@genre, genre_detail) %>
+                </td>
+                <td><%= genre_detail.short_body %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
       <%= paginate @genre_details %>
     <% else %>
       <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
