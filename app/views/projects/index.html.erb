@@ -37,9 +37,9 @@
           <tbody>
             <% @projects.each do |project| %>
               <tr>
-  
+
                 <td><%= project.make_time %></td>
-                <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+                <td><%= attachment_image_tag(project, :project_image, :fill, 50, 50, fallback: "no-image-icon.jpg", class: "img-fluid") %></td>
                 <td>
                   <%= link_to project.short_name, project_path(project) %>
                 </td>
@@ -48,7 +48,7 @@
             <% end %>
           </tbody>
         </table>
-      
+
       <%= paginate @projects %>
     <% else %>
       <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
