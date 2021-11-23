@@ -91,38 +91,73 @@
     speed: 80 //速度
   });
 </script>
+<!--<script>-->
+<!--    var  upSpeed=15;  //メッセージのスライド速度-->
+<!--    var  delay =3000; // 次のメッセージに切り替わるまでの静止時間-->
+<!--    var  tickerH=100;  // 表示ボックスの高さ-->
+<!-- window.onload =function divScroller(){-->
+<!--  scroller = document.getElementById("ticKer"); // div 表示ボックス-->
+<!--  scroller.style.height= tickerH+"px"; // 表示ボックスの高さ-->
+<!--  scroller.style.lineHeight= tickerH+"px"; // 行の高さ-->
+<!--    slide = document.getElementById("ulArea"); // スライドさせる ul要素-->
+<!--    slide.style.position = "absolute"; // 絶対配置-->
+<!--    slide.style.top = tickerH+"px" ;  // slide のtop(上辺)の位置-->
+<!--  innScroll(tickerH, upSpeed, delay)-->
+<!--      }-->
+<!--  function innScroll(tickerH, upSpeed, delay){-->
+<!--   msec = upSpeed; // スクロール時間-->
+<!--   numTop = parseInt(slide.style.top) // 数値文字列を整数に変換-->
+<!--　　if (numTop > -tickerH){ // top位置が -30にならない間は-->
+<!--　　　slide.style.top = (numTop-1)+"px"; // top位置を -1px 上へ-->
+<!--  　　　}-->
+<!--　　else{ slide.style.top = 0+"px";-->
+<!--               cngLi(); // 次のメッセージと交代-->
+<!--  　　　　　}-->
+<!--   if(numTop==0){msec = delay;// 静止時間 現在のメッセージを待機-->
+<!--     }-->
+<!--    setTimeout("innScroll("+ tickerH +","+ upSpeed +"," + delay +")", msec);-->
+<!--    }-->
+<!--function cngLi(){ // メッセージの移動-->
+<!--   base= document.getElementById("ulArea");-->
+<!--    liList = base.getElementsByTagName("li");// 与えられたタグ名を持つ要素のリスト-->
+<!--     elm = liList[0];// 最上部の "li"要素-->
+<!--    base.appendChild(elm); // elm を子ノードとして末尾に移動する。-->
+<!--      }-->
+<!--</script>-->
 <script>
-    var  upSpeed=15;  //メッセージのスライド速度
-    var  delay =3000; // 次のメッセージに切り替わるまでの静止時間
-    var  tickerH=100;  // 表示ボックスの高さ
- window.onload =function divScroller(){
-  scroller = document.getElementById("ticKer"); // div 表示ボックス
-  scroller.style.height= tickerH+"px"; // 表示ボックスの高さ
-  scroller.style.lineHeight= tickerH+"px"; // 行の高さ
-    slide = document.getElementById("ulArea"); // スライドさせる ul要素
-    slide.style.position = "absolute"; // 絶対配置
-    slide.style.top = tickerH+"px" ;  // slide のtop(上辺)の位置
-  innScroll(tickerH, upSpeed, delay)
-      }
-  function innScroll(tickerH, upSpeed, delay){
-   msec = upSpeed; // スクロール時間
-   numTop = parseInt(slide.style.top) // 数値文字列を整数に変換
-　　if (numTop > -tickerH){ // top位置が -30にならない間は
-　　　slide.style.top = (numTop-1)+"px"; // top位置を -1px 上へ
-  　　　}
-　　else{ slide.style.top = 0+"px";
-               cngLi(); // 次のメッセージと交代
-  　　　　　}
-   if(numTop==0){msec = delay;// 静止時間 現在のメッセージを待機
-     }
-    setTimeout("innScroll("+ tickerH +","+ upSpeed +"," + delay +")", msec);
+  var timer;
+  
+  // newstickerの設定用オブジェクト
+  ticker = {};
+  ticker.totalList = 0;
+  ticker.numList = 0;
+  ticker.time = 1000;
+  ticker.interval = 4000;
+  // ページが完全に読み込まれてから実行される
+  $(window).on("load",function(){
+    ticker.totalList = $("#ul_news li").length;　//リスト数
+    ticker.width = $(".tick").css("width"); //.tickへnewstickerを入れていくので、同じ横幅を指定
+    ticker.height = $(".tick").css("height");　//高さ
+    var str = $("#ul_news li:first").html();　//#ul_news li:first内の子要素を取得（１番目のaタグ）
+    $('#div_ticker').html(str);　//#div_ticker内へstrを入れる
+    timer = setInterval('showNews()', ticker.interval);　//ticker.intervalごとにshowNews()を実行
+  });
+  function showNews(){
+    ticker.numList ++;　//ticker.numListがtotalListに追いついたら、初期化する
+    if (ticker.numList > ticker.totalList - 1){
+      ticker.numList = 0;
     }
-function cngLi(){ // メッセージの移動
-   base= document.getElementById("ulArea");
-    liList = base.getElementsByTagName("li");// 与えられたタグ名を持つ要素のリスト
-     elm = liList[0];// 最上部の "li"要素
-    base.appendChild(elm); // elm を子ノードとして末尾に移動する。
-      }
+    var str = $('#ul_news li').eq(ticker.numList).html(); // a要素を取得
+    // eq(index)なので、ticker.numListがN番のとき、indexはN+1番を指している
+    // 下から上  ------------------------------
+    //#div_ticker aは、ticker.timeで-ticker.heightへ移動し、その後関数が実行される。
+    //#div_tickerにN+1番目のticker.numListを入れて、まず、#div_tickerの下に来るように高さを指定して、
+    //それをアニメーションで、top:0の位置へ持ってきている。
+    $('#div_ticker a').animate({top: '-' + ticker.height}, ticker.time, 'linear', function(){
+        $('#div_ticker').html(str);
+        $('#div_ticker a').css('top', ticker.height).animate({top: '0'}, ticker.time, 'linear');
+    });
+  }
 </script>
 <script>
   $(function() {
