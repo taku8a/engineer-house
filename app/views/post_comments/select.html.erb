@@ -11,33 +11,34 @@
 
     <%= form_with url: post_comments_seek_path, method: :get, local: true do |f| %>
       <div class="form-group pt-5 text-center row">
-        <%= f.text_field :content, placeholder: "キーワードを入力", value: @content, class: "offset-md-4 col-md-4 form-control w-25" %>
+        <%= f.text_field :content, autofocus: true, placeholder: "キーワードを入力", value: @content, class: "offset-2 col-7 offset-sm-3 col-sm-6 offset-md-4 col-md-4 form-control" %>
         <%= f.button :type => "submit", class: "btn btn-info", style: 'border-style: none;' do %>
           <i class='fa fa-search'></i>
         <% end %>
       </div>
     <% end %>
 
-
     <% unless @post_comments.blank? %>
-      <table class="table table-hover table-inverse mt-5">
-        <thead>
-          <tr class="table-active">
-            <th>コメント日時</th>
-            <th>コメント者</th>
-            <th>コメント</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @post_comments.each do |post_comment| %>
-            <tr>
-              <td><%= post_comment.make_time %></td>
-              <td><%= link_to post_comment.user.short_name, show_users_path(post_comment.user.id) %></td>
-              <td><%= link_to post_comment.short_comment, post_post_comment_path(post_comment.post_id, post_comment.id) %></td>
+      <div class="table-responsive">
+        <table class="table table-hover table-inverse mt-5">
+          <thead>
+            <tr class="table-active">
+              <th>コメント日時</th>
+              <th>コメント者</th>
+              <th>コメント</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @post_comments.each do |post_comment| %>
+              <tr>
+                <td><%= post_comment.make_time %></td>
+                <td><%= link_to post_comment.user.short_name, show_users_path(post_comment.user.id) %></td>
+                <td><%= link_to post_comment.short_comment, post_post_comment_path(post_comment.post_id, post_comment.id) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
       <%= paginate @post_comments %>
     <% else %>
       <p class="text-center pt-5">該当項目が見つかりませんでした。</p>
