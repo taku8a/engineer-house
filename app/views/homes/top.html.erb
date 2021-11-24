@@ -4,7 +4,8 @@
       <span class="text-primary"><%= notice %></span>
       <span class="text-danger"><%= alert %></span>
     </p>
-    <h2 id="js-typewriter" class="hero__title text-center"></h2>
+    <!--<h2 id="js-typewriter" class="hero__title text-center"></h2>-->
+    <h2 id="abc" class="text-center">ENGINEER-HOUSE</h2>
   </div>
 
   <div class="flash3">
@@ -27,27 +28,57 @@
   </div>
   <%= render 'layouts/arrow' %>
 </div>
+<!--<script>-->
+<!--$(function() {-->
+<!--    var $allMsg = $('#abc');-->
+<!--    var $wordList = $('#abc').html().split("");-->
+<!--    $('#abc').html("");-->
+<!--    $.each($wordList, function(idx, elem) {-->
+<!--        var newEL = $("<span/>").text(elem).css({ opacity: 1 });-->
+<!--        newEL.appendTo($allMsg).fadeIn();-->
+<!--        newEL.delay(idx * 1500);-->
+<!--        // newEL.animate({ opacity: 1 },100).fadeOut(5000,"linear",function(){-->
+<!--        //   $wordList.html();-->
+<!--        // });-->
+<!--    });-->
+<!--});-->
+<!--</script>-->
 <script>
-  const typewriter = (param) => {
-  let el = document.querySelector(param.el);
-  let speed = param.speed;
-  let string = param.string.split("");
-
-  window.setTimeout(function () {
-    string.forEach((char, index) => {
-      setTimeout(() => {
-        el.textContent += char;
-      }, speed * index);
+$(function() {
+    var $allMsg = $('#abc');
+    var $wordList = $('#abc').html().split("");
+    $('#abc').html("");
+    $.each($wordList, function(idx, elem) {
+        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        newEL.appendTo($allMsg);
+        newEL.delay(idx * 100);
+        newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){
+          newEL.fadeIn(100);
+        });
     });
-  }, 500);
-};
-
-  typewriter({
-    el: "#js-typewriter", //要素
-    string: "Welcome To ENGINEER HOUSE", //文字
-    speed: 80 //速度
-  });
+});
 </script>
+<!--<script>-->
+<!--  const typewriter = (param) => {-->
+<!--  let el = document.querySelector(param.el);-->
+<!--  let speed = param.speed;-->
+<!--  let string = param.string.split("");-->
+
+<!--  window.setTimeout(function () {-->
+<!--    string.forEach((char, index) => {-->
+<!--      setTimeout(() => {-->
+<!--        el.textContent += char;-->
+<!--      }, speed * index);-->
+<!--    });-->
+<!--  }, 500);-->
+<!--};-->
+
+<!--  typewriter({-->
+<!--    el: "#js-typewriter", //要素-->
+<!--    string: "Welcome To ENGINEER HOUSE", //文字-->
+<!--    speed: 80 //速度-->
+<!--  });-->
+<!--</script>-->
 <script>
   const title = (param) => {
   let el = document.querySelector(param.el);
@@ -128,7 +159,7 @@
 <script>
   $(function() {
     var fade = function() {
-      $("#user_bg").hide().fadeIn(5000,"linear",function(){
+      $("#user_bg").hide().fadeIn(1000,"linear",function(){
         $(".flash3").addClass("rotate_first");
         $(".flash1").addClass("rotate_last");
 
