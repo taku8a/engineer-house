@@ -48,12 +48,12 @@ footer{
 
 .rotate_first {
     transform: rotateX(90deg);  /* 回転 */
-    transition: 2s;             /* 2秒かけて動く */
+    transition: 4s;             /* 4秒かけて動く */
 }
 
 .rotate_last {
     transform: rotateX(360deg);  /* 回転 */
-    transition: 4s;             /* 4秒かけて動く */
+    transition: 6s;             /* 6秒かけて動く */
 }
 
 // テキストの背景

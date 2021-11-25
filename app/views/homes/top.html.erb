@@ -4,17 +4,16 @@
       <span class="text-primary"><%= notice %></span>
       <span class="text-danger"><%= alert %></span>
     </p>
-    <!--<h2 id="js-typewriter" class="hero__title text-center"></h2>-->
-    <h2 id="abc" class="text-center">ENGINEER-HOUSE</h2>
+    <h2 id="type" class="text-center">Welcome To ENGINEER HOUSE</h2>
   </div>
 
   <div class="flash3">
-    <h2 id="magic" class="hero__title text-center text-info"></h2>
+    <h2 id="magic" class="text-center text-info">There are as many stories as there are codes</h2>
   </div>
 
   <div class="flash1 mt-0 pt-3">
     <div id="wrapper">
-      <div id="title" class="hero__title text-danger"></div>
+      <div id="title" class="text-danger">Let's Enjoy Programming</div>
       <ul id="ul_news">
         <li><%= link_to "新着投稿", posts_path %></li>
         <% @posts.each do |post| %>
@@ -28,28 +27,45 @@
   </div>
   <%= render 'layouts/arrow' %>
 </div>
-<!--<script>-->
-<!--$(function() {-->
-<!--    var $allMsg = $('#abc');-->
-<!--    var $wordList = $('#abc').html().split("");-->
-<!--    $('#abc').html("");-->
-<!--    $.each($wordList, function(idx, elem) {-->
-<!--        var newEL = $("<span/>").text(elem).css({ opacity: 1 });-->
-<!--        newEL.appendTo($allMsg).fadeIn();-->
-<!--        newEL.delay(idx * 1500);-->
-<!--        // newEL.animate({ opacity: 1 },100).fadeOut(5000,"linear",function(){-->
-<!--        //   $wordList.html();-->
-<!--        // });-->
-<!--    });-->
-<!--});-->
-<!--</script>-->
+<script>
+// $(document).ready(function () {
+//     if (window.performance.navigation.type == 2) {
+//         $(function() {
+//             var $allMsg = $('#type');
+//             var $wordList = $('#type').html().split("");
+//             $('#type').html("");
+//             $.each($wordList, function(idx, elem) {
+//                 var newEL = $("<span>").text(elem).css({ opacity: 0 });
+//                 newEL.appendTo($allMsg);
+//                 newEL.delay(idx * 100);
+//                 newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){
+//                   newEL.fadeIn(100);
+//                 });
+//             });
+//         });
+//     }
+// });
+$(function() {
+    var $allMsg = $('#type');
+    var $wordList = $('#type').html().split("");　//#typeの子要素を取得して、1文字ずつ分割した配列として返すex)["W","e","l"・・・]
+    $('#type').html(""); //#typeの子要素を""に置きかえる（空にする）
+    $.each($wordList, function(idx, elem) {　//wordListという配列に対して、eachで１文字ずつ飛ばす
+        var newEL = $("<span>").text(elem).css({ opacity: 0 }); //<span>タグの中に$wordListで取得したelemを入れていく（ここではまだ、htmlに<span>タグはない。作っただけ)
+        newEL.appendTo($allMsg); //#typeの末尾にnewELを格納していく(一行上で作成した<span>elem</span>をappendToしていく)
+        newEL.delay(idx * 100); //0.1*idx秒間停止
+        newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){ //0.1秒かけて、opacityを1にするアニメーションが実行され、その後、fadeOutがlinearで１秒かけて実行される。
+          newEL.fadeIn(100);　//実行後、functionである、fadeInが0.1秒かけて実行される
+        });
+    });
+});
+</script>
 <script>
 $(function() {
-    var $allMsg = $('#abc');
-    var $wordList = $('#abc').html().split("");
-    $('#abc').html("");
+    var $allMsg = $('#title');
+    var $wordList = $('#title').html().split("");
+    $('#title').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 100);
         newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){
@@ -58,68 +74,20 @@ $(function() {
     });
 });
 </script>
-<!--<script>-->
-<!--  const typewriter = (param) => {-->
-<!--  let el = document.querySelector(param.el);-->
-<!--  let speed = param.speed;-->
-<!--  let string = param.string.split("");-->
-
-<!--  window.setTimeout(function () {-->
-<!--    string.forEach((char, index) => {-->
-<!--      setTimeout(() => {-->
-<!--        el.textContent += char;-->
-<!--      }, speed * index);-->
-<!--    });-->
-<!--  }, 500);-->
-<!--};-->
-
-<!--  typewriter({-->
-<!--    el: "#js-typewriter", //要素-->
-<!--    string: "Welcome To ENGINEER HOUSE", //文字-->
-<!--    speed: 80 //速度-->
-<!--  });-->
-<!--</script>-->
 <script>
-  const title = (param) => {
-  let el = document.querySelector(param.el);
-  let speed = param.speed;
-  let string = param.string.split("");
-
-   window.setTimeout(function () {
-      string.forEach((char, index) => {
-        setTimeout(() => {
-          el.textContent += char;
-        }, speed * index);
+$(function() {
+    var $allMsg = $('#magic');
+    var $wordList = $('#magic').html().split("");
+    $('#magic').html("");
+    $.each($wordList, function(idx, elem) {
+        var newEL = $("<span>").text(elem).css({ opacity: 0 });
+        newEL.appendTo($allMsg);
+        newEL.delay(idx * 20);
+        newEL.animate({ opacity: 1 },100).fadeOut(100,"linear",function(){
+          newEL.fadeIn(100);
+        });
     });
-  }, 500);
-};
-
-  typewriter({
-    el: "#title", //要素
-    string: "Let's Enjoy Programming", //文字
-    speed: 80 //速度
-  });
-</script>
-<script>
-  const magic = (param) => {
-  let el = document.querySelector(param.el);
-  let speed = param.speed;
-  let string = param.string.split("");
-
-   window.setTimeout(function () {
-      string.forEach((char, index) => {
-        setTimeout(() => {
-          el.textContent += char;
-        }, speed * index);
-    });
-  }, 500);
-};
-
-  typewriter({
-    el: "#magic", //要素
-    string: "There are as many stories as there are codes", //文字
-    speed: 80 //速度
-  });
+});
 </script>
 <script>
   var timer;
