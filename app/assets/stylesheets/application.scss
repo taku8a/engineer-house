@@ -151,6 +151,10 @@ div.tick {
 
 div.tick a {
   position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
   font-size: 24px;
 }
 
@@ -172,4 +176,3 @@ div.tick a {
   height:     50px;
   border-radius: 50%;
 }
-
