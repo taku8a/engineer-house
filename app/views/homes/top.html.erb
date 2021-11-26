@@ -27,66 +27,56 @@
   </div>
   <%= render 'layouts/arrow' %>
 </div>
+
 <script>
-// $(document).ready(function () {
-//     if (window.performance.navigation.type == 2) {
-//         $(function() {
-//             var $allMsg = $('#type');
-//             var $wordList = $('#type').html().split("");
-//             $('#type').html("");
-//             $.each($wordList, function(idx, elem) {
-//                 var newEL = $("<span>").text(elem).css({ opacity: 0 });
-//                 newEL.appendTo($allMsg);
-//                 newEL.delay(idx * 100);
-//                 newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){
-//                   newEL.fadeIn(100);
-//                 });
-//             });
-//         });
-//     }
-// });
-$(function() {
+$(window).on("load",function(){
+    $(function() {
     var $allMsg = $('#type');
     var $wordList = $('#type').html().split("");　//#typeの子要素を取得して、1文字ずつ分割した配列として返すex)["W","e","l"・・・]
     $('#type').html(""); //#typeの子要素を""に置きかえる（空にする）
     $.each($wordList, function(idx, elem) {　//wordListという配列に対して、eachで１文字ずつ飛ばす
-        var newEL = $("<span>").text(elem).css({ opacity: 0 }); //<span>タグの中に$wordListで取得したelemを入れていく（ここではまだ、htmlに<span>タグはない。作っただけ)
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 }); //<span>タグの中に$wordListで取得したelemを入れていく（ここではまだ、htmlに<span>タグはない。作っただけ)
         newEL.appendTo($allMsg); //#typeの末尾にnewELを格納していく(一行上で作成した<span>elem</span>をappendToしていく)
         newEL.delay(idx * 100); //0.1*idx秒間停止
         newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){ //0.1秒かけて、opacityを1にするアニメーションが実行され、その後、fadeOutがlinearで１秒かけて実行される。
           newEL.fadeIn(100);　//実行後、functionである、fadeInが0.1秒かけて実行される
         });
     });
+  });
 });
 </script>
 <script>
-$(function() {
+$(window).on("load",function(){
+    $(function() {
     var $allMsg = $('#title');
     var $wordList = $('#title').html().split("");
     $('#title').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 100);
         newEL.animate({ opacity: 1 },100).fadeOut(1000,"linear",function(){
           newEL.fadeIn(100);
         });
     });
+  });
 });
 </script>
 <script>
-$(function() {
+$(window).on("load",function(){
+    $(function() {
     var $allMsg = $('#magic');
     var $wordList = $('#magic').html().split("");
     $('#magic').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 20);
         newEL.animate({ opacity: 1 },100).fadeOut(100,"linear",function(){
           newEL.fadeIn(100);
         });
     });
+  });
 });
 </script>
 <script>
@@ -125,9 +115,10 @@ $(function() {
   }
 </script>
 <script>
+$(window).on("load",function(){
   $(function() {
     var fade = function() {
-      $("#user_bg").hide().fadeIn(1000,"linear",function(){
+      $("#user_bg").hide().fadeIn(1500,"linear",function(){
         $(".flash3").addClass("rotate_first");
         $(".flash1").addClass("rotate_last");
 
@@ -135,5 +126,5 @@ $(function() {
     }
     fade();
   });
-
+});
 </script>

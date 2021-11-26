@@ -36,54 +36,62 @@
 </div>
 
 <script>
-$(function() {
+$(window).on("load",function(){
+    $(function() {
     var $allMsg = $('#abc');
     var $wordList = $('#abc').html().split("");
     $('#abc').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 70);
         newEL.animate({ opacity: 1 }, 1100);
     });
+  });
 });
 </script>
 <script>
-$(function() {
+$(window).on("load",function(){
+   $(function() {
     var $allMsg = $('#def');
     var $wordList = $('#def').html().split("");
     $('#def').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 70);
         newEL.animate({ opacity: 1 }, 1100);
     });
+  });
 });
 </script>
 <script>
-$(function() {
+$(window).on("load",function(){
+   $(function() {
     var $allMsg = $('#hij');
     var $wordList = $('#hij').html().split("");
     $('#hij').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 70);
         newEL.animate({ opacity: 1 }, 1100);
     });
+  });
 });
 </script>
 <script>
-$(function() {
+$(window).on("load",function(){
+   $(function() {
     var $allMsg = $('#lmn');
     var $wordList = $('#lmn').html().split("");
     $('#lmn').html("");
     $.each($wordList, function(idx, elem) {
-        var newEL = $("<span/>").text(elem).css({ opacity: 0 });
+        var newEL = $("<span></span>").text(elem).css({ opacity: 0 });
         newEL.appendTo($allMsg);
         newEL.delay(idx * 70);
         newEL.animate({ opacity: 1 }, 1100);
     });
+  });
 });
 </script>
