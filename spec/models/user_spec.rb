@@ -49,23 +49,27 @@ RSpec.describe User, type: :model do
       end
     end
     
+    # buildメソッドはメモリ上にインスタンスを確保。createメソッドはデータ保存＋モデルのインスタンス生成も同時に行い、かつ返り値は、
+    # 生成されたインスタンスが返る。よって、保存に失敗してもモデルのインスタンスを返すため、評価はnil,''ともに
+    # trueとなる。つまり、ここでの２つの検証は意味がないが、勉強になったため、記述した。（other_user）
+    
     context 'is_validカラム' do
-      # it 'nilでない' do
-      #   user.is_valid = nil
-      #   is_expected.to eq false
-      # end
-      # it 'nilでない' do
-      #   other_user.is_valid = nil
-      #   is_expected.to eq false
-      # end
-      # it '空欄でない' do
-      #   user.is_valid = ''
-      #   is_expected.to eq false
-      # end
-      # it '空欄でない' do
-      #   other_user.is_valid = ''
-      #   is_expected.to eq false
-      # end
+      it 'nilでない' do
+        user.is_valid = nil
+        is_expected.to eq false
+      end
+      it 'nilである' do
+        other_user.is_valid = nil
+        is_expected.to eq true
+      end
+      it '空欄でない' do
+        user.is_valid = ''
+        is_expected.to eq false
+      end
+      it '空欄である' do
+        other_user.is_valid = ''
+        is_expected.to eq true
+      end
       it '退会済みである' do
         user.is_valid = false
         is_expected.to eq true
