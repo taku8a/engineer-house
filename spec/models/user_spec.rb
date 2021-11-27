@@ -50,9 +50,30 @@ RSpec.describe User, type: :model do
     end
     
     context 'is_validカラム' do
-      it { is_expected.to allow_value(true).for(:is_valid) }
-      it { is_expected.to allow_value(false).for(:is_valid) }
-      it { is_expected.not_to allow_value(nil).for(:is_valid) }
+      # it 'nilでない' do
+      #   user.is_valid = nil
+      #   is_expected.to eq false
+      # end
+      # it 'nilでない' do
+      #   other_user.is_valid = nil
+      #   is_expected.to eq false
+      # end
+      # it '空欄でない' do
+      #   user.is_valid = ''
+      #   is_expected.to eq false
+      # end
+      # it '空欄でない' do
+      #   other_user.is_valid = ''
+      #   is_expected.to eq false
+      # end
+      it '退会済みである' do
+        user.is_valid = false
+        is_expected.to eq true
+      end
+      it '有効である' do
+        other_user.is_valid = true
+        is_expected.to eq true
+      end
     end
   end
 end
