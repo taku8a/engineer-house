@@ -143,17 +143,13 @@ RSpec.describe "[STEP1] ユーザーログイン前のテスト", type: :system 
       before do
         fill_in 'user[name]',with: Faker::Name.name
         fill_in 'user[introduction]', with: Faker::Lorem.characters(number: 20)
-        # fill_in "user[profile_image]", with: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/images/desert.jpg'), 'image/jpg')
         image_path = Rails.root.join('spec/factories/images/desert.jpg')
         attach_file('user[profile_image]', image_path)
         fill_in 'user[email]', with: Faker::Internet.email
-        # fill_in 'user[is_valid]', with: Faker::Boolean.boolean(true_ratio: 0.2)
         password = Faker::Internet.password(min_length: 6)
         fill_in 'user[password]', with: password
         fill_in 'user[password_confirmation]', with: password
-        # fill_in 'user[password_confirmation]', with: Faker::Internet.password(min_length: 6)
       end
-
 
       it '正しく新規登録される' do
         expect { click_button "新規登録" }.to change{ User.count }.by(1)
@@ -218,13 +214,43 @@ RSpec.describe "[STEP1] ユーザーログイン前のテスト", type: :system 
 
     context 'ログイン失敗のテスト' do
       before do
-        # fill_in 'user[email]', with: ''
-        # fill_in 'user[password]', with: ''
         click_button 'ログイン'
       end
 
       it 'ログインに失敗し、ログイン画面にリダイレクトされる' do
         expect(current_path).to eq user_session_path
+      end
+    end
+  end
+  describe 'お問い合わせ画面のテスト' do
+    before do
+      visit new_contact_path
+    end
+
+    context '表示内容の確認' do
+      it '「お問い合わせフォーム」と表示される' do
+        expect(page).to have_content 'お問い合わせフォーム'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「内容」と表示される' do
+        expect(page).to have_content '内容'
+      end
+      it 'メールアドレス' do
+        expect(page).to have_content 'メールアドレス'
+      end
+      it 'emailフォームが表示される' do
+        expect(page).to have_field 'contact[email]'
+      end
+      it 'タイトルフォームが表示される' do
+        expect(page).to have_field 'contact[name]'
+      end
+      it '内容フォームが表示される' do
+        expect(page).to have_field 'contact[content]'
+      end
+      it '確認画面へ進むボタンが表示される' do
+        expect(page).to have_button '確認画面へ進む'
       end
     end
   end
