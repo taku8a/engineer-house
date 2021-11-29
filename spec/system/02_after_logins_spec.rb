@@ -58,12 +58,68 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
         expect(current_path).to eq posts_path
       end
       it '自分の投稿と他人の投稿のタイトルのリンク先がそれぞれ正しい' do
-        expect(page).to have_link post.title, href: post_path(post)
-        expect(page).to have_link other_post.title, href: post_path(other_post)
+        expect(page).to have_link post.short_title, href: post_path(post)
+        expect(page).to have_link other_post.short_title, href: post_path(other_post)
       end
       it '自分の投稿と他人の投稿のオピニオンが表示される' do
         expect(page).to have_content post.short_body
         expect(page).to have_content other_post.short_body
+      end
+      it '自分と他人の投稿時間が表示される' do
+        expect(page).to have_content post.make_time
+        expect(page).to have_content other_post.make_time
+      end
+      it '投稿者の名前表示とその投稿者の詳細画面のリンクが正しい' do
+        expect(page).to have_link post.user.short_name, href: show_users_path(post.user.id)
+        expect(page).to have_link other_post.user.short_name, href: show_users_path(other_post.user.id)
+      end
+      it '新規投稿画面へのリンクが存在する' do
+        expect(page).to have_link '', href: new_post_path
+      end
+    end
+  end
+
+  describe '新規投稿画面のテスト' do
+    before do
+      visit new_post_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_post_path
+      end
+      it '「新規投稿」と表示される' do
+        expect(page).to have_content '新規投稿'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「投稿内容」と表示される' do
+        expect(page).to have_content '投稿内容'
+      end
+      it '投稿するボタンが表示される' do
+        expect(page).to have_button '投稿する'
+      end
+      it 'titleフォームが表示される' do
+        expect(page).to have_field 'post[title]'
+      end
+      it 'bodyフォームが表示される' do
+        expect(page).to have_field 'post[body]'
+      end
+    end
+
+    context '投稿成功テスト' do
+      before do
+        fill_in 'post[title]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'post[body]', with: Faker::Lorem.characters(number: 20)
+      end
+
+      it '自分の新しい投稿が正しく保存される' do
+        expect { click_button '投稿する' }.to change{ Post.count }.by(1)
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        click_button '投稿する'
+        expect(current_path).to eq post_path(Post.last.id.to_s)
       end
     end
   end
