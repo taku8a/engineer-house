@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system do
   let(:user) { create(:user) }
   let!(:other_user) { create(:user) }
-  let!(:post) { create(:post) }
-  let!(:other_post) { create(:post) }
+  let!(:post) { create(:post, user: user) }
+  let!(:other_post) { create(:post, user: other_user) }
+  
+  # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
+  # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
+  # とは別で新たなユーザーが生成されるため、post.userとuserは別の人という事になる。編集・削除権限がある詳細画面などで、うまくいかない
+  # ため、上記のように記述する。
 
   before do
     visit new_user_session_path
@@ -119,10 +124,71 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
       it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
         click_button '投稿する'
-        expect(current_path).to eq post_path(Post.last.id.to_s)
+        expect(current_path).to eq post_path(Post.last.id)
       end
     end
   end
 
+  describe '自分の投稿詳細画面のテスト' do
+    before do
+      visit post_path(post)
+    end
 
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq post_path(post)
+      end
+      it '「投稿情報」と表示される' do
+        expect(page).to have_content '投稿情報'
+      end
+      it '「投稿者」と表示される' do
+        expect(page).to have_content '投稿者'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「ジャンル」と表示される' do
+        expect(page).to have_content 'ジャンル'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「投稿内容」と表示される' do
+        expect(page).to have_content '投稿内容'
+      end
+      it '投稿者の名前にUser詳細リンクがある' do
+        expect(page).to have_link post.user.name, href: show_users_path(post.user.id)
+      end
+      it '投稿タイトルが表示される' do
+        expect(page).to have_content post.title
+      end
+      it '投稿内容(body)が表示される' do
+        expect(page).to have_content post.body
+      end
+      it '投稿の編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_post_path(post)
+      end
+      it '投稿の削除リンクが表示される' do
+        expect(page).to have_link '削除する', href: post_path(post)
+      end
+    end
+
+    context '投稿編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_post_path(post)
+      end
+    end
+
+    context '投稿削除リンクのテスト' do
+      before do
+        click_link '削除する'
+      end
+
+      it '正しく削除され、リダイレクト先が、投稿一覧画面になっている' do
+        expect(Post.where(id: post.id).count).to eq 0
+        expect(current_path).to eq posts_path
+      end
+    end
+  end
 end
