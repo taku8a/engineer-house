@@ -43,7 +43,7 @@
 
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
-- フレームワーク：Ruby on Rails
+- フレームワーク：Ruby on Rails,RSpec
 - JS ライブラリ：jQuery
 - IDE：Cloud9
 
