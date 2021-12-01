@@ -33,6 +33,7 @@ class ContactsController < ApplicationController
       return
     end
     @contact = Contact.new(contact_params)
+    @contact.score = Language.get_data(contact_params[:content])
     if @contact.save
       ContactMailer.contact_mail(@contact).deliver  #メール送信処理追加
       ContactMailer.received_mail(@contact).deliver

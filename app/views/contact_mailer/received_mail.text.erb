@@ -1,8 +1,9 @@
 Webサイトからお問い合わせがありました。
 
 --------------------------
-Name: <%= @contact.name %>
-Email: <%= @contact.email %>
-Message:
-<%= @contact.content %>
+名前　　　　　　： <%= @contact.name %>
+メールアドレス　： <%= @contact.email %>
+感情分析結果　　： <%= @contact.score %>
+お問い合わせ内容：
+<%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 --------------------------
