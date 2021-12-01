@@ -1,8 +1,9 @@
 <h3>Webサイトからお問い合わせがありました。</h3>
 
 <p class="text-break">
-  Name: <%= @contact.name %><br>
-  Email: <%= @contact.email %><br>
-  Message:<br>
+  名前　　　　　　： <%= @contact.name %><br>
+  メールアドレス　：<%= @contact.email %><br>
+  感情分析結果　　：<%= @contact.score %><br>
+  お問い合わせ内容：<br>
   <%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 </p>

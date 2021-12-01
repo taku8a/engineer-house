@@ -3,7 +3,7 @@
 
 【お問い合わせ内容】
 
-<%= @contact.content %>
+<%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 
 お問い合わせありがとうございます。
 
