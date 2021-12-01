@@ -55,8 +55,7 @@
 
 ### [使用Gem]
 
-![portfolio1](https://user-images.githubusercontent.com/89015721/141502657-d8ea486d-96c4-45da-a77b-a33dcc6fa3e4.jpg)
-
+![ポートフォリオ-gem](https://user-images.githubusercontent.com/89015721/144173298-c515cbb0-11e3-4855-b995-1ef5a6d04e5e.jpg)
 
 ### [開発者]
 
