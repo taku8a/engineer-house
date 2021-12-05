@@ -3,7 +3,17 @@ Webサイトからお問い合わせがありました。
 --------------------------
 名前　　　　　　： <%= @contact.name %>
 メールアドレス　： <%= @contact.email %>
-感情分析結果　　： <%= @contact.score %>
+感情分析結果　　： <% if @contact.highly %>
+                     高評価<br>
+                   <% elsif @contact.little_good %>
+                     ややポジティブ<br>
+                   <% elsif @contact.moderately %>
+                     ほどほど<br>
+                   <% elsif @contact.little_bad %>
+                     ややネガティブ<br>
+                   <% else %>
+                     低評価<br>
+                   <% end %>
 お問い合わせ内容：
 <%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 --------------------------

@@ -3,7 +3,17 @@
 <p class="text-break">
   名前　　　　　　： <%= @contact.name %><br>
   メールアドレス　：<%= @contact.email %><br>
-  感情分析結果　　：<%= @contact.score %><br>
+  感情分析結果　　：<% if @contact.highly %>
+                      高評価<br>
+                    <% elsif @contact.little_good %>
+                      ややポジティブ<br>
+                    <% elsif @contact.moderately %>
+                      ほどほど<br>
+                    <% elsif @contact.little_bad %>
+                      ややネガティブ<br>
+                    <% else %>
+                      低評価<br>
+                    <% end %>
   お問い合わせ内容：<br>
   <%= safe_join(@contact.content.split("\n"),tag(:br)) %>
 </p>
