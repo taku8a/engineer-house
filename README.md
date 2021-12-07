@@ -5,7 +5,7 @@
 
 ![portfolio document](https://user-images.githubusercontent.com/89015721/145024680-78f1d992-5f2d-4409-ac46-acd83c5c9498.png)
 
-下記のリンクよりご覧ください↓
+下記のリンクをクリック↓
 
 https://drive.google.com/file/d/1xoTAWo129JfjKk--Ggc_NU3sdDKUt-O2/view?usp=sharing
 
