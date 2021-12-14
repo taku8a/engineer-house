@@ -5,6 +5,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_user) { create(:user) }
   let!(:post) { create(:post, user: user) }
   let!(:other_post) { create(:post, user: other_user) }
+  let!(:post_comment) { create(:post_comment, user: user, post: post) }
+  let!(:other_post_comment) { create(:post_comment, user: other_user, post: post) }
 
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
@@ -247,4 +249,44 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe 'コメント一覧画面のテスト' do
+    before do
+      visit post_post_comments_path(post_comment.post_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq post_post_comments_path(post_comment.post_id)
+      end
+      it '自分のコメントと他人の投稿のコメントのリンク先がそれぞれ正しい' do
+        expect(page).to have_link post_comment.short_comment, href: post_post_comment_path(post_comment.post_id, post_comment.id)
+        expect(page).to have_link other_post_comment.short_comment, href: post_post_comment_path(other_post_comment.post_id, other_post_comment.id)
+      end
+      it '自分と他人のコメント時間が表示される' do
+        expect(page).to have_content post_comment.make_time
+        expect(page).to have_content other_post_comment.make_time
+      end
+      it 'コメント者の名前表示とそのコメント者の詳細画面のリンクが正しい' do
+        expect(page).to have_link post_comment.user.short_name, href: show_users_path(post_comment.user.id)
+        expect(page).to have_link other_post_comment.user.short_name, href: show_users_path(other_post_comment.user.id)
+      end
+      it '新規投稿画面へのリンクが存在する' do
+        expect(page).to have_link '', href: new_post_post_comment_path(post_comment.post_id)
+      end
+      it '「コメント日時」と表示される' do
+        expect(page).to have_content 'コメント日時'
+      end
+      it '「コメント者」と表示される' do
+        expect(page).to have_content 'コメント者'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it '「コメント一覧」と表示される' do
+        expect(page).to have_content 'コメント一覧'
+      end
+    end
+  end
 end
+
