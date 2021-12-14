@@ -75,8 +75,7 @@ https://drive.google.com/file/d/1xoTAWo129JfjKk--Ggc_NU3sdDKUt-O2/view?usp=shari
 
 ### [ER図]
 
-![ポートフォリオ-ER図](https://user-images.githubusercontent.com/89015721/141829548-a03810da-1868-43b5-8154-3cd62dfc6c9b.jpg)
-
+![ポートフォリオ-ER図 (1)](https://user-images.githubusercontent.com/89015721/145936555-f8c1a7ef-39ff-4c61-91b9-72f9e636f2df.jpg)
 
 ### [アプリケーション詳細設計書]
 
