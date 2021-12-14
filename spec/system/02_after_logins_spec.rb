@@ -5,7 +5,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_user) { create(:user) }
   let!(:post) { create(:post, user: user) }
   let!(:other_post) { create(:post, user: other_user) }
-  
+
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
   # とは別で新たなユーザーが生成されるため、post.userとuserは別の人という事になる。編集・削除権限がある詳細画面などで、うまくいかない
@@ -188,6 +188,62 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it '正しく削除され、リダイレクト先が、投稿一覧画面になっている' do
         expect(Post.where(id: post.id).count).to eq 0
         expect(current_path).to eq posts_path
+      end
+    end
+  end
+
+  describe '自分の投稿編集画面のテスト' do
+    before do
+      visit edit_post_path(post)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_post_path(post)
+      end
+      it '「投稿編集」と表示される' do
+        expect(page).to have_content '投稿編集'
+      end
+      it '「ジャンル」と表示される' do
+        expect(page).to have_content 'ジャンル'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「投稿」と表示される' do
+        expect(page).to have_content '投稿'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'title編集フォームが表示される' do
+        expect(page).to have_field 'post[title]', with: post.title
+      end
+      it 'body編集フォームが表示される' do
+        expect(page).to have_field 'post[body]', with: post.body
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @post_old_title = post.title
+        @post_old_body = post.body
+        fill_in 'post[title]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'post[body]', with: Faker::Lorem.characters(number: 20)
+        click_button 'アップデート'
+      end
+
+      it 'titleが正しく更新される' do
+        expect(post.reload.title).not_to eq @post_old_title
+      end
+      it 'bodyが正しく更新される' do
+        expect(post.reload.body).not_to eq @post_old_body
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        expect(current_path).to eq post_path(post)
       end
     end
   end
