@@ -288,5 +288,106 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe '新規コメント一覧画面のテスト' do
+    before do
+      visit new_post_post_comment_path(post_comment.post_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_post_post_comment_path(post_comment.post_id)
+      end
+      it 'コメント新規投稿' do
+        expect(page).to have_content 'コメント新規投稿'
+      end
+      it '参考ガイド' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it 'コメント' do
+        expect(page).to have_content 'コメント'
+      end
+       it 'コメントするボタンが表示される' do
+        expect(page).to have_button 'コメントする'
+      end
+      it 'comment投稿フォームが表示される' do
+        expect(page).to have_field 'post_comment[comment]'
+      end
+    end
+
+    context 'コメント成功テスト' do
+      before do
+        fill_in 'post_comment[comment]', with: Faker::Lorem.characters(number: 20)
+      end
+
+      it '自分の新しいコメントが正しく保存される' do
+        expect { click_button 'コメントする' }.to change{ PostComment.count }.by(1)
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        click_button 'コメントする'
+        expect(current_path).to eq post_post_comment_path(PostComment.last.post_id,PostComment.last.id)
+      end
+    end
+  end
+
+  describe '自分のコメント詳細画面のテスト' do
+    before do
+      visit post_post_comment_path(post_comment.post_id, post_comment.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it '「コメント情報」と表示される' do
+        expect(page).to have_content 'コメント情報'
+      end
+      it '「コメント者」と表示される' do
+        expect(page).to have_content 'コメント者'
+      end
+      it '「投稿タイトル」と表示される' do
+        expect(page).to have_content '投稿タイトル'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it 'コメント者の名前にUser詳細リンクがある' do
+        expect(page).to have_link post_comment.user.name, href: show_users_path(post_comment.user.id)
+      end
+      it '投稿タイトルのタイトルに投稿詳細リンクがある' do
+        expect(page).to have_link post_comment.post.title, href: post_path(post_comment.post.id)
+      end
+      it 'コメント内容(comment)が表示される' do
+        expect(page).to have_content post_comment.comment
+      end
+      it 'コメントの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it 'コメントの削除リンクが表示される' do
+        expect(page).to have_link '削除する', href: post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+
+    context 'コメント編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+
+    context '投稿削除リンクのテスト' do
+      before do
+        click_link '削除する'
+      end
+
+      it '正しく削除され、リダイレクト先が、コメント一覧画面になっている' do
+        expect(PostComment.where(id: post_comment.id).count).to eq 0
+        expect(current_path).to eq post_post_comments_path(post_comment.post_id)
+      end
+    end
+  end
 end
 
