@@ -389,5 +389,47 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe '自分のコメント編集画面のテスト' do
+    before do
+      visit edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it '「コメント編集」と表示される' do
+        expect(page).to have_content 'コメント編集'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'comment編集フォームが表示される' do
+        expect(page).to have_field 'post_comment[comment]', with: post_comment.comment
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @post_comment_old_comment = post_comment.comment
+        fill_in 'post_comment[comment]', with: Faker::Lorem.characters(number: 20)
+        click_button 'アップデート'
+      end
+
+      it 'commentが正しく更新される' do
+        expect(post_comment.reload.comment).not_to eq @post_comment_old_comment
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        expect(current_path).to eq post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+  end
 end
 
