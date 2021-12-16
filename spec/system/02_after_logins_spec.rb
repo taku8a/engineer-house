@@ -434,7 +434,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
     end
   end
 
-   describe 'ジャンル一覧・新規登録画面のテスト' do
+   describe 'ジャンル一覧・新規登録画面のテスト', js: true do
     before do
       visit genres_path
     end
@@ -468,17 +468,23 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
 
-    context 'ジャンル登録成功テスト', js: true do
+    context 'ジャンル登録成功テスト'do
       before do
         fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
+
       end
 
-      it '自分の新しいジャンルが正しく保存される' do
-        expect { click_button '新規登録' }.to change{ Genre.count }.by(1), xhr: true
-      end
-      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+      it '自分の新しいジャンルが正しく保存される', js: true do
+        # expect { click_button '新規登録' }.to change{ Genre.count }.by(1)
         click_button '新規登録'
-        expect(current_path).to eq genre_path(Genre.last.id), xhr: true
+        sleep(3)
+        expect(page).to have_content '登録しました。'
+
+      end
+      it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている', js: true do
+        click_button '新規登録'
+        sleep(3)
+        expect(current_path).to eq genres_path
       end
     end
   end
