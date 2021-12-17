@@ -5,7 +5,11 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_user) { create(:user) }
   let!(:post) { create(:post, user: user) }
   let!(:other_post) { create(:post, user: other_user) }
-  
+  let!(:post_comment) { create(:post_comment, user: user, post: post) }
+  let!(:other_post_comment) { create(:post_comment, user: other_user, post: post) }
+  let!(:genre) { create(:genre) }
+  let!(:other_genre) { create(:genre) }
+
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
   # とは別で新たなユーザーが生成されるため、post.userとuserは別の人という事になる。編集・削除権限がある詳細画面などで、うまくいかない
@@ -191,4 +195,299 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe '自分の投稿編集画面のテスト' do
+    before do
+      visit edit_post_path(post)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_post_path(post)
+      end
+      it '「投稿編集」と表示される' do
+        expect(page).to have_content '投稿編集'
+      end
+      it '「ジャンル」と表示される' do
+        expect(page).to have_content 'ジャンル'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「投稿」と表示される' do
+        expect(page).to have_content '投稿'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'title編集フォームが表示される' do
+        expect(page).to have_field 'post[title]', with: post.title
+      end
+      it 'body編集フォームが表示される' do
+        expect(page).to have_field 'post[body]', with: post.body
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @post_old_title = post.title
+        @post_old_body = post.body
+        fill_in 'post[title]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'post[body]', with: Faker::Lorem.characters(number: 20)
+        click_button 'アップデート'
+      end
+
+      it 'titleが正しく更新される' do
+        expect(post.reload.title).not_to eq @post_old_title
+      end
+      it 'bodyが正しく更新される' do
+        expect(post.reload.body).not_to eq @post_old_body
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        expect(current_path).to eq post_path(post)
+      end
+    end
+  end
+
+  describe 'コメント一覧画面のテスト' do
+    before do
+      visit post_post_comments_path(post_comment.post_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq post_post_comments_path(post_comment.post_id)
+      end
+      it '自分のコメントと他人の投稿のコメントのリンク先がそれぞれ正しい' do
+        expect(page).to have_link post_comment.short_comment, href: post_post_comment_path(post_comment.post_id, post_comment.id)
+        expect(page).to have_link other_post_comment.short_comment, href: post_post_comment_path(other_post_comment.post_id, other_post_comment.id)
+      end
+      it '自分と他人のコメント時間が表示される' do
+        expect(page).to have_content post_comment.make_time
+        expect(page).to have_content other_post_comment.make_time
+      end
+      it 'コメント者の名前表示とそのコメント者の詳細画面のリンクが正しい' do
+        expect(page).to have_link post_comment.user.short_name, href: show_users_path(post_comment.user.id)
+        expect(page).to have_link other_post_comment.user.short_name, href: show_users_path(other_post_comment.user.id)
+      end
+      it '新規投稿画面へのリンクが存在する' do
+        expect(page).to have_link '', href: new_post_post_comment_path(post_comment.post_id)
+      end
+      it '「コメント日時」と表示される' do
+        expect(page).to have_content 'コメント日時'
+      end
+      it '「コメント者」と表示される' do
+        expect(page).to have_content 'コメント者'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it '「コメント一覧」と表示される' do
+        expect(page).to have_content 'コメント一覧'
+      end
+    end
+  end
+
+  describe '新規コメント一覧画面のテスト' do
+    before do
+      visit new_post_post_comment_path(post_comment.post_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_post_post_comment_path(post_comment.post_id)
+      end
+      it 'コメント新規投稿' do
+        expect(page).to have_content 'コメント新規投稿'
+      end
+      it '参考ガイド' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it 'コメント' do
+        expect(page).to have_content 'コメント'
+      end
+       it 'コメントするボタンが表示される' do
+        expect(page).to have_button 'コメントする'
+      end
+      it 'comment投稿フォームが表示される' do
+        expect(page).to have_field 'post_comment[comment]'
+      end
+    end
+
+    context 'コメント成功テスト' do
+      before do
+        fill_in 'post_comment[comment]', with: Faker::Lorem.characters(number: 20)
+      end
+
+      it '自分の新しいコメントが正しく保存される' do
+        expect { click_button 'コメントする' }.to change{ PostComment.count }.by(1)
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        click_button 'コメントする'
+        expect(current_path).to eq post_post_comment_path(PostComment.last.post_id,PostComment.last.id)
+      end
+    end
+  end
+
+  describe '自分のコメント詳細画面のテスト' do
+    before do
+      visit post_post_comment_path(post_comment.post_id, post_comment.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it '「コメント情報」と表示される' do
+        expect(page).to have_content 'コメント情報'
+      end
+      it '「コメント者」と表示される' do
+        expect(page).to have_content 'コメント者'
+      end
+      it '「投稿タイトル」と表示される' do
+        expect(page).to have_content '投稿タイトル'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it 'コメント者の名前にUser詳細リンクがある' do
+        expect(page).to have_link post_comment.user.name, href: show_users_path(post_comment.user.id)
+      end
+      it '投稿タイトルのタイトルに投稿詳細リンクがある' do
+        expect(page).to have_link post_comment.post.title, href: post_path(post_comment.post.id)
+      end
+      it 'コメント内容(comment)が表示される' do
+        expect(page).to have_content post_comment.comment
+      end
+      it 'コメントの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it 'コメントの削除リンクが表示される' do
+        expect(page).to have_link '削除する', href: post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+
+    context 'コメント編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+
+    context '投稿削除リンクのテスト' do
+      before do
+        click_link '削除する'
+      end
+
+      it '正しく削除され、リダイレクト先が、コメント一覧画面になっている' do
+        expect(PostComment.where(id: post_comment.id).count).to eq 0
+        expect(current_path).to eq post_post_comments_path(post_comment.post_id)
+      end
+    end
+  end
+
+  describe '自分のコメント編集画面のテスト' do
+    before do
+      visit edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+      it '「コメント編集」と表示される' do
+        expect(page).to have_content 'コメント編集'
+      end
+      it '「参考ガイド」と表示される' do
+        expect(page).to have_content '参考ガイド'
+      end
+      it '「コメント」と表示される' do
+        expect(page).to have_content 'コメント'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'comment編集フォームが表示される' do
+        expect(page).to have_field 'post_comment[comment]', with: post_comment.comment
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @post_comment_old_comment = post_comment.comment
+        fill_in 'post_comment[comment]', with: Faker::Lorem.characters(number: 20)
+        click_button 'アップデート'
+      end
+
+      it 'commentが正しく更新される' do
+        expect(post_comment.reload.comment).not_to eq @post_comment_old_comment
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        expect(current_path).to eq post_post_comment_path(post_comment.post_id, post_comment.id)
+      end
+    end
+  end
+
+   describe 'ジャンル一覧・新規登録画面のテスト', js: true do
+    before do
+      visit genres_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq genres_path
+      end
+      it '自分のジャンルと他人のジャンルの投稿数のリンク先がそれぞれ正しい' do
+        expect(page).to have_link genre.posts.count, href: genre_path(genre)
+        expect(page).to have_link other_genre.posts.count, href: genre_path(other_genre)
+      end
+      it '自分のジャンル名と他人のジャンル名がそれぞれ表示される' do
+        expect(page).to have_content genre.short_name
+        expect(page).to have_content other_genre.short_name
+      end
+      it '「ジャンル一覧・追加」と表示される' do
+        expect(page).to have_content 'ジャンル一覧・追加'
+      end
+      it '「ジャンル」と表示される' do
+        expect(page).to have_content 'ジャンル'
+      end
+      it '「投稿数」と表示される' do
+        expect(page).to have_content '投稿数'
+      end
+      it '新規登録ボタンが表示される' do
+        expect(page).to have_button '新規登録'
+      end
+      it 'name登録フォームが表示される' do
+        expect(page).to have_field 'genre[name]'
+      end
+    end
+
+    context 'ジャンル登録成功テスト'do
+      before do
+        fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
+
+      end
+
+      it '自分の新しいジャンルが正しく保存される', js: true do
+        # expect { click_button '新規登録' }.to change{ Genre.count }.by(1) X
+        # Ajaxが終わっていないのに、Ajaxの結果をチェックしてしまうので、
+        # モデルを直接テストせず、sleep(3)で待ってから、ブラウザ表示をテストするようにした。
+        click_button '新規登録'
+        sleep(3)
+        expect(page).to have_content '登録しました。'
+      end
+      it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている', js: true do
+        click_button '新規登録'
+        sleep(3)
+        expect(current_path).to eq genres_path
+      end
+    end
+  end
 end
+

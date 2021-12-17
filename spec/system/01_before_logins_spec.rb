@@ -231,8 +231,8 @@ RSpec.describe "[STEP1] ユーザーログイン前のテスト", type: :system 
       it '「お問い合わせフォーム」と表示される' do
         expect(page).to have_content 'お問い合わせフォーム'
       end
-      it '「タイトル」と表示される' do
-        expect(page).to have_content 'タイトル'
+      it '「名前」と表示される' do
+        expect(page).to have_content '名前'
       end
       it '「内容」と表示される' do
         expect(page).to have_content '内容'
