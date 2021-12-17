@@ -475,11 +475,12 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
 
       it '自分の新しいジャンルが正しく保存される', js: true do
-        # expect { click_button '新規登録' }.to change{ Genre.count }.by(1)
+        # expect { click_button '新規登録' }.to change{ Genre.count }.by(1) X
+        # Ajaxが終わっていないのに、Ajaxの結果をチェックしてしまうので、
+        # モデルを直接テストせず、sleep(3)で待ってから、ブラウザ表示をテストするようにした。
         click_button '新規登録'
         sleep(3)
         expect(page).to have_content '登録しました。'
-
       end
       it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている', js: true do
         click_button '新規登録'
