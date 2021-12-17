@@ -100,8 +100,7 @@ https://drive.google.com/file/d/1xoTAWo129JfjKk--Ggc_NU3sdDKUt-O2/view?usp=shari
 
 ### [使用Gem]
 
-![ポートフォリオ-gem](https://user-images.githubusercontent.com/89015721/144173298-c515cbb0-11e3-4855-b995-1ef5a6d04e5e.jpg)
-
+![ポートフォリオ-gem (1)](https://user-images.githubusercontent.com/89015721/146489519-92d5b011-0593-4551-87de-83cfac4e25e9.jpg)
 
 ### [開発者]
 
