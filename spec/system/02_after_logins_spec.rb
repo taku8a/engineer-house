@@ -434,7 +434,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
     end
   end
 
-   describe 'ジャンル一覧・新規登録画面のテスト', js: true do
+  # describe 'ジャンル一覧・新規登録画面のテスト', js: true do
+  describe 'ジャンル一覧・新規登録画面のテスト' do
     before do
       visit genres_path
     end
@@ -466,12 +467,15 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it 'name登録フォームが表示される' do
         expect(page).to have_field 'genre[name]'
       end
+      it 'ジャンルの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_genre_path(genre)
+        expect(page).not_to have_link '編集する', href: edit_genre_path(other_genre)
+      end
     end
 
     context 'ジャンル登録成功テスト'do
       before do
         fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
-
       end
 
       it '自分の新しいジャンルが正しく保存される', js: true do
@@ -486,6 +490,46 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
         click_button '新規登録'
         sleep(3)
         expect(current_path).to eq genres_path
+      end
+    end
+  end
+
+  describe '自分のジャンル詳細画面のテスト' do
+    before do
+      visit genre_path(genre)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq genre_path(genre)
+      end
+      it '「投稿日時」と表示される' do
+        expect(page).to have_content '投稿日時'
+      end
+      it '「投稿者」と表示される' do
+        expect(page).to have_content '投稿者'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「投稿内容」と表示される' do
+        expect(page).to have_content '投稿内容'
+      end
+      it '「投稿一覧」と表示される' do
+        expect(page).to have_content '投稿一覧'
+      end
+      it 'ジャンル名が表示される' do
+        expect(page).to have_content genre.name
+      end
+      it 'ジャンルの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_genre_path(genre)
+      end
+    end
+
+    context 'ジャンル編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_genre_path(genre)
       end
     end
   end
