@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system do
+RSpec.describe "[STEP3]ユーザーログイン後のテスト(非同期通信)", type: :system do
   let(:user) { create(:user) }
   let!(:other_user) { create(:user) }
   let!(:post) { create(:post, user: user) }
@@ -21,9 +21,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
     fill_in 'user[password]', with: user.password
     click_button 'ログイン'
   end
-  
-  describe 'ジャンル一覧・新規登録画面のテスト', js: true do
-  # describe 'ジャンル一覧・新規登録画面のテスト' do
+
+  describe 'ジャンル一覧・新規登録画面のテスト' do
     before do
       visit genres_path
     end
@@ -59,17 +58,16 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
         expect(page).to have_link 'ジャンルガイド'
       end
       it '自分のジャンルの編集リンクが表示される' do
-        p page.body
-        expect(page).to have_link '編集する'#, href: edit_genre_path(genre)
+        expect(page).to have_link '編集する', href: edit_genre_path(genre)
       end
     end
 
-    context 'ジャンル登録成功テスト'do
+    context 'ジャンル登録成功テスト', js: true do
       before do
         fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
       end
 
-      it '自分の新しいジャンルが正しく保存される', js: true do
+      it '自分の新しいジャンルが正しく保存される' do
         # expect { click_button '新規登録' }.to change{ Genre.count }.by(1) X
         # Ajaxが終わっていないのに、Ajaxの結果をチェックしてしまうので、
         # モデルを直接テストせず、sleep(3)で待ってから、ブラウザ表示をテストするようにした。
@@ -77,7 +75,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
         sleep(3)
         expect(page).to have_content '登録しました。'
       end
-      it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている', js: true do
+      it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている' do
         click_button '新規登録'
         sleep(3)
         expect(current_path).to eq genres_path
