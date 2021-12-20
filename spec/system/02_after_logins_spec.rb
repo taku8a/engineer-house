@@ -7,8 +7,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_post) { create(:post, user: other_user) }
   let!(:post_comment) { create(:post_comment, user: user, post: post) }
   let!(:other_post_comment) { create(:post_comment, user: other_user, post: post) }
-  let!(:genre) { create(:genre) }
-  let!(:other_genre) { create(:genre) }
+  let!(:genre) { create(:genre, owner_id: user.id) }
+  let!(:other_genre) { create(:genre, owner_id: other_user.id) }
 
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
@@ -434,58 +434,66 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
     end
   end
 
-   describe 'ジャンル一覧・新規登録画面のテスト', js: true do
+  describe '自分のジャンル詳細画面のテスト' do
     before do
-      visit genres_path
+      visit genre_path(genre)
     end
 
     context '表示内容の確認' do
       it 'URLが正しい' do
-        expect(current_path).to eq genres_path
+        expect(current_path).to eq genre_path(genre)
       end
-      it '自分のジャンルと他人のジャンルの投稿数のリンク先がそれぞれ正しい' do
-        expect(page).to have_link genre.posts.count, href: genre_path(genre)
-        expect(page).to have_link other_genre.posts.count, href: genre_path(other_genre)
+      it '「投稿一覧」と表示される' do
+        expect(page).to have_content '投稿一覧'
       end
-      it '自分のジャンル名と他人のジャンル名がそれぞれ表示される' do
-        expect(page).to have_content genre.short_name
-        expect(page).to have_content other_genre.short_name
+      it 'ジャンル名が表示される' do
+        expect(page).to have_content genre.name
       end
-      it '「ジャンル一覧・追加」と表示される' do
-        expect(page).to have_content 'ジャンル一覧・追加'
-      end
-      it '「ジャンル」と表示される' do
-        expect(page).to have_content 'ジャンル'
-      end
-      it '「投稿数」と表示される' do
-        expect(page).to have_content '投稿数'
-      end
-      it '新規登録ボタンが表示される' do
-        expect(page).to have_button '新規登録'
-      end
-      it 'name登録フォームが表示される' do
-        expect(page).to have_field 'genre[name]'
+      it 'ジャンルの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_genre_path(genre)
       end
     end
 
-    context 'ジャンル登録成功テスト'do
+    context 'ジャンル編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_genre_path(genre)
+      end
+    end
+  end
+
+  describe '自分のジャンル編集画面のテスト' do
+    before do
+      visit edit_genre_path(genre)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_genre_path(genre)
+      end
+      it '「ジャンル編集」と表示される' do
+        expect(page).to have_content 'ジャンル編集'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'comment編集フォームが表示される' do
+        expect(page).to have_field 'genre[name]', with: genre.name
+      end
+    end
+
+    context '更新成功テスト' do
       before do
+        @genre_old_name = genre.name
         fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
-
+        click_button 'アップデート'
       end
 
-      it '自分の新しいジャンルが正しく保存される', js: true do
-        # expect { click_button '新規登録' }.to change{ Genre.count }.by(1) X
-        # Ajaxが終わっていないのに、Ajaxの結果をチェックしてしまうので、
-        # モデルを直接テストせず、sleep(3)で待ってから、ブラウザ表示をテストするようにした。
-        click_button '新規登録'
-        sleep(3)
-        expect(page).to have_content '登録しました。'
+      it 'nameが正しく更新される' do
+        expect(genre.reload.name).not_to eq @genre_old_name
       end
-      it 'レンダー先が、保存できたジャンルの一覧・新規登録画面になっている', js: true do
-        click_button '新規登録'
-        sleep(3)
-        expect(current_path).to eq genres_path
+      it 'リダイレクト先が、保存できたジャンルの詳細画面になっている' do
+        expect(current_path).to eq genre_path(genre)
       end
     end
   end
