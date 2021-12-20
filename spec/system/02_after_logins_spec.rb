@@ -461,5 +461,41 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  # describe '自分のジャンル編集画面のテスト' do
+  #   before do
+  #     visit edit_genre_path(genre)
+  #   end
+
+  #   context '表示内容の確認' do
+  #     it 'URLが正しい' do
+  #       expect(current_path).to eq edit_genre_path(genre)
+  #     end
+  #     it '「ジャンル編集」と表示される' do
+  #       expect(page).to have_content 'ジャンル編集'
+  #     end
+  #     it 'アップデートボタンが表示される' do
+  #       expect(page).to have_button 'アップデート'
+  #     end
+  #     it 'comment編集フォームが表示される' do
+  #       expect(page).to have_field 'genre[name]', with: genre.name
+  #     end
+  #   end
+
+  #   context '更新成功テスト' do
+  #     before do
+  #       @genre_old_name = genre.name
+  #       fill_in 'genre[name]', with: Faker::Lorem.characters(number: 10)
+  #       click_button 'アップデート'
+  #     end
+
+  #     it 'nameが正しく更新される' do
+  #       expect(genre.reload.name).not_to eq @genre_old_name
+  #     end
+  #     it 'リダイレクト先が、保存できたジャンルの詳細画面になっている' do
+  #       expect(current_path).to eq genre_path(genre)
+  #     end
+  #   end
+  # end
 end
 
