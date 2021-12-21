@@ -9,6 +9,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_post_comment) { create(:post_comment, user: other_user, post: post) }
   let!(:genre) { create(:genre, owner_id: user.id) }
   let!(:other_genre) { create(:genre, owner_id: other_user.id) }
+  let!(:genre_detail) { create(:genre_detail, genre: genre) }
+  let!(:other_genre_detail) { create(:genre_detail, genre: other_genre) }
 
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
@@ -494,6 +496,45 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
       it 'リダイレクト先が、保存できたジャンルの詳細画面になっている' do
         expect(current_path).to eq genre_path(genre)
+      end
+    end
+  end
+
+  describe 'ジャンル投稿一覧画面のテスト' do
+    before do
+      visit genre_genre_details_path(genre_detail.genre_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq genre_genre_details_path(genre_detail.genre_id)
+      end
+      it 'ジャンル投稿のタイトルのリンク先が正しい' do
+        expect(page).to have_link genre_detail.short_title, href: genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+      it 'ジャンル投稿のオピニオンが表示される' do
+        expect(page).to have_content genre_detail.short_body
+      end
+      it 'ジャンル投稿の更新時間が表示される' do
+        expect(page).to have_content genre_detail.update_time
+      end
+      it '新規ジャンル投稿画面へのリンクが存在する' do
+        expect(page).to have_link '', href: new_genre_genre_detail_path(genre_detail.genre_id)
+      end
+      it '「ガイド一覧」と表示される' do
+        expect(page).to have_content 'ガイド一覧'
+      end
+      it '「更新日時」と表示される' do
+        expect(page).to have_content '更新日時'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「ガイド内容」と表示される' do
+        expect(page).to have_content 'ガイド内容'
+      end
+      it 'ガイドが紐づいているジャンル名が表示される' do
+        expect(page).to have_content genre_detail.genre.name
       end
     end
   end
