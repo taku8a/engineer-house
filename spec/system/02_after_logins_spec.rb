@@ -293,7 +293,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
     end
   end
 
-  describe '新規コメント一覧画面のテスト' do
+  describe '新規コメント画面のテスト' do
     before do
       visit new_post_post_comment_path(post_comment.post_id)
     end
@@ -535,6 +535,51 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
       it 'ガイドが紐づいているジャンル名が表示される' do
         expect(page).to have_content genre_detail.genre.name
+      end
+    end
+  end
+
+  describe '新規ジャンル投稿画面のテスト' do
+    before do
+      visit new_genre_genre_detail_path(genre_detail.genre_id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_genre_genre_detail_path(genre_detail.genre_id)
+      end
+      it 'ガイド新規投稿' do
+        expect(page).to have_content 'ガイド新規投稿'
+      end
+      it 'タイトル' do
+        expect(page).to have_content 'タイトル'
+      end
+      it 'ガイド内容' do
+        expect(page).to have_content 'ガイド内容'
+      end
+       it '投稿するボタンが表示される' do
+        expect(page).to have_button '投稿する'
+      end
+      it 'タイトル投稿フォームが表示される' do
+        expect(page).to have_field 'genre_detail[title]'
+      end
+      it 'ガイド内容投稿フォームが表示される' do
+        expect(page).to have_field 'genre_detail[body]'
+      end
+    end
+
+    context 'ジャンル投稿成功テスト' do
+      before do
+        fill_in 'genre_detail[title]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'genre_detail[body]', with: Faker::Lorem.characters(number: 20)
+      end
+
+      it '自分の新しいジャンル投稿が正しく保存される' do
+        expect { click_button '投稿する' }.to change{ GenreDetail.count }.by(1)
+      end
+      it 'リダイレクト先が、保存できたジャンル投稿の詳細画面になっている' do
+        click_button '投稿する'
+        expect(current_path).to eq genre_genre_detail_path(GenreDetail.last.genre_id,GenreDetail.last.id)
       end
     end
   end
