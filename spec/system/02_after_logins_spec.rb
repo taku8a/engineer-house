@@ -583,5 +583,48 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe 'ジャンル投稿詳細画面のテスト' do
+    before do
+      visit genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+      it '「ガイド情報」と表示される' do
+        expect(page).to have_content 'ガイド情報'
+      end
+      it '「ジャンル」と表示される' do
+        expect(page).to have_content 'ジャンル'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「ガイド内容」と表示される' do
+        expect(page).to have_content 'ガイド内容'
+      end
+      it 'ジャンルの名前に詳細リンクがある' do
+        expect(page).to have_link genre_detail.genre.name, href: genre_path(genre_detail.genre.id)
+      end
+      it 'タイトル(title)が表示される' do
+        expect(page).to have_content genre_detail.title
+      end
+      it 'ガイド内容(body)が表示される' do
+        expect(page).to have_content genre_detail.body
+      end
+      it 'ジャンル投稿の編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+    end
+
+    context 'ジャンル投稿編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+    end
+  end
 end
 
