@@ -479,7 +479,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it 'アップデートボタンが表示される' do
         expect(page).to have_button 'アップデート'
       end
-      it 'comment編集フォームが表示される' do
+      it 'name編集フォームが表示される' do
         expect(page).to have_field 'genre[name]', with: genre.name
       end
     end
@@ -623,6 +623,56 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it '編集画面に遷移する' do
         click_link '編集する'
         expect(current_path).to eq edit_genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+    end
+  end
+
+  describe 'ジャンル投稿編集画面のテスト' do
+    before do
+      visit edit_genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+      it '「ガイド編集」と表示される' do
+        expect(page).to have_content 'ガイド編集'
+      end
+      it '「タイトル」と表示される' do
+        expect(page).to have_content 'タイトル'
+      end
+      it '「ガイド内容」と表示される' do
+        expect(page).to have_content 'ガイド内容'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'title編集フォームが表示される' do
+        expect(page).to have_field 'genre_detail[title]', with: genre_detail.title
+      end
+      it 'body編集フォームが表示される' do
+        expect(page).to have_field 'genre_detail[body]', with: genre_detail.body
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @genre_detail_old_title = genre_detail.title
+        @genre_detail_old_body = genre_detail.body
+        fill_in 'genre_detail[title]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'genre_detail[body]', with: Faker::Lorem.characters(number: 20)
+        click_button 'アップデート'
+      end
+
+      it 'titleが正しく更新される' do
+        expect(genre_detail.reload.title).not_to eq @genre_detai_old_title
+      end
+      it 'bodyが正しく更新される' do
+        expect(genre_detail.reload.body).not_to eq @genre_detail_old_body
+      end
+      it 'リダイレクト先が、保存できたジャンル投稿の詳細画面になっている' do
+        expect(current_path).to eq genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
       end
     end
   end
