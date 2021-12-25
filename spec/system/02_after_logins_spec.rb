@@ -11,6 +11,8 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
   let!(:other_genre) { create(:genre, owner_id: other_user.id) }
   let!(:genre_detail) { create(:genre_detail, genre: genre) }
   let!(:other_genre_detail) { create(:genre_detail, genre: other_genre) }
+  let!(:project) { create(:project, owner_id: user.id) }
+  let!(:other_project) { create(:project, owner_id: other_user.id) }
 
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
@@ -311,7 +313,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it 'コメント' do
         expect(page).to have_content 'コメント'
       end
-       it 'コメントするボタンが表示される' do
+      it 'コメントするボタンが表示される' do
         expect(page).to have_button 'コメントする'
       end
       it 'comment投稿フォームが表示される' do
@@ -557,7 +559,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it 'ガイド内容' do
         expect(page).to have_content 'ガイド内容'
       end
-       it '投稿するボタンが表示される' do
+      it '投稿するボタンが表示される' do
         expect(page).to have_button '投稿する'
       end
       it 'タイトル投稿フォームが表示される' do
@@ -673,6 +675,48 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
       it 'リダイレクト先が、保存できたジャンル投稿の詳細画面になっている' do
         expect(current_path).to eq genre_genre_detail_path(genre_detail.genre_id, genre_detail.id)
+      end
+    end
+  end
+
+  describe 'プロジェクト一覧画面のテスト' do
+    before do
+      visit projects_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq projects_path
+      end
+      it 'プロジェクトのリンク先が正しい' do
+        expect(page).to have_link project.short_name, href: project_path(project)
+      end
+      it '始動日時が表示される' do
+        expect(page).to have_content project.make_time
+      end
+      it '概要が表示される' do
+        expect(page).to have_content project.short_introduction
+      end
+      it '自分と他人のプロジェクト画像が表示される：　プロジェクト画像（自分と他人）＋右下arrow画像' do
+        expect(all('img').size).to eq(3)
+      end
+      it '新規投稿画面へのリンクが存在する' do
+        expect(page).to have_link '', href: new_project_path
+      end
+      it '「プロジェクト一覧」と表示される' do
+        expect(page).to have_content 'プロジェクト一覧'
+      end
+      it '「始動」と表示される' do
+        expect(page).to have_content '始動'
+      end
+      it '「アイコン」と表示される' do
+        expect(page).to have_content 'アイコン'
+      end
+      it '「プロジェクト名」と表示される' do
+        expect(page).to have_content 'プロジェクト名'
+      end
+      it '「概要」と表示される' do
+        expect(page).to have_content '概要'
       end
     end
   end

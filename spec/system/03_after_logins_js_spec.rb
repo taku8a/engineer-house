@@ -9,6 +9,10 @@ RSpec.describe "[STEP3]ユーザーログイン後のテスト(非同期通信)"
   let!(:other_post_comment) { create(:post_comment, user: other_user, post: post) }
   let!(:genre) { create(:genre, owner_id: user.id) }
   let!(:other_genre) { create(:genre, owner_id: other_user.id) }
+  let!(:genre_detail) { create(:genre_detail, genre: genre) }
+  let!(:other_genre_detail) { create(:genre_detail, genre: other_genre) }
+  let!(:project) { create(:project, owner_id: user.id) }
+  let!(:other_project) { create(:project, owner_id: other_user.id) }
 
   # なぜ、let(:post) { create(:post) }ではダメなのか？　association :userが効いているから良いのでは？
   # →ログインユーザーの投稿ではない為。association :userはpostデータ作成時にuserデータも生成する。つまり、ここでは、ログインユーザー
