@@ -720,5 +720,58 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe '新規プロジェクト画面のテスト' do
+    before do
+      visit new_project_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_project_path
+      end
+      it '新規プロジェクト' do
+        expect(page).to have_content '新規プロジェクト'
+      end
+      it 'プロジェクト名' do
+        expect(page).to have_content 'プロジェクト名'
+      end
+      it '詳細' do
+        expect(page).to have_content '詳細'
+      end
+      it 'プロジェクト画像' do
+        expect(page).to have_content 'プロジェクト画像'
+      end
+      it '始動ボタンが表示される' do
+        expect(page).to have_button '始動'
+      end
+      it 'nameプロジェクト名フォームが表示される' do
+        expect(page).to have_field 'project[name]'
+      end
+      it 'introduction詳細フォームが表示される' do
+        expect(page).to have_field 'project[introduction]'
+      end
+      it 'project_imageプロジェクト画像フォームが表示される' do
+        expect(page).to have_field 'project[project_image]'
+      end
+    end
+
+    context 'プロジェクト立ち上げ成功テスト' do
+      before do
+        fill_in 'project[name]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'project[introduction]', with: Faker::Lorem.characters(number: 20)
+        image_path = Rails.root.join('spec/factories/images/desert.jpg')
+        attach_file('project[project_image]', image_path)
+      end
+
+      it '新しいプロジェクトが正しく保存される' do
+        expect { click_button '始動' }.to change{ Project.count }.by(1)
+      end
+      it 'リダイレクト先が、保存できたプロジェクトの詳細画面になっている' do
+        click_button '始動'
+        expect(current_path).to eq project_path(Project.last.id)
+      end
+    end
+  end
 end
 
