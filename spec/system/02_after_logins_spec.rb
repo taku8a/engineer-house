@@ -773,5 +773,68 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe 'プロジェクト詳細画面のテスト' do
+    before do
+      visit project_path(project)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq project_path(project)
+      end
+      it '「プロジェクト紹介」と表示される' do
+        expect(page).to have_content 'プロジェクト紹介'
+      end
+      it '「アイコン」と表示される' do
+        expect(page).to have_content 'アイコン'
+      end
+      it '「プロジェクト名」と表示される' do
+        expect(page).to have_content 'プロジェクト名'
+      end
+      it '「メンバー」と表示される' do
+        expect(page).to have_content 'メンバー'
+      end
+      it 'プロジェクト名が表示される' do
+        expect(page).to have_content project.name
+      end
+      it 'プロジェクト画像が表示される：プロジェクト画像＋右下arrow画像' do
+        expect(all('img').size).to eq(2)
+      end
+      it 'プロジェクト詳細が表示される' do
+        expect(page).to have_content project.introduction
+      end
+      it '「プロジェクト詳細」と表示される' do
+        expect(page).to have_content 'プロジェクト詳細'
+      end
+      it 'プロジェクトの編集リンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_project_path(project)
+      end
+      it 'プロジェクトの削除リンクが表示される' do
+        expect(page).to have_link '削除する', href: project_path(project)
+      end
+      it 'プロジェクトのディスカッションリンクが表示される' do
+        expect(page).to have_link 'ディスカッション'
+      end
+    end
+
+    context 'プロジェクト編集リンクのテスト' do
+      it '編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_project_path(project)
+      end
+    end
+
+    context '投稿削除リンクのテスト' do
+      before do
+        click_link '削除する'
+      end
+
+      it '正しく削除され、リダイレクト先が、プロジェクト一覧画面になっている' do
+        expect(Project.where(id: project.id).count).to eq 0
+        expect(current_path).to eq projects_path
+      end
+    end
+  end
 end
 
