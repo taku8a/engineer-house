@@ -68,3 +68,30 @@
     <%= render 'layouts/arrow' %>
   </div>
 </div>
+
+<!--コントローラー-->
+<!--post_params genre_ids: []-->
+<!--フォームのチェックボックスで設定したgenre_idsを許可する。-->
+<!--複数のidが渡ってくるので、配列の形式で記述している。-->
+
+<!--第一引数のgenre_idsはジャンルIDのリストを渡し、複数のジャンルを投稿に紐づけることができます。-->
+<!--第二引数はジャンルオブジェクトのリスト-->
+<!--第三引数にチェックボックスのvalue,-->
+<!--第四引数にジャンルオブジェクトのnameプロパティをラベルに指定-->
+<!--.labelで作ったスペースへcheckboxとtextを横並びで入れている-->
+
+<!--Genre.all-->
+<!--➡[#<Genre:0x00000000068b3a48 id: 1, owner_id: 1, name: "ddddddd", created_at: Thu, 16 Dec 2021 09:58:28 JST +09:00, updated_at: Thu, 16 Dec 2021 09:58:28 JST +09:00>,-->
+<!-- #<Genre:0x00000000068b2990 id: 2, owner_id: 1, name: "jjjjjjjjj", created_at: Thu, 16 Dec 2021 21:44:28 JST +09:00, updated_at: Thu, 16 Dec 2021 21:44:28 JST +09:00>]-->
+
+<!--リストと配列の違い-->
+
+<!--・リストは異なる型を格納して作成できるが、配列は同じ型しか格納できない-->
+<!--・リストはimportせずに使えるが、配列は、import arrayとしてインポートしないと使用できない-->
+
+<!--ここで各textに対して詳細画面へのリンクを考える際、genre.idでは、ActionView::Helpers::Tags::CollectionCheckBoxes::CheckBoxBuilder:0x00007f710cb52ca8-->
+<!--となり、うまくいかなかった。どうやら、collection_check_boxesには使用可能な３つの特別なメソッドがあり、-->
+<!--object,text,valueがあり、それぞれ現在レンダリングされているアイテム、そのテキスト、および値のメソッドである。-->
+
+<!--レンダリング・・もとになる情報を整形して表示すること-->
+
