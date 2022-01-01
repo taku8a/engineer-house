@@ -825,7 +825,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
 
-    context '投稿削除リンクのテスト' do
+    context 'プロジェクト削除リンクのテスト' do
       before do
         click_link '削除する'
       end
@@ -833,6 +833,64 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it '正しく削除され、リダイレクト先が、プロジェクト一覧画面になっている' do
         expect(Project.where(id: project.id).count).to eq 0
         expect(current_path).to eq projects_path
+      end
+    end
+  end
+  
+  describe 'プロジェクト編集画面のテスト' do
+    before do
+      visit edit_project_path(project)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_project_path(project)
+      end
+      it '「プロジェクト編集」と表示される' do
+        expect(page).to have_content 'プロジェクト編集'
+      end
+      it '「プロジェクト名」と表示される' do
+        expect(page).to have_content 'プロジェクト名'
+      end
+      it '「詳細」と表示される' do
+        expect(page).to have_content '詳細'
+      end
+      it '「プロジェクト画像」と表示される' do
+        expect(page).to have_content 'プロジェクト画像'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it 'name編集フォームが表示される' do
+        expect(page).to have_field 'project[name]', with: project.name
+      end
+      it 'introduction編集フォームが表示される' do
+        expect(page).to have_field 'project[introduction]', with: project.introduction
+      end
+      it 'project_imageフォームが表示される' do
+        expect(page).to have_field 'project[project_image]'
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @project_old_name = project.name
+        @project_old_introduction = project.introduction
+        fill_in 'project[name]', with: Faker::Lorem.characters(number: 10)
+        fill_in 'project[introduction]', with: Faker::Lorem.characters(number: 20)
+        image_path = Rails.root.join('spec/factories/images/desert.jpg')
+        attach_file('project[project_image]', image_path)
+        click_button 'アップデート'
+      end
+
+      it 'nameが正しく更新される' do
+        expect(project.reload.name).not_to eq @project_old_name
+      end
+      it 'introductionが正しく更新される' do
+        expect(project.reload.introduction).not_to eq @project_old_introduction
+      end
+      it 'リダイレクト先が、保存できたプロジェクトの詳細画面になっている' do
+        expect(current_path).to eq project_path(project)
       end
     end
   end
