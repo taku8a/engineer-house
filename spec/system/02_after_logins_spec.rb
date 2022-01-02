@@ -836,7 +836,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
-  
+
   describe 'プロジェクト編集画面のテスト' do
     before do
       visit edit_project_path(project)
@@ -891,6 +891,46 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
       it 'リダイレクト先が、保存できたプロジェクトの詳細画面になっている' do
         expect(current_path).to eq project_path(project)
+      end
+    end
+  end
+
+  describe 'メンバー一覧画面のテスト' do
+    before do
+      visit index_users_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq index_users_path
+      end
+      it 'メンバーのリンク先がそれぞれ正しい' do
+        expect(page).to have_link user.short_name, href: show_users_path(user)
+        expect(page).to have_link other_user.short_name, href: show_users_path(other_user)
+      end
+      it '自己紹介が表示される' do
+        expect(page).to have_content user.short_introduction
+      end
+      it '入会状況が表示される' do
+        expect(page).to have_content '有効'
+      end
+      it '自分と他人のアイコン画像が表示される：　アイコン画像（自分と他人）＋右下arrow画像' do
+        expect(all('img').size).to eq(3)
+      end
+      it '「メンバー一覧」と表示される' do
+        expect(page).to have_content 'メンバー一覧'
+      end
+      it '「アイコン」と表示される' do
+        expect(page).to have_content 'アイコン'
+      end
+      it '「ニックネーム」と表示される' do
+        expect(page).to have_content 'ニックネーム'
+      end
+      it '「自己紹介」と表示される' do
+        expect(page).to have_content '自己紹介'
+      end
+      it '「入会状況」と表示される' do
+        expect(page).to have_content '入会状況'
       end
     end
   end
