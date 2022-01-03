@@ -934,5 +934,64 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
-end
 
+  describe 'メンバー詳細画面のテスト' do
+    before do
+      visit show_users_path(user)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq show_users_path(user)
+      end
+      it '「メンバー紹介」と表示される' do
+        expect(page).to have_content 'メンバー紹介'
+      end
+      it '「アイコン」と表示される' do
+        expect(page).to have_content 'アイコン'
+      end
+      it '「ニックネーム」と表示される' do
+        expect(page).to have_content 'ニックネーム'
+      end
+      it '「自己紹介」と表示される' do
+        expect(page).to have_content '自己紹介'
+      end
+      it '「入会状況」と表示される' do
+        expect(page).to have_content '入会状況'
+      end
+      it '入会状況が「有効」と表示される' do
+        expect(page).to have_content '有効'
+      end
+      it '「参加プロジェクト」と表示される' do
+        expect(page).to have_content '参加プロジェクト'
+      end
+      it '「投稿一覧」と表示される' do
+        expect(page).to have_content '投稿一覧'
+      end
+      it '「コメント一覧」と表示される' do
+        expect(page).to have_content 'コメント一覧'
+      end
+      it '「プロフ」と表示される' do
+        expect(page).to have_content 'プロフ'
+      end
+      it '「ィール」と表示される' do
+        expect(page).to have_content 'ィール'
+      end
+      it 'ニックネームが表示される' do
+        expect(page).to have_content user.name
+      end
+      it 'アイコンが表示される：アイコン＋右下arrow画像' do
+        expect(all('img').size).to eq(2)
+      end
+      it '自己紹介が表示される' do
+        expect(page).to have_content user.introduction
+      end
+      it '投稿が表示される' do
+        expect(page).to have_link post.short_title, href: post_path(post)
+      end
+      it 'コメントが表示される' do
+        expect(page).to have_link post_comment.short_comment, href: post_post_comment_path(post_comment.post_id,post_comment.id)
+      end
+    end
+  end
+end
