@@ -994,4 +994,83 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe 'マイページ編集画面のテスト' do
+    before do
+      visit edit_users_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq edit_users_path
+      end
+      it '「マイページ編集」と表示される' do
+        expect(page).to have_content 'マイページ編集'
+      end
+      it '「ニックネーム」と表示される' do
+        expect(page).to have_content 'ニックネーム'
+      end
+      it '「自己紹介」と表示される' do
+        expect(page).to have_content '自己紹介'
+      end
+      it '「プロフィール画像」と表示される' do
+        expect(page).to have_content 'プロフィール画像'
+      end
+      it '「メールアドレス」と表示される' do
+        expect(page).to have_content 'メールアドレス'
+      end
+      it 'アップデートボタンが表示される' do
+        expect(page).to have_button 'アップデート'
+      end
+      it '退会するボタンが表示される' do
+        expect(page).to have_link '退会する', href: unsubscribe_users_path
+      end
+      it 'name編集フォームが表示される' do
+        expect(page).to have_field 'user[name]', with: user.name
+      end
+      it 'introduction編集フォームが表示される' do
+        expect(page).to have_field 'user[introduction]', with: user.introduction
+      end
+      it 'profile_imageフォームが表示される' do
+        expect(page).to have_field 'user[profile_image]'
+      end
+      it 'emailフォームが表示される' do
+        expect(page).to have_field 'user[email]', with: user.email
+      end
+    end
+
+    context 'マイページ退会確認リンクのテスト' do
+      it '退会確認画面に遷移する' do
+        click_link '退会する'
+        expect(current_path).to eq unsubscribe_users_path
+      end
+    end
+
+    context '更新成功テスト' do
+      before do
+        @user_old_name = user.name
+        @user_old_introduction = user.introduction
+        @user_old_email = user.email
+        fill_in 'user[name]', with: Faker::Name.name
+        fill_in 'user[introduction]', with: Faker::Lorem.characters(number: 20)
+        fill_in 'user[email]', with: Faker::Internet.email
+        image_path = Rails.root.join('spec/factories/images/desert.jpg')
+        attach_file('user[profile_image]', image_path)
+        click_button 'アップデート'
+      end
+
+      it 'nameが正しく更新される' do
+        expect(user.reload.name).not_to eq @user_old_name
+      end
+      it 'introductionが正しく更新される' do
+        expect(user.reload.introduction).not_to eq @user_old_introduction
+      end
+      it 'emailが正しく更新される' do
+        expect(user.reload.email).not_to eq @user_old_email
+      end
+      it 'リダイレクト先が、保存できたマイページ画面になっている' do
+        expect(current_path).to eq mypage_users_path
+      end
+    end
+  end
 end
