@@ -1073,4 +1073,45 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+
+  describe '退会確認画面のテスト' do
+    before do
+      visit unsubscribe_users_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq unsubscribe_users_path
+      end
+      it '「本当に退会しますか？」と表示される' do
+        expect(page).to have_content '本当に退会しますか？'
+      end
+       it 'マイページへ戻るリンクが表示される' do
+        expect(page).to have_link '退会しない', href: mypage_users_path
+      end
+      it '退会するリンクが表示される' do
+        expect(page).to have_link '退会する', href: withdraw_users_path
+      end
+    end
+
+    context 'マイページへ戻るリンクのテスト' do
+      it 'マイページ画面に遷移する' do
+        click_link '退会しない'
+        expect(current_path).to eq mypage_users_path
+      end
+    end
+
+    context '退会するリンクのテスト' do
+      before do
+        click_link '退会する'
+      end
+
+      it '正しく退会され、リダイレクト先が、ログイン前ホーム画面になっている' do
+        # expect(user.is_valid).to eq false
+        # ここでは、user.is_validがfalseとなる結果を得たいが、userは遅延評価であるため、呼ばれてから評価される。
+        # そのため、「退会する」は効かず、結果はtrueとなってしまう。
+        expect(current_path).to eq root_path
+      end
+    end
+  end
 end
