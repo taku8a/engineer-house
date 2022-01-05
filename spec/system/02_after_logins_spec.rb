@@ -1109,7 +1109,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       it '正しく退会され、リダイレクト先が、ログイン前ホーム画面になっている' do
         # expect(user.is_valid).to eq false
         # ここでは、user.is_validがfalseとなる結果を得たいが、userは遅延評価であるため、呼ばれてから評価される。
-        # そのため、「退会する」は効かず、結果はtrueとなってしまう。
+        # そのため、「退会する」は効かず、結果はtrueとなってしまうため、今回は調べていない。
         expect(current_path).to eq root_path
       end
     end
