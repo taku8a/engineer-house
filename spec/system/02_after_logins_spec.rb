@@ -1114,4 +1114,71 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
+  
+  describe 'マイページ画面のテスト' do
+    before do
+      visit mypage_users_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq mypage_users_path
+      end
+      it '「マイページ」と表示される' do
+        expect(page).to have_content 'マイページ'
+      end
+      it '「プロフ」と表示される' do
+        expect(page).to have_content 'プロフ'
+      end
+      it '「ィール」と表示される' do
+        expect(page).to have_content 'ィール'
+      end
+      it '「アイコン」と表示される' do
+        expect(page).to have_content 'アイコン'
+      end
+      it '「ニックネーム」と表示される' do
+        expect(page).to have_content 'ニックネーム'
+      end
+      it '「自己紹介」と表示される' do
+        expect(page).to have_content '自己紹介'
+      end
+      it '「メールアドレス」と表示される' do
+        expect(page).to have_content 'メールアドレス'
+      end
+      it '編集するリンクが表示される' do
+        expect(page).to have_link '編集する', href: edit_users_path
+      end
+      it '自己紹介が表示される' do
+        expect(page).to have_content user.introduction
+      end
+      it 'ニックネームが表示される' do
+        expect(page).to have_content user.name
+      end
+      it 'メールアドレスが表示される' do
+        expect(page).to have_content user.email
+      end
+      it '自分と他人のアイコン画像が表示される：　アイコン画像＋右下arrow画像' do
+        expect(all('img').size).to eq(2)
+      end
+      it '「マイ投稿」と表示される' do
+        expect(page).to have_content 'マイ投稿'
+      end
+      it 'マイ投稿のリンクが表示される' do
+        expect(page).to have_link post.short_title, href: post_path(post)
+      end
+      it '「マイコメント」と表示される' do
+        expect(page).to have_content 'マイコメント'
+      end
+      it 'マイコメントのリンクが表示される' do
+        expect(page).to have_link post_comment.short_comment, href: post_post_comment_path(post_comment.post_id,post_comment.id)
+      end
+    end
+
+    context '編集するリンクのテスト' do
+      it 'マイページ編集画面に遷移する' do
+        click_link '編集する'
+        expect(current_path).to eq edit_users_path
+      end
+    end
+  end
 end
