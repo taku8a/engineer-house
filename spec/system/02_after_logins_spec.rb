@@ -1114,7 +1114,7 @@ RSpec.describe "[STEP2]ユーザーログイン後のテスト", type: :system d
       end
     end
   end
-  
+
   describe 'マイページ画面のテスト' do
     before do
       visit mypage_users_path
