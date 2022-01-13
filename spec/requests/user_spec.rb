@@ -148,4 +148,65 @@ RSpec.describe "users_controllerテスト", type: :request do
       end
     end
   end
+
+  describe 'Patch updateアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        patch update_users_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        patch update_users_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        @user = FactoryBot.create(:user)
+        sign_in @user
+      end
+
+      it 'マイページを更新できる' do
+        user_params = FactoryBot.attributes_for(:user, name: Faker::Name.name,introduction: Faker::Lorem.characters(number: 20),email: Faker::Internet.email)
+        patch update_users_path
+        get mypage_users_path
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'GET searchアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get search_users_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get search_users_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    # context 'ユーザーがログインしているとき' do
+    #   before do
+    #     @user = FactoryBot.create(:user)
+    #     sign_in @user
+    #     visit index_users_path
+    #     fill_in 'content', with: @user.name
+    #     click_button 'button'
+    #   end
+
+    #   it '正常に応答する' do
+    #     get search_users_path
+    #     expect(response).to be_successful
+    #   end
+    #   it '200レスポンスが返る' do
+    #     get search_users_path
+    #     expect(response.status).to eq 200
+    #   end
+    # end
+  end
 end
