@@ -190,23 +190,18 @@ RSpec.describe "users_controllerテスト", type: :request do
       end
     end
 
-    # context 'ユーザーがログインしているとき' do
-    #   before do
-    #     @user = FactoryBot.create(:user)
-    #     sign_in @user
-    #     visit index_users_path
-    #     fill_in 'content', with: @user.name
-    #     click_button 'button'
-    #   end
+    context 'ユーザーがログインしているとき' do
+      before do
+        @user = FactoryBot.create(:user)
+        sign_in @user
+        get search_users_path,params: {content: @user.name}
+      end
 
-    #   it '正常に応答する' do
-    #     get search_users_path
-    #     expect(response).to be_successful
-    #   end
-    #   it '200レスポンスが返る' do
-    #     get search_users_path
-    #     expect(response.status).to eq 200
-    #   end
-    # end
+      it '検索が成功する' do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'メンバー検索結果'
+        expect(response).to be_successful
+      end
+    end
   end
 end
