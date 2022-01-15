@@ -204,4 +204,32 @@ RSpec.describe "users_controllerテスト", type: :request do
       end
     end
   end
+
+  describe 'PATCH withdrawアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        patch withdraw_users_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        patch withdraw_users_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        @user = FactoryBot.create(:user)
+        sign_in @user
+        patch withdraw_users_path
+      end
+
+      it 'ユーザーが退会できる' do
+        get root_path
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
