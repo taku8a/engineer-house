@@ -149,7 +149,7 @@ RSpec.describe "users_controllerテスト", type: :request do
     end
   end
 
-  describe 'Patch updateアクションテスト' do
+  describe 'PATCH updateアクションテスト' do
     context 'ユーザーがログインしていない時' do
       it '302レスポンスが返る' do
         patch update_users_path
