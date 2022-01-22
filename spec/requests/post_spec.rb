@@ -174,7 +174,7 @@ RSpec.describe "posts_controllerテスト", type: :request do
       end
     end
   end
-  
+
   describe 'GET searchアクションテスト' do
     context 'ユーザーがログインしていない時' do
       it '302レスポンスが返る' do
@@ -197,6 +197,35 @@ RSpec.describe "posts_controllerテスト", type: :request do
         expect(response.status).to eq 200
         expect(response.body).to include '投稿検索結果'
         expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'DELETE destroyアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        delete post_path(@post)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        delete post_path(@post)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it 'マイ投稿を削除する' do
+        expect {
+          delete post_path(@post)
+        }.to change(@user.posts, :count).by(-1)
+        get posts_path
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
       end
     end
   end
