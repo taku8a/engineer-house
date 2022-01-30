@@ -175,4 +175,30 @@ RSpec.describe "posts_comment_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'GET searchアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get search_comments_path(@post)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get search_comments_path(@post)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+        get search_comments_path(@post),params: { content: @post_comment.comment }
+      end
+
+      it '検索が成功する' do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'コメント検索結果'
+        expect(response).to be_successful
+      end
+    end
+  end
 end
