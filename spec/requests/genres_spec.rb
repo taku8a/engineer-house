@@ -119,4 +119,34 @@ RSpec.describe "genre_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'POST createアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        post genres_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        post genres_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it '新規投稿する' do
+        genre_params = FactoryBot.attributes_for(:genre)
+        expect do
+          post genres_path, params: { genre: genre_params }, xhr: true
+        end.to change(Genre, :count).by(1)
+        get genres_path
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
