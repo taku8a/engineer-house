@@ -175,4 +175,30 @@ RSpec.describe "genre_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'GET seekアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get genre_seek_path(@genre)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get genre_seek_path(@genre)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+        get genre_seek_path(@genre),params: { content: @genre.posts }
+      end
+
+      it '検索が成功する' do
+        expect(response.status).to eq 200
+        expect(response.body).to include '投稿検索結果'
+        expect(response).to be_successful
+      end
+    end
+  end
 end
