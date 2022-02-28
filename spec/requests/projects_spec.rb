@@ -93,4 +93,32 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'PATCH updateアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        patch project_path(@project)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        patch project_path(@project)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it 'マイプロジェクトを更新できる' do
+        project_params = FactoryBot.attributes_for(:project, name: Faker::Lorem.characters(number: 10),introduction: Faker::Lorem.characters(number: 20))
+        patch project_path(@project),params: { id: @project.id,project: project_params }
+        get project_path(@project)
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end

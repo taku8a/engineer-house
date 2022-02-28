@@ -109,7 +109,7 @@ RSpec.describe "genre_controllerのテスト", type: :request do
         sign_in @user
       end
 
-      it 'マイコメントを更新できる' do
+      it 'マイジャンルを更新できる' do
         genre_params = FactoryBot.attributes_for(:genre, name: Faker::Lorem.characters(number: 10))
         patch genre_path(@genre),params: { id: @genre.id,genre: genre_params }
         get genre_path(@genre)
