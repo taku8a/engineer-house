@@ -121,4 +121,32 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
+  
+  describe 'GET newアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get new_project_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get new_project_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it '正常に応答する' do
+        get new_project_path
+        expect(response).to be_successful
+      end
+      it '200レスポンスが返る' do
+        get new_project_path
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
