@@ -149,4 +149,32 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
+  
+  describe 'POST createアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        post projects_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        post projects_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it '新規投稿する' do
+        project_params = FactoryBot.attributes_for(:project, owner_id: @user.id)
+        expect post projects_path, params: { project: project_params }
+        get project_path(@project)
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
