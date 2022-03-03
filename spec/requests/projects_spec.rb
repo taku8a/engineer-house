@@ -121,7 +121,7 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
-  
+
   describe 'GET newアクションテスト' do
     context 'ユーザーがログインしていない時' do
       it '302レスポンスが返る' do
@@ -149,7 +149,7 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
-  
+
   describe 'POST createアクションテスト' do
     context 'ユーザーがログインしていない時' do
       it '302レスポンスが返る' do
@@ -174,6 +174,32 @@ RSpec.describe "projects_controllerのテスト", type: :request do
         expect(:notice).to be_present
         expect(response).to be_successful
         expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'GET searchアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get search_projects_path
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get search_projects_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+        get search_projects_path,params: { content: @project.name }
+      end
+
+      it '検索が成功する' do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'プロジェクト検索結果'
+        expect(response).to be_successful
       end
     end
   end
