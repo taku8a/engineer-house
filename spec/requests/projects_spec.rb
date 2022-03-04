@@ -203,4 +203,33 @@ RSpec.describe "projects_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'DELETE destroyアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        delete project_path(@project)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        delete project_path(@project)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it 'マイプロジェクトを削除する' do
+        expect {
+          delete project_path(@project)
+        }.to change(Project, :count).by(-1)
+        get projects_path
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
