@@ -38,4 +38,34 @@ RSpec.describe "project_chats_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'POST createアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        post project_project_chats_path(@project)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        post project_project_chats_path(@project)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it '新規投稿する' do
+        project_chat_params = FactoryBot.attributes_for(:project_chat)
+        expect do
+          post project_project_chats_path(@project), params: { project_chat: project_chat_params }, xhr: true
+        end
+        get project_project_chats_path(@project)
+        expect(:notice).to be_present
+        expect(response).to be_successful
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
