@@ -40,4 +40,33 @@ RSpec.describe "genre_details_controllerのテスト", type: :request do
       end
     end
   end
+  
+  describe 'GET showアクションテスト' do
+
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get genre_genre_detail_path(@genre_detail.genre_id,@genre_detail.id)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get genre_genre_detail_path(@genre_detail.genre_id,@genre_detail.id)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+      end
+
+      it '正常に応答する' do
+        get genre_genre_detail_path(@genre_detail.genre_id,@genre_detail.id)
+        expect(response).to be_successful
+      end
+      it '200レスポンスが返る' do
+        get genre_genre_detail_path(@genre_detail.genre_id,@genre_detail.id)
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
