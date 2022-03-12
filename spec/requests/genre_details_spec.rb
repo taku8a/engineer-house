@@ -153,4 +153,30 @@ RSpec.describe "genre_details_controllerのテスト", type: :request do
       end
     end
   end
+
+  describe 'GET searchアクションテスト' do
+    context 'ユーザーがログインしていない時' do
+      it '302レスポンスが返る' do
+        get search_genre_details_path(@genre)
+        expect(response.status).to eq 302
+      end
+      it 'ログイン画面にリダイレクトされる' do
+        get search_genre_details_path(@genre)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'ユーザーがログインしているとき' do
+      before do
+        sign_in @user
+        get search_genre_details_path(@genre),params: { content: @genre_detail.title }
+      end
+
+      it '検索が成功する' do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'ガイド検索結果'
+        expect(response).to be_successful
+      end
+    end
+  end
 end
