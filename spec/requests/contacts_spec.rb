@@ -17,16 +17,26 @@ RSpec.describe "contacts_controllerのテスト", type: :request do
   describe 'GET newアクションテスト' do
 
     context 'お問い合わせフォーム表示' do
-      before do
-        sign_in @user
-      end
-
       it '正常に応答する' do
         get new_contact_path
         expect(response).to be_successful
       end
       it '200レスポンスが返る' do
         get new_contact_path
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'GET completeアクションテスト' do
+
+    context 'お問い合わせフォーム表示' do
+      it '正常に応答する' do
+        get complete_contacts_path
+        expect(response).to be_successful
+      end
+      it '200レスポンスが返る' do
+        get complete_contacts_path
         expect(response.status).to eq 200
       end
     end
