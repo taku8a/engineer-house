@@ -169,7 +169,7 @@ RSpec.describe "users_controllerテスト", type: :request do
 
       it 'マイページを更新できる' do
         user_params = FactoryBot.attributes_for(:user, name: Faker::Name.name,introduction: Faker::Lorem.characters(number: 20),email: Faker::Internet.email)
-        patch update_users_path
+        patch update_users_path,params: { id: @user.id, user: user_params }
         get mypage_users_path
         expect(:notice).to be_present
         expect(response).to be_successful
