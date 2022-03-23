@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "users_controllerテスト", type: :request do
+  
+  before do
+    @user = FactoryBot.create(:user)
+    @post = FactoryBot.create(:post, user:@user)
+    @post_comment = FactoryBot.create(:post_comment, user:@user, post:@post)
+    @genre = FactoryBot.create(:genre, owner_id: @user.id)
+    @genre_detail = FactoryBot.create(:genre_detail, genre:@genre)
+    @project = FactoryBot.create(:project, owner_id: @user.id)
+    @project.users << @user
+    @project_chat = FactoryBot.create(:project_chat, user:@user, project:@project)
+    @contact = FactoryBot.create(:contact)
+  end
+  
   describe 'GET indexアクションテスト' do
     context 'ユーザーがログインしていない時' do
       it '302レスポンスが返る' do
@@ -15,7 +28,6 @@ RSpec.describe "users_controllerテスト", type: :request do
 
     context 'ユーザーがログインしているとき' do
       before do
-        @user = FactoryBot.create(:user)
         sign_in @user
       end
 
