@@ -1,19 +1,5 @@
 # ENGINEER-HOUSE  
 
-## チャレンジ要素一覧
-
-https://docs.google.com/spreadsheets/d/1uFiyagXrISEKVZta_y1Id4Q5F4OqxoG3zYkaC87XMEI/edit?usp=sharing
-
-
-## 動作デモ
-
-![portfolio document](https://user-images.githubusercontent.com/89015721/145024680-78f1d992-5f2d-4409-ac46-acd83c5c9498.png)
-
-下記のリンクをクリック↓
-
-https://drive.google.com/file/d/1H9N3v_0DOk85hfWMyTl1cgXFySgKw4nU/view?usp=sharing
-
-
 ## サイト概要
 
 エラーに向き合うことが大切な「プログラミング」。当サイトでは、基礎的な構文などのお悩みから、専門性の高い内容まで、幅広く知識の共有が出来る。
